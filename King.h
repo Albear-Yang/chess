@@ -13,4 +13,4 @@ public:
     std::vector<Piece*> canCapture() override;
 };
 
-#endif // KING_H
+#endif
