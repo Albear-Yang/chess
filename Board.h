@@ -6,6 +6,7 @@
 #include "Move.h"
 
 class Board {
+    const int LEN_MAX = 8;
 public:
     std::vector<Piece*> white_pieces;
     std::vector<Piece*> black_pieces;

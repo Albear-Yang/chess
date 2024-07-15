@@ -18,6 +18,7 @@ public:
     virtual std::vector<Move> moves(Position pos) = 0;
     virtual void move(Position pos) = 0;
     virtual std::vector<Piece*> canCapture() = 0;
+    int positionValue();
     Color getColor();
 };
 
