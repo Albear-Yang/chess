@@ -8,10 +8,10 @@
 enum class Color { Black, White };
 
 class Piece {
-public:
     Position pos;
     Color color;
     int value;
+public:
 
     Piece(Position pos, Color color);
     
