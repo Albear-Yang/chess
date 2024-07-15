@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include "Board.h"
+#include "Enums.h"
 #include "Move.h"
 
 class Player {

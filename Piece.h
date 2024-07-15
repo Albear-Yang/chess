@@ -2,6 +2,7 @@
 #define PIECE_H
 
 #include <vector>
+#include "Enums.h"
 #include "Position.h"
 
 enum class Color { Black, White };
