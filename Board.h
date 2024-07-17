@@ -13,10 +13,10 @@ public:
     int whiteScore;
     int blackScore;
     Color whosTurn;
-    std::vector<Move> pastMoves;
+    std::vector<Move*> pastMoves;
 
-    std::vector<Move> whiteMoves(); 
-    std::vector<Move> blackMoves();
+    std::vector<Move*> whiteMoves(); 
+    std::vector<Move*> blackMoves();
     bool draw();
     bool checkmate();
     void addPiece(Piece* piece, Color color, int x, int y);

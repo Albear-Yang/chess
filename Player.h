@@ -9,7 +9,7 @@ class Player {
 public:
     Board board;
     Color color;
-    Score score;
+    int score;
 
     virtual Move move() = 0;
 };

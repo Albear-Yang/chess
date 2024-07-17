@@ -13,4 +13,6 @@ enum class Type{
     Rook,
     Queen,
     King
-}
+};
+
+#endif

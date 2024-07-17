@@ -1,11 +1,10 @@
-#ifndef PIECE_H
+    #ifndef PIECE_H
 #define PIECE_H
 
 #include <vector>
 #include "Enums.h"
 #include "Position.h"
-
-enum class Color { Black, White };
+#include "Move.h"
 
 class Piece {
     Position pos;
@@ -15,7 +14,7 @@ class Piece {
 public:
     Piece(Position pos, Color color, Type type);
     
-    virtual std::vector<Move> moves(Position pos) = 0;
+    virtual std::vector<Move*> moves(Position pos) = 0;
     virtual void move(Position pos) = 0;
     virtual std::vector<Piece*> canCapture() = 0;
     int positionValue();
