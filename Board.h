@@ -15,7 +15,7 @@ public:
     Color whosTurn;
     std::vector<Move> pastMoves;
 
-    std::vector<Move> whiteMoves();
+    std::vector<Move> whiteMoves(); 
     std::vector<Move> blackMoves();
     bool draw();
     bool checkmate();
