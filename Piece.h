@@ -1,4 +1,4 @@
-    #ifndef PIECE_H
+#ifndef PIECE_H
 #define PIECE_H
 
 #include <vector>
@@ -18,7 +18,9 @@ public:
     virtual void move(Position pos) = 0;
     virtual std::vector<Piece*> canCapture() = 0;
     int positionValue();
-    Color getColor();
+    Color getColor(){
+        return color;
+    };
 };
 
 #endif 

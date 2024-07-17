@@ -5,12 +5,16 @@
 #include "Piece.h"
 
 class Move {
-public:
     Piece *pieceMoving;
     Piece *pieceCapturing;
     Position initialPos;
     Position finalPos;
-
+public:
+    Move(Piece* moving, Piece* captured, Position init, Position final): pieceMoving{moving}, pieceCapturing{captured}, initialPos{init}, finalPos{final} {}
+    Move(const &other);
+    Move& operator=(const &other);
+    Move(Move && other);
+    Move& operator=(Move&& other);
     Move reverseMove(Move m);
 };
 
