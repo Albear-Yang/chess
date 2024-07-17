@@ -4,6 +4,7 @@
 #include "Piece.h"
 
 class Queen : public Piece {
+    value = 9;
 public:
     std::vector<Move*> moves(Position pos) override;
     void move(Position pos) override;
