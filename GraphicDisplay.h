@@ -2,7 +2,7 @@
 #define GRAPHICSDISPLAY_H
 #include "Board.h"
 #include "Observer.h"
-#include "Xwindow.h"
+#include "window.h"
 
 class GraphicsDisplay : public Observer {
     Board* subj;

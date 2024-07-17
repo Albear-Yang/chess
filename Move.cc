@@ -1,9 +1,10 @@
 #include 'Move.h'
-using namespace std;
 
-Move::Move(const Move& other): pieceMoving(other.pieceMoving), pieceCapturing(other.pieceCapturing), initialPos(other.initialPos), finalPos(other.finalPos) {}
+Move::Move(Piece* moving, Piece* captured, Position init, Position final): pieceMoving{moving}, pieceCapturing{captured}, initialPos{init}, finalPos{final} {}
 
-Move Move&::operator=(const Move& other) {
+Move::Move(const Move& other): pieceMoving{other.pieceMoving}, pieceCapturing{other.pieceCapturing}, initialPos{other.initialPos}, finalPos{other.finalPos} {}
+
+Move Move::&operator=(const Move& other) {
     if (this == &other) return *this;
     pieceMoving = nullptr;
     pieceCapturing = nullptr;
@@ -14,7 +15,7 @@ Move Move&::operator=(const Move& other) {
     finalPos = other.finalPos;
 }
 
-Move Move(Move&& other): pieceMoving{nullptr}, pieceCapturing{nullptr}, intialPos{new Position(0,0)}, finalPos{new Position(0,0)}{
+Move::Move(Move&& other): pieceMoving{nullptr}, pieceCapturing{nullptr}, intialPos{new Position(0,0)}, finalPos{new Position(0,0)}{
     pieceMoving = other.pieceMoving;
     pieceCapturing = other.pieceCapturing;
     initialPos = other.initialPos;
@@ -23,7 +24,7 @@ Move Move(Move&& other): pieceMoving{nullptr}, pieceCapturing{nullptr}, intialPo
     other.pieceMoving = nullptr;
     other.pieceCapturing = nullptr;
 }
-Move& operator=(Move&& other){
+Move& Move::operator=(Move&& other){
     if (this != &other) {
         pieceMoving = other.pieceMoving;
         pieceCapturing = other.pieceCapturing;
@@ -36,11 +37,13 @@ Move& operator=(Move&& other){
     return *this;
 }
 
-~Move() {
+Move::~Move() {
     pieceMoving = nullptr;
     pieceCapturing = nullptr;
 }
 
-Move::Move reverseMove(Move m){
+Move Move::reverseMove(Move m){
     return Move(m.pieceMoving, nullptr, m.finalPos, m.initialPos);
 }
+
+Move::Move

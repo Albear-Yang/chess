@@ -10,12 +10,13 @@ class Move {
     Position initialPos;
     Position finalPos;
 public:
-    Move(Piece* moving, Piece* captured, Position init, Position final): pieceMoving{moving}, pieceCapturing{captured}, initialPos{init}, finalPos{final} {}
-    Move(const &other);
-    Move& operator=(const &other);
+    Move(Piece* moving, Piece* captured, Position init, Position final);
+    Move(const Move& other);
+    Move& operator=(const Move& other);
     Move(Move && other);
     Move& operator=(Move&& other);
     Move reverseMove(Move m);
+    Piece* pieceMoved();
 };
 
 #endif
