@@ -10,10 +10,10 @@ enum class Color { Black, White };
 class Piece {
     Position pos;
     Color color;
+    Type type;
     int value;
 public:
-
-    Piece(Position pos, Color color);
+    Piece(Position pos, Color color, Type type);
     
     virtual std::vector<Move> moves(Position pos) = 0;
     virtual void move(Position pos) = 0;

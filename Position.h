@@ -1,23 +1,14 @@
-#ifndef PIECE_H
-#define PIECE_H
+#ifndef POSITION_H
+#define POSITION_H
 
-#include <vector>
-#include "Position.h"
-
-enum class Color { Black, White };
-
-class Piece {
+class Position {
 public:
-    Position pos;
-    Color color;
-    int value;
+    int x_coord;
+    int y_coord;
 
-    Piece(Position pos, Color color);
-    
-    virtual std::vector<Move> moves(Position pos) = 0;
-    virtual void move(Position pos) = 0;
-    virtual std::vector<Piece*> canCapture() = 0;
-    Color getColor();
+    bool operator==(const Position &other) const{
+        return (other.x == x) && (other.y == y);
+    };
 };
 
 #endif
