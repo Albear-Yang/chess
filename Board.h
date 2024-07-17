@@ -1,11 +1,12 @@
 #ifndef BOARD_H
 #define BOARD_H
-
+#include <iostream>
 #include <vector>
 #include "Piece.h"
 #include "Move.h"
+#include "Subject.h"
 
-class Board {
+class Board : public Subject {
     const int LEN_MAX = 8;
 public:
     std::vector<Piece*> white_pieces;
@@ -13,7 +14,7 @@ public:
     int whiteScore;
     int blackScore;
     Color whosTurn;
-    std::vector<Move*> pastMoves;
+    std::vector<Move*> pastMoves; //call notifyObservers()
 
     std::vector<Move*> whiteMoves(); 
     std::vector<Move*> blackMoves();
@@ -24,6 +25,7 @@ public:
     void undo();
     void addMove(Move move);
     void display();
+    int boardLength();
 };
 
 #endif
