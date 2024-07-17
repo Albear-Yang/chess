@@ -4,6 +4,7 @@
 #include "Piece.h"
 
 class Knight : public Piece {
+    value = 3;
 public:
     std::vector<Move*> moves(Position pos) override;
     void move(Position pos) override;

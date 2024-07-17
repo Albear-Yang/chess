@@ -31,18 +31,23 @@ vector<Move*> Rook::moves(Position pos) const {
                     *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
                     possibleMoves.pushback(tempMove);
                 }
+                break;
             }
+        }
+        if(!noPieceBetween){
             break;
         }
-        *tempMove = new Move(*this, nullptr, pos, temp);
+        Move *tempMove = new Move(*this, nullptr, pos, temp);
         possibleMoves.pushback(tempMove);
     }
+
     // checking left direction
     for(int i = pos.x; i >= 0; --i){
         //black
         Piece* capturablePiece = nullptr;
         Position temp = Position(i, pos.y);
         bool validMove = true;
+        bool noPieceBetween = true;
 
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
@@ -52,10 +57,13 @@ vector<Move*> Rook::moves(Position pos) const {
                     *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
                     possibleMoves.pushback(tempMove);
                 }
+                break;
             }
+        }
+        if(!noPieceBetween){
             break;
         }
-        *tempMove = new Move(*this, nullptr, pos, temp);
+        Move *tempMove = new Move(*this, nullptr, pos, temp);
         possibleMoves.pushback(tempMove);
     }
     //check for down
@@ -63,6 +71,7 @@ vector<Move*> Rook::moves(Position pos) const {
         //black
         Piece* capturablePiece = nullptr;
         Position temp = Position(pos.x, i);
+        bool noPieceBetween = true;
         bool validMove = true;
 
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
@@ -73,16 +82,21 @@ vector<Move*> Rook::moves(Position pos) const {
                     *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
                     possibleMoves.pushback(tempMove);
                 }
+                break;
             }
+        }
+        if(!noPieceBetween){
             break;
         }
-        *tempMove = new Move(*this, nullptr, pos, temp);
+        Move *tempMove = new Move(*this, nullptr, pos, temp);
         possibleMoves.pushback(tempMove);
     }
     for(int i = pos.y; i <= 8; ++i){
+        //black
         Piece* capturablePiece = nullptr;
         Position temp = Position(pos.x, i);
         bool validMove = true;
+        bool noPieceBetween = true;
 
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
@@ -92,10 +106,13 @@ vector<Move*> Rook::moves(Position pos) const {
                     *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
                     possibleMoves.pushback(tempMove);
                 }
+                break;
             }
+        }
+        if(!noPieceBetween){
             break;
         }
-        *tempMove = new Move(*this, nullptr, pos, temp);
+        Move *tempMove = new Move(*this, nullptr, pos, temp);
         possibleMoves.pushback(tempMove);
     }
     for(int i = 0; i < possibleMoves.size();){
@@ -143,16 +160,21 @@ vector<Move*> Rook::canCapture(){
                     *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
                     possibleMoves.pushback(tempMove);
                 }
+                break;
             }
+        }
+        if(!noPieceBetween){
             break;
         }
     }
+
     // checking left direction
     for(int i = pos.x; i >= 0; --i){
         //black
         Piece* capturablePiece = nullptr;
         Position temp = Position(i, pos.y);
         bool validMove = true;
+        bool noPieceBetween = true;
 
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
@@ -162,7 +184,10 @@ vector<Move*> Rook::canCapture(){
                     *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
                     possibleMoves.pushback(tempMove);
                 }
+                break;
             }
+        }
+        if(!noPieceBetween){
             break;
         }
     }
@@ -171,6 +196,7 @@ vector<Move*> Rook::canCapture(){
         //black
         Piece* capturablePiece = nullptr;
         Position temp = Position(pos.x, i);
+        bool noPieceBetween = true;
         bool validMove = true;
 
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
@@ -181,7 +207,10 @@ vector<Move*> Rook::canCapture(){
                     *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
                     possibleMoves.pushback(tempMove);
                 }
+                break;
             }
+        }
+        if(!noPieceBetween){
             break;
         }
     }
@@ -190,6 +219,7 @@ vector<Move*> Rook::canCapture(){
         Piece* capturablePiece = nullptr;
         Position temp = Position(pos.x, i);
         bool validMove = true;
+        bool noPieceBetween = true;
 
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
@@ -199,7 +229,10 @@ vector<Move*> Rook::canCapture(){
                     *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
                     possibleMoves.pushback(tempMove);
                 }
+                break;
             }
+        }
+        if(!noPieceBetween){
             break;
         }
     }

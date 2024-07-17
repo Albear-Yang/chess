@@ -4,8 +4,9 @@
 #include "Piece.h"
 
 class Pawn : public Piece {
+    value = 1;
 public:
-    bool has_moved;
+    bool has_moved = !(color == White && );
 
     std::vector<Move*> moves(Position pos) override;
     void move(Position pos) override;

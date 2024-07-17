@@ -15,11 +15,10 @@ vector<Move*> Bishop::moves(Position pos) const {
         allPieces.pushback(whitePieces[z]);
     }  
 
-    //checking right direction
-    for(Positition i = Position(pos.x, pos.y); pos.x <= 8 && pos.y <= 8; i.tr()){
+for(Positition i = Position(pos.x, pos.y); pos.x <= 8 && pos.y <= 8; i.tr()){
         Piece* capturablePiece = nullptr;
         bool validMove = true;
-
+        bool noPieceBetween = false;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
             if(temp == board->allPieces[z]->pos){
@@ -28,7 +27,10 @@ vector<Move*> Bishop::moves(Position pos) const {
                     *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
                     possibleMoves.pushback(tempMove);
                 }
+                break;
             }
+        }
+        if(!noPieceBetween){
             break;
         }
         *tempMove = new Move(*this, nullptr, pos, temp);
@@ -37,7 +39,7 @@ vector<Move*> Bishop::moves(Position pos) const {
     for(Positition i = Position(pos.x, pos.y); pos.x >= 0 && pos.y >=0; i.bl()){
         Piece* capturablePiece = nullptr;
         bool validMove = true;
-
+        bool noPieceBetween = false;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
             if(temp == board->allPieces[z]->pos){
@@ -46,7 +48,10 @@ vector<Move*> Bishop::moves(Position pos) const {
                     *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
                     possibleMoves.pushback(tempMove);
                 }
+                break;
             }
+        }
+        if(!noPieceBetween){
             break;
         }
         *tempMove = new Move(*this, nullptr, pos, temp);
@@ -55,7 +60,7 @@ vector<Move*> Bishop::moves(Position pos) const {
     for(Positition i = Position(pos.x, pos.y); pos.x <= 8 && pos.y >=0; i.br()){
         Piece* capturablePiece = nullptr;
         bool validMove = true;
-
+        bool noPieceBetween = false;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
             if(temp == board->allPieces[z]->pos){
@@ -64,7 +69,10 @@ vector<Move*> Bishop::moves(Position pos) const {
                     *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
                     possibleMoves.pushback(tempMove);
                 }
+                break;
             }
+        }
+        if(!noPieceBetween){
             break;
         }
         *tempMove = new Move(*this, nullptr, pos, temp);
@@ -73,7 +81,7 @@ vector<Move*> Bishop::moves(Position pos) const {
     for(Positition i = Position(pos.x, pos.y); pos.x >= 0 && pos.y <= 8; i.tl()){
         Piece* capturablePiece = nullptr;
         bool validMove = true;
-
+        bool noPieceBetween = false;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
             if(temp == board->allPieces[z]->pos){
@@ -82,7 +90,10 @@ vector<Move*> Bishop::moves(Position pos) const {
                     *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
                     possibleMoves.pushback(tempMove);
                 }
+                break;
             }
+        }
+        if(!noPieceBetween){
             break;
         }
         *tempMove = new Move(*this, nullptr, pos, temp);
@@ -119,7 +130,7 @@ vector<Move*> Bishop::canCapture(){
     for(Positition i = Position(pos.x, pos.y); pos.x <= 8 && pos.y <= 8; i.tr()){
         Piece* capturablePiece = nullptr;
         bool validMove = true;
-
+        bool noPieceBetween = false;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
             if(temp == board->allPieces[z]->pos){
@@ -128,14 +139,17 @@ vector<Move*> Bishop::canCapture(){
                     *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
                     possibleMoves.pushback(tempMove);
                 }
+                break;
             }
+        }
+        if(!noPieceBetween){
             break;
         }
     }
     for(Positition i = Position(pos.x, pos.y); pos.x >= 0 && pos.y >=0; i.bl()){
         Piece* capturablePiece = nullptr;
         bool validMove = true;
-
+        bool noPieceBetween = false;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
             if(temp == board->allPieces[z]->pos){
@@ -144,14 +158,17 @@ vector<Move*> Bishop::canCapture(){
                     *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
                     possibleMoves.pushback(tempMove);
                 }
+                break;
             }
+        }
+        if(!noPieceBetween){
             break;
         }
     }
     for(Positition i = Position(pos.x, pos.y); pos.x <= 8 && pos.y >=0; i.br()){
         Piece* capturablePiece = nullptr;
         bool validMove = true;
-
+        bool noPieceBetween = false;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
             if(temp == board->allPieces[z]->pos){
@@ -160,14 +177,17 @@ vector<Move*> Bishop::canCapture(){
                     *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
                     possibleMoves.pushback(tempMove);
                 }
+                break;
             }
+        }
+        if(!noPieceBetween){
             break;
         }
     }
     for(Positition i = Position(pos.x, pos.y); pos.x >= 0 && pos.y <= 8; i.tl()){
         Piece* capturablePiece = nullptr;
         bool validMove = true;
-
+        bool noPieceBetween = false;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
             if(temp == board->allPieces[z]->pos){
@@ -176,7 +196,10 @@ vector<Move*> Bishop::canCapture(){
                     *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
                     possibleMoves.pushback(tempMove);
                 }
+                break;
             }
+        }
+        if(!noPieceBetween){
             break;
         }
     }
