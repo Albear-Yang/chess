@@ -1,4 +1,5 @@
 #ifndef PIECE_H
+#ifndef PIECE_H
 #define PIECE_H
 
 #include <vector>

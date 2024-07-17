@@ -1,1 +1,1 @@
-//hi
+//attach an observer at the start to display board
