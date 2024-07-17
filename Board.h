@@ -14,12 +14,13 @@ public:
     int whiteScore;
     int blackScore;
     Color whosTurn;
-    std::vector<Move*> pastMoves; //call notifyObservers()
+    std::vector<Move*> pastMoves;
 
     std::vector<Move*> whiteMoves(); 
     std::vector<Move*> blackMoves();
     bool draw();
     bool checkmate();
+    bool check4check(Color king);
     void addPiece(Piece* piece, Color color, int x, int y);
     void removePiece(Piece* piece, Color color, int x, int y);
     void undo();

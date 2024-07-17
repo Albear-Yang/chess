@@ -26,4 +26,4 @@ public:
     Color getColor() { return color; };
 };
 
-#endif 
+#endif

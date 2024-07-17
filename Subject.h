@@ -1,7 +1,7 @@
 #ifndef _SUBJECT_H_
 #define _SUBJECT_H_
 #include <vector>
-#include "observer.h"
+#include "Observer.h"
 
 class Observer;
 
@@ -11,7 +11,7 @@ class Subject {
  public:
   void attach(Observer *o);
   void detach(Observer *o);
-  void notifyObservers() const;
+  void notifyObservers();
   virtual ~Subject()=0;
 };
 
