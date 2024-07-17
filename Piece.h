@@ -19,10 +19,11 @@ public:
     virtual std::vector<Move*> moves(Position pos) = 0;
     virtual void move(Position pos) = 0;
     virtual std::vector<Piece*> canCapture() = 0;
-    int positionValue();
-    Color getColor(){
-        return color;
-    };
+    virtual int positionValue() = 0;
+    virtual int positionXValue() = 0;
+    virtual int positionYValue() = 0;
+    virtual Type typeValue() = 0;
+    Color getColor() { return color; };
 };
 
 #endif 

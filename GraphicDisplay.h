@@ -1,12 +1,15 @@
 #ifndef GRAPHICSDISPLAY_H
 #define GRAPHICSDISPLAY_H
-
+#include "Board.h"
 #include "Observer.h"
 #include "Xwindow.h"
 
 class GraphicsDisplay : public Observer {
+    Board* subj;
 public:
-    void notify(Subject* subject) override;
+    GraphicsDisplay(Board* subj);
+    void notify() override;
+    ~GraphicsDisplay();
 };
 
 #endif 
