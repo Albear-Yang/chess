@@ -7,7 +7,7 @@ public:
     int y_coord;
 
     bool operator==(const Position &other) const{
-        return (other.x == x) && (other.y == y);
+        return (other.x_coord == x_coord) && (other.y_coord == y_coord);
     };
 };
 

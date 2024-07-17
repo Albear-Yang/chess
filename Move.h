@@ -17,6 +17,8 @@ public:
     Move& operator=(Move&& other);
     Move reverseMove(Move m);
     Piece* pieceMoved();
+    Position initPos();
+    Position finPos();
 };
 
 #endif

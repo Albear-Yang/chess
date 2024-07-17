@@ -1,10 +1,10 @@
-#include 'Move.h'
+#include "Move.h"
 
 Move::Move(Piece* moving, Piece* captured, Position init, Position final): pieceMoving{moving}, pieceCapturing{captured}, initialPos{init}, finalPos{final} {}
 
 Move::Move(const Move& other): pieceMoving{other.pieceMoving}, pieceCapturing{other.pieceCapturing}, initialPos{other.initialPos}, finalPos{other.finalPos} {}
 
-Move Move::&operator=(const Move& other) {
+Move& Move::operator=(const Move& other) {
     if (this == &other) return *this;
     pieceMoving = nullptr;
     pieceCapturing = nullptr;
@@ -46,4 +46,7 @@ Move Move::reverseMove(Move m){
     return Move(m.pieceMoving, nullptr, m.finalPos, m.initialPos);
 }
 
-Move::Move
+Piece* Move::pieceMoved() { return pieceMoving; }
+
+Position Move::initPos() { return initialPos; }
+Position Move::finPos() { return finalPos; }
