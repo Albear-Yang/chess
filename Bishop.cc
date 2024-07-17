@@ -1,10 +1,10 @@
-#include "Queen.h"
+#include "Bishop.h"
 using namespace std;
 
-Queen::Queen(Board* board, Position pos, Color color)
-    : Piece(board, pos, color, Type::Queen) {}
+Bishop::Bishop(Board* board, Position pos, Color color)
+    : Piece(board, pos, color, Type::Bishop) {}
 
-vector<Move*> Queen::moves(Position pos) const {
+vector<Move*> Bishop::moves(Position pos) const {
     vector<Move*> possibleMoves;
 
     vector<Piece*> allPieces;
@@ -16,89 +16,6 @@ vector<Move*> Queen::moves(Position pos) const {
     }  
 
     //checking right direction
-    for(int i = pos.x; i <= 8; ++i){
-        //black
-        Piece* capturablePiece = nullptr;
-        Position temp = Position(i, pos.y);
-        bool validMove = true;
-        bool noPieceBetween = true;
-
-        for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
-            Move *tempMove = nullptr;
-            if(temp == board->allPieces[z]->pos){
-                if(board->allPieces->color != color){
-                    noPieceBetween = false;
-                    *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
-                    possibleMoves.pushback(tempMove);
-                }
-            }
-            break;
-        }
-        *tempMove = new Move(*this, nullptr, pos, temp);
-        possibleMoves.pushback(tempMove);
-    }
-    // checking left direction
-    for(int i = pos.x; i >= 0; --i){
-        //black
-        Piece* capturablePiece = nullptr;
-        Position temp = Position(i, pos.y);
-        bool validMove = true;
-
-        for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
-            Move *tempMove = nullptr;
-            if(temp == board->allPieces[z]->pos){
-                if(board->allPieces->color != color){
-                    noPieceBetween = false;
-                    *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
-                    possibleMoves.pushback(tempMove);
-                }
-            }
-            break;
-        }
-        *tempMove = new Move(*this, nullptr, pos, temp);
-        possibleMoves.pushback(tempMove);
-    }
-    //check for down
-    for(int i = pos.y; i >= 0; --i){
-        //black
-        Piece* capturablePiece = nullptr;
-        Position temp = Position(pos.x, i);
-        bool validMove = true;
-
-        for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
-            Move *tempMove = nullptr;
-            if(temp == board->allPieces[z]->pos){
-                if(board->allPieces->color != color){
-                    noPieceBetween = false;
-                    *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
-                    possibleMoves.pushback(tempMove);
-                }
-            }
-            break;
-        }
-        *tempMove = new Move(*this, nullptr, pos, temp);
-        possibleMoves.pushback(tempMove);
-    }
-    for(int i = pos.y; i <= 8; ++i){
-        //black
-        Piece* capturablePiece = nullptr;
-        Position temp = Position(pos.x, i);
-        bool validMove = true;
-
-        for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
-            Move *tempMove = nullptr;
-            if(temp == board->allPieces[z]->pos){
-                if(board->allPieces->color != color){
-                    noPieceBetween = false;
-                    *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
-                    possibleMoves.pushback(tempMove);
-                }
-            }
-            break;
-        }
-        *tempMove = new Move(*this, nullptr, pos, temp);
-        possibleMoves.pushback(tempMove);
-    }
     for(Positition i = Position(pos.x, pos.y); pos.x <= 8 && pos.y <= 8; i.tr()){
         Piece* capturablePiece = nullptr;
         bool validMove = true;
@@ -185,11 +102,11 @@ vector<Move*> Queen::moves(Position pos) const {
     return possibleMoves;
 }
 
-void Queen::move(Position newpos){
+void Bishop::move(Position newpos){
     pos = newpos;
 }
 
-vector<Move*> Queen::canCapture(){
+vector<Move*> Bishop::canCapture(){
     vector<Move*> possibleMoves;
 
     vector<Piece*> allPieces;
@@ -199,83 +116,6 @@ vector<Move*> Queen::canCapture(){
     for(int z = 0; z < board.whitePieces.size(); ++z){
         allPieces.pushback(whitePieces[z]);
     }  
-
-    //checking right direction
-    for(int i = pos.x; i <= 8; ++i){
-        //black
-        Piece* capturablePiece = nullptr;
-        Position temp = Position(i, pos.y);
-        bool validMove = true;
-        bool noPieceBetween = true;
-
-        for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
-            Move *tempMove = nullptr;
-            if(temp == board->allPieces[z]->pos){
-                if(board->allPieces->color != color){
-                    noPieceBetween = false;
-                    *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
-                    possibleMoves.pushback(tempMove);
-                }
-            }
-            break;
-        }
-    }
-    // checking left direction
-    for(int i = pos.x; i >= 0; --i){
-        //black
-        Piece* capturablePiece = nullptr;
-        Position temp = Position(i, pos.y);
-        bool validMove = true;
-
-        for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
-            Move *tempMove = nullptr;
-            if(temp == board->allPieces[z]->pos){
-                if(board->allPieces->color != color){
-                    noPieceBetween = false;
-                    *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
-                    possibleMoves.pushback(tempMove);
-                }
-            }
-            break;
-        }
-    }
-    //check for down
-    for(int i = pos.y; i >= 0; --i){
-        //black
-        Piece* capturablePiece = nullptr;
-        Position temp = Position(pos.x, i);
-        bool validMove = true;
-
-        for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
-            Move *tempMove = nullptr;
-            if(temp == board->allPieces[z]->pos){
-                if(board->allPieces->color != color){
-                    noPieceBetween = false;
-                    *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
-                    possibleMoves.pushback(tempMove);
-                }
-            }
-            break;
-        }
-    }
-    for(int i = pos.y; i <= 8; ++i){
-        //black
-        Piece* capturablePiece = nullptr;
-        Position temp = Position(pos.x, i);
-        bool validMove = true;
-
-        for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
-            Move *tempMove = nullptr;
-            if(temp == board->allPieces[z]->pos){
-                if(board->allPieces->color != color){
-                    noPieceBetween = false;
-                    *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
-                    possibleMoves.pushback(tempMove);
-                }
-            }
-            break;
-        }
-    }
     for(Positition i = Position(pos.x, pos.y); pos.x <= 8 && pos.y <= 8; i.tr()){
         Piece* capturablePiece = nullptr;
         bool validMove = true;
@@ -340,6 +180,5 @@ vector<Move*> Queen::canCapture(){
             break;
         }
     }
-    //
     return possibleMoves;
 }
