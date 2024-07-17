@@ -1,0 +1,46 @@
+#include 'Move.h'
+using namespace std;
+
+Move::Move(const Move& other): pieceMoving(other.pieceMoving), pieceCapturing(other.pieceCapturing), initialPos(other.initialPos), finalPos(other.finalPos) {}
+
+Move Move&::operator=(const Move& other) {
+    if (this == &other) return *this;
+    pieceMoving = nullptr;
+    pieceCapturing = nullptr;
+
+    pieceMoving = other.pieceMoving;
+    pieceCapturing = other.pieceCapturing;
+    initialPos = other.initialPos;
+    finalPos = other.finalPos;
+}
+
+Move Move(Move&& other): pieceMoving{nullptr}, pieceCapturing{nullptr}, intialPos{new Position(0,0)}, finalPos{new Position(0,0)}{
+    pieceMoving = other.pieceMoving;
+    pieceCapturing = other.pieceCapturing;
+    initialPos = other.initialPos;
+    finalPos = other.finalPos;
+    
+    other.pieceMoving = nullptr;
+    other.pieceCapturing = nullptr;
+}
+Move& operator=(Move&& other){
+    if (this != &other) {
+        pieceMoving = other.pieceMoving;
+        pieceCapturing = other.pieceCapturing;
+        initialPos = std::move(other.initialPos);
+        finalPos = std::move(other.finalPos);
+
+        other.pieceMoving = nullptr;
+        other.pieceCapturing = nullptr;
+    }
+    return *this;
+}
+
+~Move() {
+    pieceMoving = nullptr;
+    pieceCapturing = nullptr;
+}
+
+Move::Move reverseMove(Move m){
+    return Move(m.pieceMoving, nullptr, m.finalPos, m.initialPos);
+}

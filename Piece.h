@@ -1,4 +1,5 @@
 #ifndef PIECE_H
+#ifndef PIECE_H
 #define PIECE_H
 
 #include <vector>
@@ -21,7 +22,7 @@ public:
     virtual int positionXValue() = 0;
     virtual int positionYValue() = 0;
     virtual Type typeValue() = 0;
-    Color getColor();
+    Color getColor() { return color; };
 };
 
 #endif 
