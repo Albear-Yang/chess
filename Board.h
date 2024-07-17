@@ -9,8 +9,8 @@
 class Board : public Subject {
     const int LEN_MAX = 8;
 public:
-    std::vector<Piece*> white_pieces;
-    std::vector<Piece*> black_pieces;
+    std::vector<Piece*> whitePieces;
+    std::vector<Piece*> blackPieces;
     int whiteScore;
     int blackScore;
     Color whosTurn;
@@ -23,7 +23,7 @@ public:
     void addPiece(Piece* piece, Color color, int x, int y);
     void removePiece(Piece* piece, Color color, int x, int y);
     void undo();
-    void addMove(Move move);
+    void addMove(Move* move);
     void display();
     int boardLength();
 };
