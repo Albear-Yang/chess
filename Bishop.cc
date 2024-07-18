@@ -1,31 +1,32 @@
 #include "Bishop.h"
+#include "Move.h"
 using namespace std;
 
 Bishop::Bishop(Board* board, Position pos, Color color)
     : Piece(board, pos, color, Type::Bishop) {}
 
-vector<Move*> Bishop::moves(Position pos) const {
+vector<Move*> Bishop::moves(){
     vector<Move*> possibleMoves;
 
     vector<Piece*> allPieces;
-    for(int z = 0; z < board.blackPieces.size(); ++z){
-        allPieces.pushback(blackPieces[z]);
+    for(int z = 0; z < board->blackPieces.size(); ++z){
+        allPieces.push_back(board->blackPieces[z]);
     } 
-    for(int z = 0; z < board.whitePieces.size(); ++z){
-        allPieces.pushback(whitePieces[z]);
+    for(int z = 0; z < board->whitePieces.size(); ++z){
+        allPieces.push_back(board->whitePieces[z]);
     }  
 
-for(Positition i = Position(pos.x, pos.y); pos.x <= 8 && pos.y <= 8; i.tr()){
+    for(Position i = Position(pos.x, pos.y); pos.x <= 8 && pos.y <= 8; i.tr()){
         Piece* capturablePiece = nullptr;
         bool validMove = true;
         bool noPieceBetween = false;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(temp == board->allPieces[z]->pos){
-                if(board->allPieces->color != color){
+            if(i == allPieces[z]->pos){
+                if(allPieces[z]->color != color){
                     noPieceBetween = false;
-                    *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
-                    possibleMoves.pushback(tempMove);
+                    tempMove = new Move(this, board->blackPieces[z], pos, i);
+                    possibleMoves.push_back(tempMove);
                 }
                 break;
             }
@@ -33,20 +34,20 @@ for(Positition i = Position(pos.x, pos.y); pos.x <= 8 && pos.y <= 8; i.tr()){
         if(!noPieceBetween){
             break;
         }
-        *tempMove = new Move(*this, nullptr, pos, temp);
-        possibleMoves.pushback(tempMove);
+        Move *tempMove = new Move(this, nullptr, pos, i);
+        possibleMoves.push_back(tempMove);
     }
-    for(Positition i = Position(pos.x, pos.y); pos.x >= 0 && pos.y >=0; i.bl()){
+    for(Position i = Position(pos.x, pos.y); pos.x >= 0 && pos.y >=0; i.bl()){
         Piece* capturablePiece = nullptr;
         bool validMove = true;
         bool noPieceBetween = false;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(temp == board->allPieces[z]->pos){
-                if(board->allPieces->color != color){
+            if(i == allPieces[z]->pos){
+                if(allPieces[z]->color != color){
                     noPieceBetween = false;
-                    *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
-                    possibleMoves.pushback(tempMove);
+                    tempMove = new Move(this, board->blackPieces[z], pos, i);
+                    possibleMoves.push_back(tempMove);
                 }
                 break;
             }
@@ -54,20 +55,20 @@ for(Positition i = Position(pos.x, pos.y); pos.x <= 8 && pos.y <= 8; i.tr()){
         if(!noPieceBetween){
             break;
         }
-        *tempMove = new Move(*this, nullptr, pos, temp);
-        possibleMoves.pushback(tempMove);
+        Move *tempMove = new Move(this, nullptr, pos, i);
+        possibleMoves.push_back(tempMove);
     }
-    for(Positition i = Position(pos.x, pos.y); pos.x <= 8 && pos.y >=0; i.br()){
+    for(Position i = Position(pos.x, pos.y); pos.x <= 8 && pos.y >=0; i.br()){
         Piece* capturablePiece = nullptr;
         bool validMove = true;
         bool noPieceBetween = false;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(temp == board->allPieces[z]->pos){
-                if(board->allPieces->color != color){
+            if(i == allPieces[z]->pos){
+                if(allPieces[z]->color != color){
                     noPieceBetween = false;
-                    *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
-                    possibleMoves.pushback(tempMove);
+                    tempMove = new Move(this, board->blackPieces[z], pos, i);
+                    possibleMoves.push_back(tempMove);
                 }
                 break;
             }
@@ -75,20 +76,20 @@ for(Positition i = Position(pos.x, pos.y); pos.x <= 8 && pos.y <= 8; i.tr()){
         if(!noPieceBetween){
             break;
         }
-        *tempMove = new Move(*this, nullptr, pos, temp);
-        possibleMoves.pushback(tempMove);
+        Move *tempMove = new Move(this, nullptr, pos, i);
+        possibleMoves.push_back(tempMove);
     }
-    for(Positition i = Position(pos.x, pos.y); pos.x >= 0 && pos.y <= 8; i.tl()){
+    for(Position i = Position(pos.x, pos.y); pos.x >= 0 && pos.y <= 8; i.tl()){
         Piece* capturablePiece = nullptr;
         bool validMove = true;
         bool noPieceBetween = false;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(temp == board->allPieces[z]->pos){
-                if(board->allPieces->color != color){
+            if(i == allPieces[z]->pos){
+                if(allPieces[z]->color != color){
                     noPieceBetween = false;
-                    *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
-                    possibleMoves.pushback(tempMove);
+                    tempMove = new Move(this, board->blackPieces[z], pos, i);
+                    possibleMoves.push_back(tempMove);
                 }
                 break;
             }
@@ -96,13 +97,13 @@ for(Positition i = Position(pos.x, pos.y); pos.x <= 8 && pos.y <= 8; i.tr()){
         if(!noPieceBetween){
             break;
         }
-        *tempMove = new Move(*this, nullptr, pos, temp);
-        possibleMoves.pushback(tempMove);
+        Move *tempMove = new Move(this, nullptr, pos, i);
+        possibleMoves.push_back(tempMove);
     }
     for(int i = 0; i < possibleMoves.size();){
         board->addMove(possibleMoves[i]);
         if(board->check4check(color)){
-            possibleMoves.erase[i];
+            possibleMoves.erase(possibleMoves.begin() + i);
         }
         else{
             i++;
@@ -121,23 +122,23 @@ vector<Move*> Bishop::canCapture(){
     vector<Move*> possibleMoves;
 
     vector<Piece*> allPieces;
-    for(int z = 0; z < board.blackPieces.size(); ++z){
-        allPieces.pushback(blackPieces[z]);
+    for(int z = 0; z < board->blackPieces.size(); ++z){
+        allPieces.push_back(board->blackPieces[z]);
     } 
-    for(int z = 0; z < board.whitePieces.size(); ++z){
-        allPieces.pushback(whitePieces[z]);
+    for(int z = 0; z < board->whitePieces.size(); ++z){
+        allPieces.push_back(board->whitePieces[z]);
     }  
-    for(Positition i = Position(pos.x, pos.y); pos.x <= 8 && pos.y <= 8; i.tr()){
+       for(Position i = Position(pos.x, pos.y); pos.x <= 8 && pos.y <= 8; i.tr()){
         Piece* capturablePiece = nullptr;
         bool validMove = true;
         bool noPieceBetween = false;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(temp == board->allPieces[z]->pos){
-                if(board->allPieces->color != color){
+            if(i == allPieces[z]->pos){
+                if(allPieces[z]->color != color){
                     noPieceBetween = false;
-                    *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
-                    possibleMoves.pushback(tempMove);
+                    tempMove = new Move(this, board->blackPieces[z], pos, i);
+                    possibleMoves.push_back(tempMove);
                 }
                 break;
             }
@@ -146,17 +147,17 @@ vector<Move*> Bishop::canCapture(){
             break;
         }
     }
-    for(Positition i = Position(pos.x, pos.y); pos.x >= 0 && pos.y >=0; i.bl()){
+    for(Position i = Position(pos.x, pos.y); pos.x >= 0 && pos.y >=0; i.bl()){
         Piece* capturablePiece = nullptr;
         bool validMove = true;
         bool noPieceBetween = false;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(temp == board->allPieces[z]->pos){
-                if(board->allPieces->color != color){
+            if(i == allPieces[z]->pos){
+                if(allPieces[z]->color != color){
                     noPieceBetween = false;
-                    *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
-                    possibleMoves.pushback(tempMove);
+                    tempMove = new Move(this, board->blackPieces[z], pos, i);
+                    possibleMoves.push_back(tempMove);
                 }
                 break;
             }
@@ -165,17 +166,17 @@ vector<Move*> Bishop::canCapture(){
             break;
         }
     }
-    for(Positition i = Position(pos.x, pos.y); pos.x <= 8 && pos.y >=0; i.br()){
+    for(Position i = Position(pos.x, pos.y); pos.x <= 8 && pos.y >=0; i.br()){
         Piece* capturablePiece = nullptr;
         bool validMove = true;
         bool noPieceBetween = false;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(temp == board->allPieces[z]->pos){
-                if(board->allPieces->color != color){
+            if(i == allPieces[z]->pos){
+                if(allPieces[z]->color != color){
                     noPieceBetween = false;
-                    *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
-                    possibleMoves.pushback(tempMove);
+                    tempMove = new Move(this, board->blackPieces[z], pos, i);
+                    possibleMoves.push_back(tempMove);
                 }
                 break;
             }
@@ -184,17 +185,17 @@ vector<Move*> Bishop::canCapture(){
             break;
         }
     }
-    for(Positition i = Position(pos.x, pos.y); pos.x >= 0 && pos.y <= 8; i.tl()){
+    for(Position i = Position(pos.x, pos.y); pos.x >= 0 && pos.y <= 8; i.tl()){
         Piece* capturablePiece = nullptr;
         bool validMove = true;
         bool noPieceBetween = false;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(temp == board->allPieces[z]->pos){
-                if(board->allPieces->color != color){
+            if(i == allPieces[z]->pos){
+                if(allPieces[z]->color != color){
                     noPieceBetween = false;
-                    *tempMove = new Move(*this, board->blackPieces[z], pos, temp);
-                    possibleMoves.pushback(tempMove);
+                    tempMove = new Move(this, board->blackPieces[z], pos, i);
+                    possibleMoves.push_back(tempMove);
                 }
                 break;
             }

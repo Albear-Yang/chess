@@ -9,9 +9,11 @@ public:
     bool in_check;
     bool has_moved;
 
-    std::vector<Move*> moves() override;
+    King(Board *board, Position pos, Color color);
+
+    std::vector<Move *> moves() override;
     void move(Position pos) override;
-    std::vector<Piece*> canCapture() override;
+    std::vector<Move *> canCapture() override;
 };
 
 #endif

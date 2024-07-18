@@ -2,6 +2,8 @@
 #define PAWN_H
 
 #include "Piece.h"
+#include "Enums.h"
+
 
 class Pawn : public Piece {
     int value = 1;
@@ -9,8 +11,9 @@ public:
     bool has_moved = !((color == White && pos.y  == 2) || (color == Black && pos.y  == 7));
 
     std::vector<Move*> moves() override;
+    Pawn(Board *board, Position pos, Color color);
     void move(Position pos) override;
-    std::vector<Piece*> canCapture() override;
+    std::vector<Move*> canCapture() override;
 };
 
 #endif

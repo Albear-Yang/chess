@@ -8,9 +8,11 @@ class Rook : public Piece {
 public:
     bool has_moved;
 
-    std::vector<Move*> moves(Position pos) override;
+    Rook(Board *board, Position pos, Color color);
+
+    std::vector<Move *> moves() override;
     void move(Position pos) override;
-    std::vector<Piece*> canCapture() override;
+    std::vector<Move *> canCapture() override;
 };
 
 #endif
