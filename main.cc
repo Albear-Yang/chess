@@ -3,7 +3,7 @@
 #include "Board.h"
 #include "Enums.h"
 #include "Computer.h"
-#include "GraphicDisplay.h"
+//#include "GraphicDisplay.h"
 #include "TextDisplay.h"
 #include <string>
 
@@ -11,7 +11,7 @@ int main() {
     Board* board = new Board;
     int boardLen = board->boardLength();
     TextDisplay* Text = new TextDisplay(board);
-    GraphicsDisplay* Graphic = new GraphicsDisplay(board);
+    //GraphicsDisplay* Graphic = new GraphicsDisplay(board);
 
     std::string command;
     while (std::cin >> command) {
@@ -125,6 +125,24 @@ int main() {
             std::cout << "Setup Complete" << std::endl;
         }
         else if (command == "game") {
+            for (auto p : board->whitePieces) {
+                Type type = p->typeValue();
+                if (type == Type::ROOK) board->startingWhitePieces.emplace_back(new Rook(board, *new Position{p->positionXValue(), p->positionYValue()}, p->getColor()));
+                else if (type == Type::BISHOP) board->startingWhitePieces.emplace_back(new Bishop(board, *new Position{p->positionXValue(), p->positionYValue()}, p->getColor()));
+                else if (type == Type::KING) board->startingWhitePieces.emplace_back(new King(board, *new Position{p->positionXValue(), p->positionYValue()}, p->getColor()));
+                else if (type == Type::QUEEN) board->startingWhitePieces.emplace_back(new Queen(board, *new Position{p->positionXValue(), p->positionYValue()}, p->getColor()));
+                else if (type == Type::KNIGHT) board->startingWhitePieces.emplace_back(new Knight(board, *new Position{p->positionXValue(), p->positionYValue()}, p->getColor()));
+                else if (type == Type::PAWN) board->startingWhitePieces.emplace_back(new Pawn(board, *new Position{p->positionXValue(), p->positionYValue()}, p->getColor()));
+            }
+            for (auto p : board->blackPieces) {
+                Type type = p->typeValue();
+                if (type == Type::ROOK) board->startingBlackPieces.emplace_back(new Rook(board, *new Position{p->positionXValue(), p->positionYValue()}, p->getColor()));
+                else if (type == Type::BISHOP) board->startingBlackPieces.emplace_back(new Bishop(board, *new Position{p->positionXValue(), p->positionYValue()}, p->getColor()));
+                else if (type == Type::KING) board->startingBlackPieces.emplace_back(new King(board, *new Position{p->positionXValue(), p->positionYValue()}, p->getColor()));
+                else if (type == Type::QUEEN) board->startingBlackPieces.emplace_back(new Queen(board, *new Position{p->positionXValue(), p->positionYValue()}, p->getColor()));
+                else if (type == Type::KNIGHT) board->startingBlackPieces.emplace_back(new Knight(board, *new Position{p->positionXValue(), p->positionYValue()}, p->getColor()));
+                else if (type == Type::PAWN) board->startingBlackPieces.emplace_back(new Pawn(board, *new Position{p->positionXValue(), p->positionYValue()}, p->getColor()));
+            }
             board->round1 = true;
             std::string white, black;
             std::cin >> white >> black;
@@ -228,5 +246,5 @@ int main() {
     }
 
     delete Text;
-    delete Graphic;
+    //delete Graphic;
 }

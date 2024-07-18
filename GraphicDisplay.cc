@@ -1,4 +1,4 @@
-#include "GraphicDisplay.h"
+/*#include "GraphicDisplay.h"
 
 GraphicsDisplay::GraphicsDisplay(Board* subj): subj{subj} { subj->attach(this); }
 
@@ -78,3 +78,4 @@ void GraphicsDisplay::notify() {
 }
 
 GraphicsDisplay::~GraphicsDisplay() { subj->detach(this); }
+*/

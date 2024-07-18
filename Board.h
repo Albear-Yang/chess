@@ -40,6 +40,7 @@ public:
     void undo();
     void addMove(Move* move);
     int boardLength();
+    ~Board();
 };
 
 #endif

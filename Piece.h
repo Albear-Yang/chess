@@ -8,19 +8,19 @@
 #include "Enums.h"
 
 class Board;
+class Move;
 
 class Piece {
     protected:
         Board *board;
         Type type;
-        const int value;
+        //const int value; NEED TO MAKE ALL THE PIECES ADD THE VALUE TO THE CTOR! CHANGE ALL CTORS
     public:
         Color color;
         Position pos;
-        Piece(Board* board, Position pos, Color color, Type type);
-
+        Piece(Board* board, Position pos, Color color, Type type): board{board}, pos{pos}, color{color}, type{type} {}
+        //Piece(const Piece& other): board{other.board}, pos{other.pos}, color{other.color}, type{type} {}
         ~Piece() = default;
-        
         virtual std::vector<Move*> moves() = 0;
         virtual void move(Position pos) = 0;
         virtual std::vector<Move*> canCapture() = 0;

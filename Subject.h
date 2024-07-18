@@ -12,7 +12,7 @@ class Subject {
   void attach(Observer *o);
   void detach(Observer *o);
   void notifyObservers();
-  virtual ~Subject()=0;
+  virtual ~Subject() = default;
 };
 
 #endif
