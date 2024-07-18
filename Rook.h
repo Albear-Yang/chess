@@ -4,6 +4,7 @@
 #include "Piece.h"
 
 class Rook : public Piece {
+    int value = 5;
 public:
     bool has_moved;
 

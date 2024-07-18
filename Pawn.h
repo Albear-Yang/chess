@@ -4,7 +4,7 @@
 #include "Piece.h"
 
 class Pawn : public Piece {
-    value = 1;
+    int value = 1;
 public:
     bool has_moved = !(color == White && );
 
