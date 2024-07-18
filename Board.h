@@ -3,6 +3,12 @@
 #include <iostream>
 #include <vector>
 #include "Piece.h"
+#include "Bishop.h"
+#include "Queen.h"
+#include "Pawn.h"
+#include "Knight.h"
+#include "King.h"
+#include "Rook.h"
 #include "Move.h"
 #include "Subject.h"
 
@@ -13,8 +19,11 @@ public:
     std::vector<Piece*> startingBlackPieces;
     std::vector<Piece*> whitePieces;
     std::vector<Piece*> blackPieces;
-    int whiteScore;
-    int blackScore;
+    int whiteScore = 0;
+    int blackScore = 0;
+    bool hasWhiteKing = false;
+    bool hasBlackKing = false;
+    bool round1;
     Color whosTurn;
     std::vector<Move*> pastMoves;
 
@@ -24,7 +33,9 @@ public:
     bool checkmate();
     bool check4check(Color king);
     void addPiece(Piece* piece);
+    void addPiece(Type type, Color color, int x, int y);
     void removePiece(Piece* piece);
+    void removePiece(int x, int y);
     void undo();
     void addMove(Move* move);
     int boardLength();

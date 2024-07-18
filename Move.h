@@ -19,6 +19,9 @@ public:
     Piece* pieceMoved(){
         return pieceMoving;
     }
+    Piece* pieceCaped(){
+        return pieceCapturing;
+    }
     Position initPos(){
         return initialPos;
     };

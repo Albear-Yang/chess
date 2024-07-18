@@ -165,12 +165,21 @@ void Board::addPiece(Piece* piece) {
     }
 }
 
+void Board::addPiece(Type type, Color color, int x, int y) {
+    if (type == Type::ROOK) addPiece(new Rook(this, *new Position{x, y}, color));
+    if (type == Type::BISHOP) addPiece(new Bishop(this, *new Position{x, y}, color));
+    if (type == Type::KING) addPiece(new King(this, *new Position{x, y}, color));
+    if (type == Type::QUEEN) addPiece(new Queen(this, *new Position{x, y}, color));
+    if (type == Type::KNIGHT) addPiece(new Knight(this, *new Position{x, y}, color));
+    if (type == Type::PAWN) addPiece(new Pawn(this, *new Position{x, y}, color));
+}
+
 void Board::removePiece(Piece* piece) {
     if (piece->getColor() == Color::WHITE) {
         for (auto p = whitePieces.begin(); p != whitePieces.end();) {
             if (*p == piece) {
                 whitePieces.erase(p);
-                break;
+                return;
             }
             else p++;
         }
@@ -179,10 +188,27 @@ void Board::removePiece(Piece* piece) {
         for (auto p = blackPieces.begin(); p != blackPieces.end();) {
             if (*p == piece) {
                 blackPieces.erase(p);
-                break;
+                return;
             }
             else p++;
         }
+    }
+}
+
+void Board::removePiece(int x, int y) {
+    for (auto p = whitePieces.begin(); p != whitePieces.end();) {
+        if ((*p)->positionXValue() == x && (*p)->positionYValue() == y) {
+            whitePieces.erase(p);
+            return;
+        }
+        else p++;
+    }
+    for (auto p = blackPieces.begin(); p != blackPieces.end();) {
+        if ((*p)->positionXValue() == x && (*p)->positionYValue() == y) {
+            blackPieces.erase(p);
+            return;
+        }
+        else p++;
     }
 }
 

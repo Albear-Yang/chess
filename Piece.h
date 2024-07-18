@@ -20,9 +20,9 @@ class Piece {
         virtual std::vector<Move*> moves() = 0;
         virtual void move(Position pos) = 0;
         virtual std::vector<Move*> canCapture() = 0;
-        virtual int positionValue() = 0;
-        virtual int positionXValue() = 0;
-        virtual int positionYValue() = 0;
+        //virtual int positionValue() = 0; NEED AN OVERIDE IN ALL PIECE SUBCLASSES
+        int positionXValue();
+        int positionYValue();
         Position getPos() {return pos; };
         Type typeValue() { return type; };
         Color getColor() { return color; };
