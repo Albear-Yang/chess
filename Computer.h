@@ -3,7 +3,7 @@
 
 #include "Player.h"
 #include "Board.h"
-#include "Move.h"s
+#include "Move.h"
 
 class Computer : public Player {
 protected:
