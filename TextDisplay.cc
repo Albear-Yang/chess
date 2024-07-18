@@ -7,7 +7,7 @@ void TextDisplay::notify() {
         std::cout << (8 - i) << " ";
         for (int j = 0; j < subj->boardLength(); j++) {
             bool pass = true;
-            for (auto p : subj->white_pieces) {
+            for (auto p : subj->whitePieces) {
                 char c;
                 Type type = p->typeValue();
                 if (p->positionXValue() == i && p->positionYValue() == j) {
@@ -18,6 +18,21 @@ void TextDisplay::notify() {
                     else if (type == Type::Rook) c = 'R';
                     else if (type == Type::Queen) c = 'Q';
                     else if (type == Type::King) c = 'K';
+                    std::cout << c;
+                    pass = false;
+                }
+            }
+            for (auto p : subj->blackPieces) {
+                char c;
+                Type type = p->typeValue();
+                if (p->positionXValue() == i && p->positionYValue() == j) {
+                    char c;
+                    if (p->typeValue() == Type::Bishop) c = 'b';
+                    else if (type == Type::Knight) c = 'n';
+                    else if (type == Type::Pawn) c = 'p';
+                    else if (type == Type::Rook) c = 'r';
+                    else if (type == Type::Queen) c = 'q';
+                    else if (type == Type::King) c = 'k';
                     std::cout << c;
                     pass = false;
                 }
