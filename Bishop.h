@@ -5,7 +5,6 @@
 
 class Bishop : public Piece {
     int value = 3;
-    int value = 3;
 public:
     std::vector<Move*> moves() override;
     Bishop(Board *board, Position pos, Color color);
