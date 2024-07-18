@@ -3,6 +3,8 @@
 
 #include "Piece.h"
 
+class Piece;
+
 class Knight : public Piece {
     int value = 3;
 public:

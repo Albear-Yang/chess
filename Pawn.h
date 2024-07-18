@@ -2,8 +2,8 @@
 #define PAWN_H
 
 #include "Piece.h"
-#include "Enums.h"
 
+class Piece;
 
 class Pawn : public Piece {
     int value = 1;

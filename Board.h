@@ -2,6 +2,8 @@
 #define BOARD_H
 #include <iostream>
 #include <vector>
+#include "Subject.h"
+#include "Move.h"
 #include "Piece.h"
 #include "Bishop.h"
 #include "Queen.h"
@@ -9,8 +11,7 @@
 #include "Knight.h"
 #include "King.h"
 #include "Rook.h"
-#include "Move.h"
-#include "Subject.h"
+
 
 class Board : public Subject {
     const int LEN_MAX = 8;

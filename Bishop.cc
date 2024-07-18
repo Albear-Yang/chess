@@ -1,9 +1,8 @@
 #include "Bishop.h"
-#include "Move.h"
 using namespace std;
 
 Bishop::Bishop(Board* board, Position pos, Color color)
-    : Piece(board, pos, color, Type::Bishop) {}
+    : Piece(board, pos, color, Type::BISHOP) {}
 
 vector<Move*> Bishop::moves(){
     vector<Move*> possibleMoves;

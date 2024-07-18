@@ -1,14 +1,7 @@
-//attach an observer at the start to display board
 #include <iostream>
 #include <vector>
-#include "Enums.h"
-#include "King.h"
-#include "Knight.h"
-#include "Pawn.h"
-#include "Rook.h"
-#include "Bishop.h"
-#include "Queen.h"
 #include "Board.h"
+#include "Enums.h"
 #include "Computer.h"
 #include "GraphicDisplay.h"
 #include "TextDisplay.h"
