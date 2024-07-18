@@ -2,17 +2,17 @@
 #define ENUMS_H
 
 enum class Color {
-    Black,
-    White
+    BLACK,
+    WHITE
 };
 
 enum class Type{
-    Knight,
-    Bishop,
-    Pawn,
-    Rook,
-    Queen,
-    King
+    KNIGHT,
+    BISHOP,
+    PAWN,
+    ROOK,
+    QUEEN,
+    KING
 };
 
 #endif

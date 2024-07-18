@@ -3,7 +3,7 @@
 using namespace std;
 
 Pawn::Pawn(Board* board, Position pos, Color color)
-    : Piece(board, pos, color, Type::Pawn) {}
+    : Piece(board, pos, color, Type::PAWN) {}
 
 vector<Move*> Pawn::moves() {
     vector<Move*> possibleMoves;
@@ -19,7 +19,7 @@ vector<Move*> Pawn::moves() {
     }
 
     int reverse = 1;
-    if (color == Black) {
+    if (color == Color::BLACK) {
         reverse = -1;
     }
 
@@ -54,12 +54,12 @@ vector<Move*> Pawn::moves() {
     }
 
     // En passant capturing
-    if (color == White && pos.y == 5 || color == Black && pos.y == 4) {
+    if (color == Color::WHITE && pos.y == 5 || color == Color::BLACK && pos.y == 4) {
         const auto& lastMove = board->pastMoves.back();
-        if (lastMove->pieceMoving->typeValue() == Pawn && abs(lastMove->initialPos.y - lastMove->finalPos.y) == 2) {
-            Position capturedPos = lastMove->finalPos;
+        if (lastMove->pieceMoved()->typeValue() == Type::PAWN && abs(lastMove->initPos().y - lastMove->finPos().y) == 2) {
+            Position capturedPos = lastMove->finPos();
             if (capturedPos.y == pos.y && (capturedPos.x == pos.x - 1 || capturedPos.x == pos.x + 1)) {
-                possibleMoves.push_back(new Move(this, lastMove->pieceMoving, pos, Position(capturedPos.x, pos.y + reverse)));
+                possibleMoves.push_back(new Move(this, lastMove->pieceMoved(), pos, Position(capturedPos.x, pos.y + reverse)));
             }
         }
     }
@@ -96,7 +96,7 @@ vector<Move*> Pawn::canCapture() {
     }
 
     int reverse = 1;
-    if (color == Black) {
+    if (color == Color::BLACK) {
         reverse = -1;
     }
 
@@ -112,12 +112,12 @@ vector<Move*> Pawn::canCapture() {
     }
 
     // En passant capturing
-    if (color == White && pos.y == 5 || color == Black && pos.y == 4) {
+    if (color == Color::WHITE && pos.y == 5 || color == Color::BLACK && pos.y == 4) {
         const auto& lastMove = board->pastMoves.back();
-        if (lastMove->pieceMoving->typeValue() == Pawn && abs(lastMove->initialPos.y - lastMove->finalPos.y) == 2) {
-            Position capturedPos = lastMove->finalPos;
+        if (lastMove->pieceMoved()->typeValue() == Type::PAWN && abs(lastMove->initPos().y - lastMove->finPos().y) == 2) {
+            Position capturedPos = lastMove->finPos();
             if (capturedPos.y == pos.y && (capturedPos.x == pos.x - 1 || capturedPos.x == pos.x + 1)) {
-                possibleMoves.push_back(new Move(this, lastMove->pieceMoving, pos, Position(capturedPos.x, pos.y + reverse)));
+                possibleMoves.push_back(new Move(this, lastMove->pieceMoved(), pos, Position(capturedPos.x, pos.y + reverse)));
             }
         }
     }

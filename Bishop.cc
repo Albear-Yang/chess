@@ -5,7 +5,7 @@ using namespace std;
 Bishop::Bishop(Board* board, Position pos, Color color)
     : Piece(board, pos, color, Type::Bishop) {}
 
-vector<Move*> Bishop::moves() const {
+vector<Move*> Bishop::moves(){
     vector<Move*> possibleMoves;
 
     vector<Piece*> allPieces;

@@ -10,7 +10,7 @@ public:
     std::vector<Move*> moves() override;
     Queen(Board *board, Position pos, Color color);
     void move(Position newpos) override;
-    std::vector<Piece*> canCapture() override;
+    std::vector<Move*> canCapture() override;
 };
 
 #endif

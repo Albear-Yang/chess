@@ -8,7 +8,7 @@
 class Pawn : public Piece {
     int value = 1;
 public:
-    bool has_moved = !((color == White && pos.y  == 2) || (color == Black && pos.y  == 7));
+    bool has_moved = !((color == Color::WHITE && pos.y  == 2) || (color == Color::BLACK && pos.y  == 7));
 
     std::vector<Move*> moves() override;
     Pawn(Board *board, Position pos, Color color);

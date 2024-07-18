@@ -16,13 +16,16 @@ public:
     Move(Move && other);
     Move& operator=(Move&& other);
     Move reverseMove(Move m);
-    Piece* pieceMoved();
+    Piece* pieceMoved(){
+        return pieceMoving;
+    }
     Position initPos(){
         return initialPos;
     };
     Position finPos(){
         return finalPos;
     };
+
 };
 
 #endif
