@@ -1,5 +1,4 @@
 #include "Pawn.h"
-#include "Enums.h"
 using namespace std;
 
 Pawn::Pawn(Board* board, Position pos, Color color)

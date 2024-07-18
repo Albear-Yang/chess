@@ -3,6 +3,8 @@
 
 #include "Piece.h"
 
+class Piece;
+
 class King : public Piece {
     int value = 1000000000;
 public:

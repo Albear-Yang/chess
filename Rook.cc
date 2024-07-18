@@ -1,5 +1,4 @@
 #include "Rook.h"
-#include "Piece.h"
 using namespace std;
 
 Rook::Rook(Board* board, Position pos, Color color)

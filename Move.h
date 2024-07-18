@@ -1,8 +1,9 @@
 #ifndef MOVE_H
 #define MOVE_H
-
-#include "Position.h"
 #include "Piece.h"
+#include "Position.h"
+
+class Piece;
 
 class Move {
     Piece *pieceMoving;

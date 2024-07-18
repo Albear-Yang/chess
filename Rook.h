@@ -3,6 +3,8 @@
 
 #include "Piece.h"
 
+class Piece;
+
 class Rook : public Piece {
     int value = 5;
 public:

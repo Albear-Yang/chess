@@ -2,10 +2,12 @@
 #define PIECE_H
 
 #include <vector>
-#include "Enums.h"
+#include "Board.h"
 #include "Position.h"
 #include "Move.h"
-#include "Board.h"
+#include "Enums.h"
+
+class Move;
 
 class Piece {
     protected:
@@ -23,12 +25,12 @@ class Piece {
         virtual void move(Position pos) = 0;
         virtual std::vector<Move*> canCapture() = 0;
         //virtual int positionValue() = 0; NEED AN OVERIDE IN ALL PIECE SUBCLASSES
-        int positionXValue();
-        int positionYValue();
-        Position getPos() {return pos; };
+        int positionXValue() { return pos.x; };
+        int positionYValue() { return pos.y; };
+        Position getPos() { return pos; };
         Type typeValue() { return type; };
         Color getColor() { return color; };
-        void movePos(int x, int y) {pos.x = x; pos.y = y; };
+        void movePos(int x, int y) { pos.x = x; pos.y = y; };
 
 
 };
