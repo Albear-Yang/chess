@@ -1,9 +1,7 @@
 #ifndef KING_H
 #define KING_H
 
-#include "Piece.h"
-
-class Piece;
+#include "Board.h"
 
 class King : public Piece {
     int value = 1000000000;

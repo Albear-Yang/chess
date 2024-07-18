@@ -3,10 +3,10 @@
 #include <iostream>
 #include <vector>
 #include "Subject.h"
-#include "Move.h"
 #include "Piece.h"
-#include "Bishop.h"
+#include "Move.h"
 #include "Queen.h"
+#include "Bishop.h"
 #include "Pawn.h"
 #include "Knight.h"
 #include "King.h"
@@ -40,6 +40,7 @@ public:
     void undo();
     void addMove(Move* move);
     int boardLength();
+    ~Board();
 };
 
 #endif

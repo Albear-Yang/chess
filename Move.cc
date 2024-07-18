@@ -40,8 +40,3 @@ Move::~Move() {
 Move Move::reverseMove(Move m){
     return Move(m.pieceMoving, nullptr, m.finalPos, m.initialPos);
 }
-
-Piece* Move::pieceMoved() { return pieceMoving; }
-
-Position Move::initPos() { return initialPos; }
-Position Move::finPos() { return finalPos; }

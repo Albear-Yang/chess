@@ -1,9 +1,7 @@
 #ifndef PAWN_H
 #define PAWN_H
 
-#include "Piece.h"
-
-class Piece;
+#include "Board.h"
 
 class Pawn : public Piece {
     int value = 1;

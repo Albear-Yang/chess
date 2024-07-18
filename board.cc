@@ -167,11 +167,11 @@ void Board::addPiece(Piece* piece) {
 
 void Board::addPiece(Type type, Color color, int x, int y) {
     if (type == Type::ROOK) addPiece(new Rook(this, *new Position{x, y}, color));
-    if (type == Type::BISHOP) addPiece(new Bishop(this, *new Position{x, y}, color));
-    if (type == Type::KING) addPiece(new King(this, *new Position{x, y}, color));
-    if (type == Type::QUEEN) addPiece(new Queen(this, *new Position{x, y}, color));
-    if (type == Type::KNIGHT) addPiece(new Knight(this, *new Position{x, y}, color));
-    if (type == Type::PAWN) addPiece(new Pawn(this, *new Position{x, y}, color));
+    else if (type == Type::BISHOP) addPiece(new Bishop(this, *new Position{x, y}, color));
+    else if (type == Type::KING) addPiece(new King(this, *new Position{x, y}, color));
+    else if (type == Type::QUEEN) addPiece(new Queen(this, *new Position{x, y}, color));
+    else if (type == Type::KNIGHT) addPiece(new Knight(this, *new Position{x, y}, color));
+    else if (type == Type::PAWN) addPiece(new Pawn(this, *new Position{x, y}, color));
 }
 
 void Board::removePiece(Piece* piece) {
@@ -214,4 +214,20 @@ void Board::removePiece(int x, int y) {
 
 int Board::boardLength() { return LEN_MAX; }
 
-
+Board::~Board() {
+    for (auto p : startingBlackPieces) {
+        delete p;
+    }
+    for (auto p : startingWhitePieces) {
+        delete p;
+    }
+    for (auto p : blackPieces) {
+        delete p;
+    }
+    for (auto p : whitePieces) {
+        delete p;
+    }
+    for (auto m : pastMoves) {
+        delete m;
+    }
+}

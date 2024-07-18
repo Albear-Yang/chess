@@ -1,6 +1,6 @@
 #ifndef MOVE_H
 #define MOVE_H
-#include "Piece.h"
+#include "Board.h"
 #include "Position.h"
 
 class Piece;
@@ -17,6 +17,7 @@ public:
     Move(Move && other);
     Move& operator=(Move&& other);
     Move reverseMove(Move m);
+    ~Move();
     Piece* pieceMoved(){
         return pieceMoving;
     }

@@ -1,9 +1,7 @@
 #ifndef ROOK_H
 #define ROOK_H
 
-#include "Piece.h"
-
-class Piece;
+#include "Board.h"
 
 class Rook : public Piece {
     int value = 5;
