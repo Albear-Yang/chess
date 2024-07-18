@@ -9,10 +9,10 @@
 class Board : public Subject {
     const int LEN_MAX = 8;
 public: 
-    std::vector<Piece*> starting_white_pieces; //add COPIES of the pieces at the beginning MUST BE COPIES
-    std::vector<Piece*> starting_black_pieces;
-    std::vector<Piece*> white_pieces;
-    std::vector<Piece*> black_pieces;
+    std::vector<Piece*> startingWhitePieces; //add COPIES of the pieces at the beginning MUST BE COPIES
+    std::vector<Piece*> startingBlackPieces;
+    std::vector<Piece*> whitePieces;
+    std::vector<Piece*> blackPieces;
     int whiteScore;
     int blackScore;
     Color whosTurn;

@@ -22,7 +22,8 @@ public:
     virtual int positionValue() = 0;
     virtual int positionXValue() = 0;
     virtual int positionYValue() = 0;
-    virtual Type typeValue() = 0;
+    Position getPos() {return pos; };
+    Type typeValue() { return type; };
     Color getColor() { return color; };
     void movePos(int x, int y) { pos.x_coord = x; pos.y_coord = y; };
 };
