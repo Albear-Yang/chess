@@ -2,7 +2,7 @@
 using namespace std;
 
 King::King(Board* board, Position pos, Color color)
-    : Piece(board, pos, color, Type::King) {}
+    : Piece(board, pos, color, Type::KING) {}
 
 vector<Move*> King::moves(){
     vector<Move*> possibleMoves;

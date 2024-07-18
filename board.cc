@@ -19,36 +19,36 @@ std::vector<Move*> Board::blackMoves() {
 }
 
 bool Board::draw() {
-    if (whosTurn == Color::White && whiteMoves().empty()) return true;
-    if (whosTurn == Color::Black && blackMoves().empty()) return true;
-    if (whitePieces.size() == 1 && blackPieces.size() == 1 && whitePieces[0]->typeValue() == Type::King && blackPieces[0]->typeValue() == Type::King) return true;
-    if (whitePieces.size() == 1 && blackPieces.size() == 1 && whitePieces[0]->typeValue() == Type::King && blackPieces[0]->typeValue() == Type::King) return true;
-    if (whitePieces.size() == 2 && blackPieces.size() == 1 && whitePieces[0]->typeValue() == Type::King && whitePieces[1]->typeValue() == Type::Bishop && blackPieces[0]->typeValue() == Type::King) return true;
-    if (whitePieces.size() == 2 && blackPieces.size() == 1 && whitePieces[1]->typeValue() == Type::King && whitePieces[0]->typeValue() == Type::Bishop && blackPieces[0]->typeValue() == Type::King) return true;
-    if (whitePieces.size() == 1 && blackPieces.size() == 2 && blackPieces[0]->typeValue() == Type::King && blackPieces[1]->typeValue() == Type::Bishop && whitePieces[0]->typeValue() == Type::King) return true;
-    if (whitePieces.size() == 1 && blackPieces.size() == 2 && blackPieces[1]->typeValue() == Type::King && blackPieces[0]->typeValue() == Type::Bishop && whitePieces[0]->typeValue() == Type::King) return true;
-    if (whitePieces.size() == 2 && blackPieces.size() == 1 && whitePieces[0]->typeValue() == Type::King && whitePieces[1]->typeValue() == Type::Knight && blackPieces[0]->typeValue() == Type::King) return true;
-    if (whitePieces.size() == 2 && blackPieces.size() == 1 && whitePieces[1]->typeValue() == Type::King && whitePieces[0]->typeValue() == Type::Knight && blackPieces[0]->typeValue() == Type::King) return true;
-    if (whitePieces.size() == 1 && blackPieces.size() == 2 && blackPieces[0]->typeValue() == Type::King && blackPieces[1]->typeValue() == Type::Knight && whitePieces[0]->typeValue() == Type::King) return true;
-    if (whitePieces.size() == 1 && blackPieces.size() == 2 && blackPieces[1]->typeValue() == Type::King && blackPieces[0]->typeValue() == Type::Knight && whitePieces[0]->typeValue() == Type::King) return true;
-    if (whitePieces.size() == 2 && blackPieces.size() == 2 && blackPieces[0]->typeValue() == Type::King && blackPieces[1]->typeValue() == Type::Bishop && whitePieces[0]->typeValue() == Type::King && whitePieces[1]->typeValue() == Type::Bishop && blackPieces[1]->positionXValue() + blackPieces[1]->positionYValue() % 2 == 0 && whitePieces[1]->positionXValue() + whitePieces[1]->positionYValue() % 2 == 0) return true;
-    if (whitePieces.size() == 2 && blackPieces.size() == 2 && blackPieces[1]->typeValue() == Type::King && blackPieces[0]->typeValue() == Type::Bishop && whitePieces[1]->typeValue() == Type::King && whitePieces[0]->typeValue() == Type::Bishop && blackPieces[0]->positionXValue() + blackPieces[0]->positionYValue() % 2 == 0 && whitePieces[0]->positionXValue() + whitePieces[0]->positionYValue() % 2 == 0) return true;
-    if (whitePieces.size() == 2 && blackPieces.size() == 2 && blackPieces[1]->typeValue() == Type::King && blackPieces[0]->typeValue() == Type::Bishop && whitePieces[0]->typeValue() == Type::King && whitePieces[1]->typeValue() == Type::Bishop && blackPieces[0]->positionXValue() + blackPieces[0]->positionYValue() % 2 == 0 && whitePieces[1]->positionXValue() + whitePieces[1]->positionYValue() % 2 == 0) return true;
-    if (whitePieces.size() == 2 && blackPieces.size() == 2 && blackPieces[0]->typeValue() == Type::King && blackPieces[1]->typeValue() == Type::Bishop && whitePieces[1]->typeValue() == Type::King && whitePieces[0]->typeValue() == Type::Bishop && blackPieces[1]->positionXValue() + blackPieces[1]->positionYValue() % 2 == 0 && whitePieces[0]->positionXValue() + whitePieces[0]->positionYValue() % 2 == 0) return true;
+    if (whosTurn == Color::WHITE && whiteMoves().empty()) return true;
+    if (whosTurn == Color::BLACK && blackMoves().empty()) return true;
+    if (whitePieces.size() == 1 && blackPieces.size() == 1 && whitePieces[0]->typeValue() == Type::KING && blackPieces[0]->typeValue() == Type::KING) return true;
+    if (whitePieces.size() == 1 && blackPieces.size() == 1 && whitePieces[0]->typeValue() == Type::KING && blackPieces[0]->typeValue() == Type::KING) return true;
+    if (whitePieces.size() == 2 && blackPieces.size() == 1 && whitePieces[0]->typeValue() == Type::KING && whitePieces[1]->typeValue() == Type::BISHOP && blackPieces[0]->typeValue() == Type::KING) return true;
+    if (whitePieces.size() == 2 && blackPieces.size() == 1 && whitePieces[1]->typeValue() == Type::KING && whitePieces[0]->typeValue() == Type::BISHOP && blackPieces[0]->typeValue() == Type::KING) return true;
+    if (whitePieces.size() == 1 && blackPieces.size() == 2 && blackPieces[0]->typeValue() == Type::KING && blackPieces[1]->typeValue() == Type::BISHOP && whitePieces[0]->typeValue() == Type::KING) return true;
+    if (whitePieces.size() == 1 && blackPieces.size() == 2 && blackPieces[1]->typeValue() == Type::KING && blackPieces[0]->typeValue() == Type::BISHOP && whitePieces[0]->typeValue() == Type::KING) return true;
+    if (whitePieces.size() == 2 && blackPieces.size() == 1 && whitePieces[0]->typeValue() == Type::KING && whitePieces[1]->typeValue() == Type::KNIGHT && blackPieces[0]->typeValue() == Type::KING) return true;
+    if (whitePieces.size() == 2 && blackPieces.size() == 1 && whitePieces[1]->typeValue() == Type::KING && whitePieces[0]->typeValue() == Type::KNIGHT && blackPieces[0]->typeValue() == Type::KING) return true;
+    if (whitePieces.size() == 1 && blackPieces.size() == 2 && blackPieces[0]->typeValue() == Type::KING && blackPieces[1]->typeValue() == Type::KNIGHT && whitePieces[0]->typeValue() == Type::KING) return true;
+    if (whitePieces.size() == 1 && blackPieces.size() == 2 && blackPieces[1]->typeValue() == Type::KING && blackPieces[0]->typeValue() == Type::KNIGHT && whitePieces[0]->typeValue() == Type::KING) return true;
+    if (whitePieces.size() == 2 && blackPieces.size() == 2 && blackPieces[0]->typeValue() == Type::KING && blackPieces[1]->typeValue() == Type::BISHOP && whitePieces[0]->typeValue() == Type::KING && whitePieces[1]->typeValue() == Type::BISHOP && blackPieces[1]->positionXValue() + blackPieces[1]->positionYValue() % 2 == 0 && whitePieces[1]->positionXValue() + whitePieces[1]->positionYValue() % 2 == 0) return true;
+    if (whitePieces.size() == 2 && blackPieces.size() == 2 && blackPieces[1]->typeValue() == Type::KING && blackPieces[0]->typeValue() == Type::BISHOP && whitePieces[1]->typeValue() == Type::KING && whitePieces[0]->typeValue() == Type::BISHOP && blackPieces[0]->positionXValue() + blackPieces[0]->positionYValue() % 2 == 0 && whitePieces[0]->positionXValue() + whitePieces[0]->positionYValue() % 2 == 0) return true;
+    if (whitePieces.size() == 2 && blackPieces.size() == 2 && blackPieces[1]->typeValue() == Type::KING && blackPieces[0]->typeValue() == Type::BISHOP && whitePieces[0]->typeValue() == Type::KING && whitePieces[1]->typeValue() == Type::BISHOP && blackPieces[0]->positionXValue() + blackPieces[0]->positionYValue() % 2 == 0 && whitePieces[1]->positionXValue() + whitePieces[1]->positionYValue() % 2 == 0) return true;
+    if (whitePieces.size() == 2 && blackPieces.size() == 2 && blackPieces[0]->typeValue() == Type::KING && blackPieces[1]->typeValue() == Type::BISHOP && whitePieces[1]->typeValue() == Type::KING && whitePieces[0]->typeValue() == Type::BISHOP && blackPieces[1]->positionXValue() + blackPieces[1]->positionYValue() % 2 == 0 && whitePieces[0]->positionXValue() + whitePieces[0]->positionYValue() % 2 == 0) return true;
     return false;
 }
 
 bool Board::checkmate() {
-    if (whosTurn == Color::White) {
-        if (!check4check(Color::White)) return false;
+    if (whosTurn == Color::WHITE) {
+        if (!check4check(Color::WHITE)) return false;
         int x, y;
         for (auto p : whitePieces) {
-            if (p->typeValue() == Type::King) { x = p->positionXValue(); y = p->positionYValue(); }
+            if (p->typeValue() == Type::KING) { x = p->positionXValue(); y = p->positionYValue(); }
         }
         for (auto p : whiteMoves()) {
-            if (p->pieceMoved()->typeValue() == Type::King) return false;
+            if (p->pieceMoved()->typeValue() == Type::KING) return false;
             addMove(p);
-            if (!check4check(Color::White)) return false;
+            if (!check4check(Color::WHITE)) return false;
             undo();
         }
     }
@@ -56,10 +56,10 @@ bool Board::checkmate() {
 }
 
 bool Board::check4check(Color king) {
-    if (king == Color::White) {
+    if (king == Color::WHITE) {
         Piece* k;
         for (auto p : whitePieces) {
-            if (p->typeValue() == Type::King) {
+            if (p->typeValue() == Type::KING) {
                 k = p; break;
             }
         }
@@ -74,7 +74,7 @@ bool Board::check4check(Color king) {
     else {
         Piece* k;
         for (auto p : blackPieces) {
-            if (p->typeValue() == Type::King) {
+            if (p->typeValue() == Type::KING) {
                 k = p; break;
             }
         }
@@ -91,11 +91,11 @@ bool Board::check4check(Color king) {
 
 void Board::addMove(Move* move) {
     Piece* pieceMoved = move->pieceMoved();
-    if (whosTurn == Color::White) {
-        whosTurn == Color::Black;
+    if (whosTurn == Color::WHITE) {
+        whosTurn == Color::BLACK;
     }
     else {
-        whosTurn == Color::White;
+        whosTurn == Color::WHITE;
     }
     removePiece(pieceMoved);
     pieceMoved->movePos(move->finPos().x, move->finPos().y);
@@ -104,17 +104,17 @@ void Board::addMove(Move* move) {
 }
 
 void Board::undo() {
-    if (whosTurn == Color::White) {
-        whosTurn == Color::Black;
+    if (whosTurn == Color::WHITE) {
+        whosTurn == Color::BLACK;
     }
     else {
-        whosTurn == Color::White;
+        whosTurn == Color::WHITE;
     }
     Move* undoMove = pastMoves.back();
     pastMoves.pop_back();
     Piece* pieceMoved = undoMove->pieceMoved();
     removePiece(pieceMoved);
-    if (pieceMoved->getColor() == Color::White) {
+    if (pieceMoved->getColor() == Color::WHITE) {
         Move* lastMove = nullptr;
         for (auto p : pastMoves) {
             if (p->pieceMoved() == pieceMoved) lastMove = p;
@@ -157,7 +157,7 @@ void Board::undo() {
 }
 
 void Board::addPiece(Piece* piece) {
-    if (piece->getColor() == Color::White) {
+    if (piece->getColor() == Color::WHITE) {
         whitePieces.emplace_back(piece);
     }
     else {
@@ -166,7 +166,7 @@ void Board::addPiece(Piece* piece) {
 }
 
 void Board::removePiece(Piece* piece) {
-    if (piece->getColor() == Color::White) {
+    if (piece->getColor() == Color::WHITE) {
         for (auto p = whitePieces.begin(); p != whitePieces.end();) {
             if (*p == piece) {
                 whitePieces.erase(p);

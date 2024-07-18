@@ -2,7 +2,7 @@
 using namespace std;
 
 Knight::Knight(Board* board, Position pos, Color color)
-    : Piece(board, pos, color, Type::Knight) {}
+    : Piece(board, pos, color, Type::KNIGHT) {}
 
 vector<Move*> Knight::moves() {
     vector<Move*> possibleMoves;

@@ -2,7 +2,7 @@
 using namespace std;
 
 Queen::Queen(Board* board, Position pos, Color color)
-    : Piece(board, pos, color, Type::Queen) {}
+    : Piece(board, pos, color, Type::QUEEN) {}
 
 vector<Move*> Queen::moves(){
     vector<Move*> possibleMoves;

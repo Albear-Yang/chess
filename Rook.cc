@@ -1,10 +1,9 @@
-#include "rook.h"
 #include "Rook.h"
 #include "Piece.h"
 using namespace std;
 
 Rook::Rook(Board* board, Position pos, Color color)
-    : Piece(board, pos, color, Type::Rook) {}
+    : Piece(board, pos, color, Type::ROOK) {}
 
 vector<Move*> Rook::moves(){
     vector<Move*> possibleMoves;
