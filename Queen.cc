@@ -400,3 +400,4 @@ vector<Move*> Queen::canCapture(){
     }
     return possibleMoves;
 }
+

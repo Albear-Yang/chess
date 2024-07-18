@@ -2,10 +2,14 @@
 #define COMPUTER_H
 
 #include "Player.h"
+#include "Board.h"
+#include "Move.h"s
 
 class Computer : public Player {
+protected:
+    Board *board;
 public:
-    Move algorithm();
+    virtual Move algorithm() = 0;
 };
 
 #endif

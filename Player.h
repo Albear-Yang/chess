@@ -6,11 +6,12 @@
 #include "Move.h"
 
 class Player {
-public:
+protected:
     Board board;
     Color color;
     int score;
 
+public:
     virtual Move move() = 0;
 };
 
