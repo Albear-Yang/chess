@@ -16,6 +16,8 @@ class Piece {
         Color color;
         Position pos;
         Piece(Board* board, Position pos, Color color, Type type);
+
+        ~Piece() = default;
         
         virtual std::vector<Move*> moves() = 0;
         virtual void move(Position pos) = 0;
@@ -27,6 +29,8 @@ class Piece {
         Type typeValue() { return type; };
         Color getColor() { return color; };
         void movePos(int x, int y) {pos.x = x; pos.y = y; };
+
+
 };
 
 #endif
