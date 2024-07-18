@@ -4,9 +4,10 @@
 #include "Piece.h"
 
 class Bishop : public Piece {
-    value = 3;
+    int value = 3;
 public:
-    std::vector<Move> moves(Position pos) override;
+    Bishop(Board* board, Position pos, Color color);
+    std::vector<Move*> moves() override;
     void move(Position pos) override;
     std::vector<Piece*> canCapture() override;
 };

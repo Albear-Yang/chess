@@ -25,7 +25,7 @@ public:
     Position getPos() {return pos; };
     Type typeValue() { return type; };
     Color getColor() { return color; };
-    void movePos(int x, int y) { pos.x_coord = x; pos.y_coord = y; };
+    void movePos(int x, int y) { pos.x = x; pos.y = y; };
 };
 
 #endif

@@ -4,7 +4,7 @@
 #include "Piece.h"
 
 class King : public Piece {
-    value = 1000000000;
+    int value = 1000000000;
 public:
     bool in_check;
     bool has_moved;

@@ -11,7 +11,7 @@ void GraphicsDisplay::notify() {
         for (int j = 0; j < boardLen; j++) {
             if ((i + j) % 2 == 0) c = w.fillRectangle(50*i, 50*(j+1), 50, 50, Xwindow::White);;
             else c = w.fillRectangle(50*i, 50*(j+1), 50, 50, Xwindow::Black);;
-            for (auto p : subj->white_pieces) {
+            for (auto p : subj->whitePieces) {
                 char c;
                 Type type = p->typeValue();
                 if (p->positionXValue() == i && p->positionYValue() == j) {
@@ -22,6 +22,20 @@ void GraphicsDisplay::notify() {
                     else if (type == Type::Rook) c = 'R';
                     else if (type == Type::Queen) c = 'Q';
                     else if (type == Type::King) c = 'K';
+                    w.drawString(50*i, 50*j, c);
+                }
+            }
+            for (auto p : subj->blackPieces) {
+                char c;
+                Type type = p->typeValue();
+                if (p->positionXValue() == i && p->positionYValue() == j) {
+                    char c;
+                    if (p->typeValue() == Type::Bishop) c = 'b';
+                    else if (type == Type::Knight) c = 'n';
+                    else if (type == Type::Pawn) c = 'p';
+                    else if (type == Type::Rook) c = 'r';
+                    else if (type == Type::Queen) c = 'q';
+                    else if (type == Type::King) c = 'k';
                     w.drawString(50*i, 50*j, c);
                 }
             }

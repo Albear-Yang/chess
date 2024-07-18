@@ -15,12 +15,7 @@ Move& Move::operator=(const Move& other) {
     finalPos = other.finalPos;
 }
 
-Move::Move(Move&& other): pieceMoving{nullptr}, pieceCapturing{nullptr}, intialPos{new Position(0,0)}, finalPos{new Position(0,0)}{
-    pieceMoving = other.pieceMoving;
-    pieceCapturing = other.pieceCapturing;
-    initialPos = other.initialPos;
-    finalPos = other.finalPos;
-    
+Move::Move(Move&& other): pieceMoving{other.pieceMoving}, pieceCapturing{other.pieceCapturing}, initialPos{other.initialPos}, finalPos{other.finalPos}{
     other.pieceMoving = nullptr;
     other.pieceCapturing = nullptr;
 }
