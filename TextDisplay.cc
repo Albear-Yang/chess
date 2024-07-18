@@ -12,7 +12,7 @@ void TextDisplay::notify() {
                 Type type = p->typeValue();
                 if (p->positionXValue() == i && p->positionYValue() == j) {
                     char c;
-                    if (p->typeValue() == Type::BISHOP) c = 'B';
+                    if (type == Type::BISHOP) c = 'B';
                     else if (type == Type::KNIGHT) c = 'N';
                     else if (type == Type::PAWN) c = 'P';
                     else if (type == Type::ROOK) c = 'R';
@@ -20,6 +20,7 @@ void TextDisplay::notify() {
                     else if (type == Type::KING) c = 'K';
                     std::cout << c;
                     pass = false;
+                    break;
                 }
             }
             for (auto p : subj->blackPieces) {
@@ -27,7 +28,7 @@ void TextDisplay::notify() {
                 Type type = p->typeValue();
                 if (p->positionXValue() == i && p->positionYValue() == j) {
                     char c;
-                    if (p->typeValue() == Type::BISHOP) c = 'b';
+                    if (type == Type::BISHOP) c = 'b';
                     else if (type == Type::KNIGHT) c = 'n';
                     else if (type == Type::PAWN) c = 'p';
                     else if (type == Type::ROOK) c = 'r';
@@ -35,6 +36,7 @@ void TextDisplay::notify() {
                     else if (type == Type::KING) c = 'k';
                     std::cout << c;
                     pass = false;
+                    break;
                 }
             }
             if (pass) {
@@ -46,7 +48,7 @@ void TextDisplay::notify() {
         }
         std::cout << std::endl;
     }
-    std::cout << "  abcdefg" << std::endl;
+    std::cout << "  abcdefgh" << std::endl;
 }
 
 TextDisplay::~TextDisplay() { subj->detach(this); }
