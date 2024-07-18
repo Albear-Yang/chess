@@ -25,6 +25,9 @@ public:
         x--;
         y--;
     }
+    bool inBoard(){
+        return(x <= 8 && x >= 0 && y <= 8 && y >= 0);
+    }
 };
 
 #endif
