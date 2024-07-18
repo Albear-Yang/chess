@@ -7,7 +7,7 @@
 #include "Move.h"
 #include "Enums.h"
 
-class Move;
+class Board;
 
 class Piece {
     protected:

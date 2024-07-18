@@ -1,8 +1,6 @@
 #ifndef BISHOP_H
 #define BISHOP_H
-#include "Piece.h"
-
-class Piece;
+#include "Board.h"
 
 class Bishop : public Piece {
     int value = 3;

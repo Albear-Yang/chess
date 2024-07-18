@@ -1,8 +1,6 @@
 #ifndef QUEEN_H
 #define QUEEN_H
-#include "Piece.h"
-
-class Piece;
+#include "Board.h"
 
 class Queen : public Piece {
     int value = 9;

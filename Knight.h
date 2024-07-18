@@ -1,9 +1,7 @@
 #ifndef KNIGHT_H
 #define KNIGHT_H
 
-#include "Piece.h"
-
-class Piece;
+#include "Board.h"
 
 class Knight : public Piece {
     int value = 3;
