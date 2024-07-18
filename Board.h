@@ -8,7 +8,9 @@
 
 class Board : public Subject {
     const int LEN_MAX = 8;
-public:
+public: 
+    std::vector<Piece*> startingWhitePieces; //add COPIES of the pieces at the beginning MUST BE COPIES
+    std::vector<Piece*> startingBlackPieces;
     std::vector<Piece*> whitePieces;
     std::vector<Piece*> blackPieces;
     int whiteScore;
@@ -21,11 +23,10 @@ public:
     bool draw();
     bool checkmate();
     bool check4check(Color king);
-    void addPiece(Piece* piece, Color color, int x, int y);
-    void removePiece(Piece* piece, Color color, int x, int y);
+    void addPiece(Piece* piece);
+    void removePiece(Piece* piece);
     void undo();
     void addMove(Move* move);
-    void display();
     int boardLength();
 };
 

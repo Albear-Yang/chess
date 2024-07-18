@@ -6,7 +6,7 @@
 class Queen : public Piece {
     int value = 9;
 public:
-    std::vector<Move*> moves(Position pos) override;
+    std::vector<Move*> moves() override;
     void move(Position newpos) override;
     std::vector<Move*> canCapture() override;
 };

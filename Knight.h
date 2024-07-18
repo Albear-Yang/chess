@@ -6,7 +6,7 @@
 class Knight : public Piece {
     int value = 3;
 public:
-    std::vector<Move*> moves(Position pos) override;
+    std::vector<Move*> moves() override;
     void move(Position pos) override;
     std::vector<Piece*> canCapture() override;
 };

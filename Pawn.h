@@ -8,7 +8,7 @@ class Pawn : public Piece {
 public:
     bool has_moved = !((color == White && pos.y  == 2) || (color == Black && pos.y  == 7));
 
-    std::vector<Move*> moves(Position pos) override;
+    std::vector<Move*> moves() override;
     void move(Position pos) override;
     std::vector<Piece*> canCapture() override;
 };
