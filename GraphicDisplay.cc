@@ -1,10 +1,11 @@
 /*#include "GraphicDisplay.h"
+#include <string>
 
 GraphicsDisplay::GraphicsDisplay(Board* subj): subj{subj} { subj->attach(this); }
 
 void GraphicsDisplay::notify() {
     int boardLen = subj->boardLength();
-    Xwindow w{50*(2 + boardLen), 50*(1 + boardLen)};
+    Xwindow w{50*(2 + boardLen + 10), 50*(1 + boardLen + 10)};
     if (subj->round1) {
         for (int i = 0; i < boardLen; i++) {
             w.fillRectangle(0, 50*i, 100, 50, Xwindow::Green);
@@ -13,29 +14,29 @@ void GraphicsDisplay::notify() {
                 if ((i + j) % 2 == 0) w.fillRectangle(50*(j+2), 50*i, 50, 50, Xwindow::White);
                 else w.fillRectangle(50*(j+2), 50*i, 50, 50, Xwindow::Blue);;
                 for (auto p : subj->whitePieces) {
-                    char c;
+                    std::string c;
                     Type type = p->typeValue();
                     if (p->positionXValue() == i && p->positionYValue() == j) {
-                        if (p->typeValue() == Type::BISHOP) c = 'B';
-                        else if (type == Type::KNIGHT) c = 'N';
-                        else if (type == Type::PAWN) c = 'P';
-                        else if (type == Type::ROOK) c = 'R';
-                        else if (type == Type::QUEEN) c = 'Q';
-                        else if (type == Type::KING) c = 'K';
-                        w.drawString(50*(j+2), 50*i, std::to_string(c));
+                        if (p->typeValue() == Type::BISHOP) c = "B";
+                        else if (type == Type::KNIGHT) c = "N";
+                        else if (type == Type::PAWN) c = "P";
+                        else if (type == Type::ROOK) c = "R";
+                        else if (type == Type::QUEEN) c = "Q";
+                        else if (type == Type::KING) c = "K";
+                        w.drawString(50*(j+2), 50*i, c);
                     }
                 }
                 for (auto p : subj->blackPieces) {
-                    char c;
+                    std::string c;
                     Type type = p->typeValue();
                     if (p->positionXValue() == i && p->positionYValue() == j) {
-                        if (p->typeValue() == Type::BISHOP) c = 'b';
-                        else if (type == Type::KNIGHT) c = 'n';
-                        else if (type == Type::PAWN) c = 'p';
-                        else if (type == Type::ROOK) c = 'r';
-                        else if (type == Type::QUEEN) c = 'q';
-                        else if (type == Type::KING) c = 'k';
-                        w.drawString(50*(j+2), 50*i, std::to_string(c));
+                        if (p->typeValue() == Type::BISHOP) c = "b";
+                        else if (type == Type::KNIGHT) c = "n";
+                        else if (type == Type::PAWN) c = "p";
+                        else if (type == Type::ROOK) c = "r";
+                        else if (type == Type::QUEEN) c = "q";
+                        else if (type == Type::KING) c = "k";
+                        w.drawString(50*(j+2), 50*i, c);
                     }
                 }
             }
