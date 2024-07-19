@@ -181,11 +181,11 @@ int main() {
             while (command != "resign" && command != "checkmate") {
                 if (board->whosTurn == Color::WHITE) {
                     if (white == "human") {
+                        std::cout << "White Move (move <pos1> <pos2>) : " << std::endl;
                         std::string init, fin;
                         std::cin >> command >> init >> fin;
                         if (command == "move") {
                             while (true) {
-                                std::cout << "White Move (move <pos1> <pos2>) : " << std::endl;
                                 Piece* starter = nullptr;
                                 Piece* capturee = nullptr;
                                 //if (board->whiteMoves().empty()) std::cout << "hi" << std::endl;
@@ -241,11 +241,11 @@ int main() {
                 }
                 else {
                     if (black == "human") {
+                        std::cout << "Black Move (move <pos1> <pos2>) : " << std::endl;
                         std::string init, fin;
                         std::cin >> command >> init >> fin;
                         if (command == "move") {
                             while (true) {
-                                std::cout << "Black Move (move <pos1> <pos2>) : ";
                                 Piece* starter = nullptr;
                                 Piece* capturee = nullptr;
                                 for (auto p : board->blackPieces) {
