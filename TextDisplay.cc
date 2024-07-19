@@ -3,7 +3,7 @@
 TextDisplay::TextDisplay(Board* subj): subj{subj} { subj->attach(this); }
 
 void TextDisplay::notify() {
-    for (auto p : subj->whitePieces) {
+    /*for (auto p : subj->whitePieces) {
         char c;
         Type type = p->typeValue();
         if (type == Type::BISHOP) c = 'B';
@@ -24,7 +24,7 @@ void TextDisplay::notify() {
         else if (type == Type::QUEEN) c = 'Q';
         else if (type == Type::KING) c = 'K';
         std::cout << c << " Black " << p->getPos().x << " " << p->getPos().y << std::endl;
-    }
+    }*/
     for (int i = 0; i < subj->boardLength(); i++) {
         std::cout << (8 - i) << " ";
         for (int j = 0; j < subj->boardLength(); j++) {
