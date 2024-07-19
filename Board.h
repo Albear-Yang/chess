@@ -24,7 +24,7 @@ public:
     int blackScore = 0;
     bool hasWhiteKing = false;
     bool hasBlackKing = false;
-    bool round1;
+    bool round1 = true;
     Color whosTurn = Color::WHITE;
     std::vector<Move*> pastMoves;
 
