@@ -9,7 +9,7 @@ void GraphicsDisplay::notify() {
     if (subj->round1) {
         for (int i = 0; i < boardLen; i++) {
             w.fillRectangle(0, 50*i, 100, 50, Xwindow::Green);
-            w.drawString(0, 50*i+25, std::to_string(8-i));
+            w.drawString(23, 50*i+25, std::to_string(8-i));
             for (int j = 0; j < boardLen; j++) {
                 if ((i + j) % 2 == 0) w.fillRectangle(50*(j+2), 50*i, 50, 50, Xwindow::White);
                 else w.fillRectangle(50*(j+2), 50*i, 50, 50, Xwindow::Blue);;
@@ -23,7 +23,7 @@ void GraphicsDisplay::notify() {
                         else if (type == Type::ROOK) c = "R";
                         else if (type == Type::QUEEN) c = "Q";
                         else if (type == Type::KING) c = "K";
-                        w.drawString(50*(j+2), 50*i+25, c);
+                        w.drawString(50*(j+2)+23, 50*i+25, c);
                     }
                 }
                 for (auto p : subj->blackPieces) {
@@ -36,7 +36,7 @@ void GraphicsDisplay::notify() {
                         else if (type == Type::ROOK) c = "r";
                         else if (type == Type::QUEEN) c = "q";
                         else if (type == Type::KING) c = "k";
-                        w.drawString(50*(j+2), 50*i+25, c);
+                        w.drawString(50*(j+2)+23, 50*i+25, c);
                     }
                 }
             }
@@ -44,7 +44,7 @@ void GraphicsDisplay::notify() {
         w.fillRectangle(0, 50*(boardLen + 1), 50*(2 + boardLen), 50, Xwindow::Green);
         for (int i = 0; i < boardLen; i++) {
             char c = ('a' + i);
-            w.drawString(50*(i + 2), 50*boardLen+25, std::to_string(c));
+            w.drawString(50*(i + 2)+23, 50*boardLen+25, std::string(1, c));
         }
     }
     else {
