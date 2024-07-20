@@ -16,8 +16,8 @@ int main() {
     std::string command;
     while (std::cin >> command) {
         if (command == "setup") {
-            std::cin >> command;
             while (command != "done") {
+                std::cin >> command;
                 if (command == "default") {
                     board->hasBlackKing = true;
                     board->hasWhiteKing = true;
@@ -60,69 +60,98 @@ int main() {
                     char c;
                     std::string pos;
                     std::cin >> c >> pos;
-                    switch (c) {
-                        case 'K': 
-                            if (board->hasWhiteKing) {
-                                std::cout << "Too many white kings" << std::endl;
-                            }
-                            else if (board->check4check(Color::WHITE)) {
-                                std::cout << "King cannot start on check" << std::endl;
-                            }
-                            else {
-                                board->addPiece(Type::KING, Color::WHITE, 8 - (pos[1] - '0'), pos[0] - 'a'); 
-                                board->hasWhiteKing = true; 
+                    bool empty = true;
+                    for (auto p : board->whitePieces) {
+                        if (p->getPos().x == 8 - (pos[1] - '0') && p->getPos().y == pos[0] - 'a') empty = false;
+                    }
+                    for (auto p : board->blackPieces) {
+                        if (p->getPos().x == 8 - (pos[1] - '0') && p->getPos().y == pos[0] - 'a') empty = false;
+                    }
+                    if (empty) {
+                        switch (c) {
+                            case 'K': 
+                                if (board->hasWhiteKing) {
+                                    std::cout << "Too many white kings" << std::endl;
+                                }
+                                /*else if (board->check4check(Color::WHITE)) { //uncomment when albert fixes moves()
+                                    std::cout << "King cannot start on check" << std::endl;
+                                }*/
+                                else {
+                                    board->addPiece(Type::KING, Color::WHITE, 8 - (pos[1] - '0'), pos[0] - 'a'); 
+                                    board->hasWhiteKing = true; 
+                                }
                                 break;
-                            }
-                        case 'N': board->addPiece(Type::KNIGHT, Color::WHITE, 8 - (pos[1] - '0'), pos[0] - 'a'); break;
-                        case 'B': board->addPiece(Type::BISHOP, Color::WHITE, 8 - (pos[1] - '0'), pos[0] - 'a'); break;
-                        case 'R': board->addPiece(Type::ROOK, Color::WHITE, 8 - (pos[1] - '0'), pos[0] - 'a'); break;
-                        case 'Q': board->addPiece(Type::QUEEN, Color::WHITE, 8 - (pos[1] - '0'), pos[0] - 'a'); break;
-                        case 'P': 
-                            if (8 - (pos[1] - '0') == 0 || 8 - (pos[1] - '0') == boardLen - 1) {
-                                std::cout << "Pawn must not be on first or last row" << std::endl;
-                            }
-                            else {
-                                board->addPiece(Type::PAWN, Color::WHITE, 8 - (pos[1] - '0'), pos[0] - 'a'); break;
-                            }
-                        case 'k': 
-                            if (board->hasBlackKing) {
-                                std::cout << "Too many black kings" << std::endl;
-                            }
-                            else if (board->check4check(Color::BLACK)) {
-                                std::cout << "King cannot start on check" << std::endl;
-                            }
-                            else {
-                                board->addPiece(Type::KING, Color::BLACK, 8 - (pos[1] - '0'), pos[0] - 'a'); 
-                                board->hasBlackKing = true; 
+                            case 'N': board->addPiece(Type::KNIGHT, Color::WHITE, 8 - (pos[1] - '0'), pos[0] - 'a'); break;
+                            case 'B': board->addPiece(Type::BISHOP, Color::WHITE, 8 - (pos[1] - '0'), pos[0] - 'a'); break;
+                            case 'R': board->addPiece(Type::ROOK, Color::WHITE, 8 - (pos[1] - '0'), pos[0] - 'a'); break;
+                            case 'Q': board->addPiece(Type::QUEEN, Color::WHITE, 8 - (pos[1] - '0'), pos[0] - 'a'); break;
+                            case 'P': 
+                                if (8 - (pos[1] - '0') == 0 || 8 - (pos[1] - '0') == boardLen - 1) {
+                                    std::cout << "Pawn must not be on first or last row" << std::endl;
+                                }
+                                else {
+                                    board->addPiece(Type::PAWN, Color::WHITE, 8 - (pos[1] - '0'), pos[0] - 'a'); break;
+                                }
+                            case 'k': 
+                                if (board->hasBlackKing) {
+                                    std::cout << "Too many black kings" << std::endl;
+                                }
+                                /*else if (board->check4check(Color::BLACK)) {
+                                    std::cout << "King cannot start on check" << std::endl;
+                                }*/
+                                else {
+                                    board->addPiece(Type::KING, Color::BLACK, 8 - (pos[1] - '0'), pos[0] - 'a'); 
+                                    board->hasBlackKing = true; 
+                                }
                                 break;
-                            }
-                        case 'n': board->addPiece(Type::KNIGHT, Color::BLACK, 8 - (pos[1] - '0'), pos[0] - 'a'); break;
-                        case 'b': board->addPiece(Type::BISHOP, Color::BLACK, 8 - (pos[1] - '0'), pos[0] - 'a'); break;
-                        case 'r': board->addPiece(Type::ROOK, Color::BLACK, 8 - (pos[1] - '0'), pos[0] - 'a'); break;
-                        case 'q': board->addPiece(Type::QUEEN, Color::BLACK, 8 - (pos[1] - '0'), pos[0] - 'a'); break;
-                        case 'p': 
-                            if (8 - (pos[1] - '0') == 0 || 8 - (pos[1] - '0') == boardLen - 1) {
-                                std::cout << "Pawn must not be on first or last row" << std::endl;
-                            }
-                            else {
-                                board->addPiece(Type::PAWN, Color::BLACK, 8 - (pos[1] - '0'), pos[0] - 'a'); break;
-                            }
+                            case 'n': board->addPiece(Type::KNIGHT, Color::BLACK, 8 - (pos[1] - '0'), pos[0] - 'a'); break;
+                            case 'b': board->addPiece(Type::BISHOP, Color::BLACK, 8 - (pos[1] - '0'), pos[0] - 'a'); break;
+                            case 'r': board->addPiece(Type::ROOK, Color::BLACK, 8 - (pos[1] - '0'), pos[0] - 'a'); break;
+                            case 'q': board->addPiece(Type::QUEEN, Color::BLACK, 8 - (pos[1] - '0'), pos[0] - 'a'); break;
+                            case 'p': 
+                                if (8 - (pos[1] - '0') == 0 || 8 - (pos[1] - '0') == boardLen - 1) {
+                                    std::cout << "Pawn must not be on first or last row" << std::endl;
+                                }
+                                else {
+                                    board->addPiece(Type::PAWN, Color::BLACK, 8 - (pos[1] - '0'), pos[0] - 'a'); break;
+                                }
+                        }
+                    }
+                    else {
+                        std::cout << "Position is not empty, use '- <pos>' to clear" << std::endl;
                     }
                     board->notifyObservers();
                 }
                 else if (command == "-") {
                     std::string pos;
                     std::cin >> pos;
+                    Piece* pieceRm = nullptr;
+                    for (auto p : board->whitePieces) {
+                        if (p->getPos().x == 8 - (pos[1] - '0') && p->getPos().y == pos[0] - 'a') { pieceRm = p; break; }
+                    }
+                    for (auto p : board->blackPieces) {
+                        if (p->getPos().x == 8 - (pos[1] - '0') && p->getPos().y == pos[0] - 'a') { pieceRm = p; break; }
+                    }
+                    if (pieceRm != nullptr) {
+                        if (pieceRm->typeValue() == Type::KING) {
+                            if (pieceRm->getColor() == Color::WHITE) board->hasWhiteKing = false;
+                            else board->hasBlackKing = false;
+                        }
+                    }
                     board->removePiece(8 - (pos[1] - '0'), pos[0] - 'a');
                     board->notifyObservers();
                 }
                 else if (command == "=") {
                     std::string col;
                     std::cin >> col;
-                    if (col == "white" || col == "White" || col == "WHITE") board->whosTurn = Color::WHITE;
-                    else if (col == "black" || col == "Black" || col == "BLACK") board->whosTurn = Color::BLACK;
+                    if (col == "white" || col == "White" || col == "WHITE") { board->whosTurn = Color::WHITE; std::cout << "White goes first" << std::endl; }
+                    else if (col == "black" || col == "Black" || col == "BLACK") { board->whosTurn = Color::BLACK; std::cout << "Black goes first" << std::endl; }
+                    else std::cout << "Valid color inputs : white White WHITE black Black BLACK" << std::endl;
                 }
-                std::cin >> command;
+                else if (command == "done" && (!board->hasWhiteKing || !board->hasBlackKing )) {
+                    std::cout << "Need exactly 1 King of each color to exit setup" << std::endl;
+                    command = " ";
+                }
             }
             std::cout << "Setup Complete" << std::endl;
         }
@@ -152,13 +181,14 @@ int main() {
             while (command != "resign" && command != "checkmate") {
                 if (board->whosTurn == Color::WHITE) {
                     if (white == "human") {
+                        std::cout << "White Move (move <pos1> <pos2>) : " << std::endl;
                         std::string init, fin;
                         std::cin >> command >> init >> fin;
                         if (command == "move") {
                             while (true) {
-                                std::cout << "White Move (move <pos1> <pos2>) : " << std::endl;
                                 Piece* starter = nullptr;
                                 Piece* capturee = nullptr;
+                                //if (board->whiteMoves().empty()) std::cout << "hi" << std::endl;
                                 for (auto p : board->whiteMoves()) {
                                     char c;
                                     Type type = p->pieceMoved()->typeValue();
@@ -211,11 +241,11 @@ int main() {
                 }
                 else {
                     if (black == "human") {
+                        std::cout << "Black Move (move <pos1> <pos2>) : " << std::endl;
                         std::string init, fin;
                         std::cin >> command >> init >> fin;
                         if (command == "move") {
                             while (true) {
-                                std::cout << "Black Move (move <pos1> <pos2>) : ";
                                 Piece* starter = nullptr;
                                 Piece* capturee = nullptr;
                                 for (auto p : board->blackPieces) {

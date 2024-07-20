@@ -3,7 +3,10 @@
 std::vector<Move*> Board::whiteMoves() {
      std::vector<Move*> whiteMoves;
      for (auto p : whitePieces) {
-        std::vector<Move*> pMoves;
+        std::vector<Move*> pMoves = p->moves();
+        for (auto t : pMoves) {
+            std::cout << t->initPos().x << " " << t->initPos().y << " " << t->finPos().x << " " << t->finPos().y << std::endl;
+        }
         whiteMoves.insert(end(whiteMoves), begin(pMoves), end(pMoves));
      }
      return whiteMoves;
@@ -12,7 +15,7 @@ std::vector<Move*> Board::whiteMoves() {
 std::vector<Move*> Board::blackMoves() {
      std::vector<Move*> blackMoves;
      for (auto p : blackPieces) {
-        std::vector<Move*> pMoves;
+        std::vector<Move*> pMoves = p->moves();
         blackMoves.insert(end(blackMoves), begin(pMoves), end(pMoves));
      }
      return blackMoves;
