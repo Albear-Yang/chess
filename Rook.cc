@@ -5,6 +5,8 @@ Rook::Rook(Board* board, Position pos, Color color)
     : Piece(board, pos, color, Type::ROOK) {}
 
 vector<Move*> Rook::moves(){
+    
+    std::cout << "its a rook time!! " << std::endl;
     vector<Move*> possibleMoves;
 
     vector<Piece*> allPieces;
@@ -16,7 +18,7 @@ vector<Move*> Rook::moves(){
     }  
 
     //checking right direction
-    for(int i = pos.x; i <= 8; ++i){
+    for(int i = pos.x; i < 8; ++i){
         //black
         Piece* capturablePiece = nullptr;
         Position temp = Position(i, pos.y);
@@ -92,7 +94,7 @@ vector<Move*> Rook::moves(){
         possibleMoves.push_back(tempMove);
     }
     //check for up
-    for(int i = pos.y; i <= 8; ++i){
+    for(int i = pos.y; i < 8; ++i){
         //black
         Piece* capturablePiece = nullptr;
         Position temp = Position(pos.x, i);
@@ -146,7 +148,7 @@ vector<Move*> Rook::canCapture(){
     }  
 
     //checking right direction
-    for(int i = pos.x; i <= 8; ++i){
+    for(int i = pos.x; i < 8; ++i){
         //black
         Piece* capturablePiece = nullptr;
         Position temp = Position(i, pos.y);
@@ -215,7 +217,7 @@ vector<Move*> Rook::canCapture(){
             break;
         }
     }
-    for(int i = pos.y; i <= 8; ++i){
+    for(int i = pos.y; i < 8; ++i){
         //black
         Piece* capturablePiece = nullptr;
         Position temp = Position(pos.x, i);

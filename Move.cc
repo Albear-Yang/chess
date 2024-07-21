@@ -37,6 +37,6 @@ Move::~Move() {
     pieceCapturing = nullptr;
 }
 
-Move Move::reverseMove(Move m){
-    return Move(m.pieceMoving, nullptr, m.finalPos, m.initialPos);
+Move Move::reverseMove(){
+    return Move(pieceMoving, nullptr, finalPos, initialPos);
 }

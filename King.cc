@@ -20,7 +20,7 @@ vector<Move*> King::moves(){
             if(x == 0 && y == 0){
                 continue;
             }
-            if(pos.x + x <= 8 && pos.x + x >= 0 && pos.y + y <= 8 && pos.y + y <= 8){
+            if(pos.x + x < 8 && pos.x + x >= 0 && pos.y + y < 8 && pos.y + y < 8){
                 Position tempPos = Position(pos.x + x, pos.y + y);
 
                 for(int z = 0; z < allPieces.size(); ++z){
@@ -69,7 +69,7 @@ vector<Move*> King::canCapture(){
 
     for(int x = -1; x < 2; x++){
         for(int y = -1; y < 2; y++){
-            if(pos.x + x <= 8 && pos.x + x >= 0 && pos.y + y <= 8 && pos.y + y <= 8){
+            if(pos.x + x < 8 && pos.x + x >= 0 && pos.y + y < 8 && pos.y + y < 8){
                 Position tempPos = Position(pos.x + x, pos.y + y);
                 
                 for(int z = 0; z < allPieces.size(); ++z){

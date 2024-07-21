@@ -16,7 +16,7 @@ public:
     Move& operator=(const Move& other);
     Move(Move && other);
     Move& operator=(Move&& other);
-    Move reverseMove(Move m);
+    Move reverseMove();
     ~Move();
     Piece* pieceMoved(){
         return pieceMoving;

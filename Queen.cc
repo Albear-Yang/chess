@@ -14,9 +14,9 @@ vector<Move*> Queen::moves(){
     for(int z = 0; z < board->whitePieces.size(); ++z){
         allPieces.push_back(board->whitePieces[z]);
     }  
-
+    //remember to remove
     //checking right direction
-    for(int i = pos.x; i <= 8; ++i){
+    for(int i = pos.x; i < 8; ++i){
         //black
         Piece* capturablePiece = nullptr;
         Position temp = Position(i, pos.y);
@@ -92,7 +92,7 @@ vector<Move*> Queen::moves(){
         possibleMoves.push_back(tempMove);
     }
     //check for up
-    for(int i = pos.y; i <= 8; ++i){
+    for(int i = pos.y; i < 8; ++i){
         //black
         Piece* capturablePiece = nullptr;
         Position temp = Position(pos.x, i);
@@ -116,7 +116,7 @@ vector<Move*> Queen::moves(){
         Move *tempMove = new Move(this, nullptr, pos, temp);
         possibleMoves.push_back(tempMove);
     }
-    for(Position i = Position(pos.x, pos.y); pos.x <= 8 && pos.y <= 8; i.tr()){
+    for(Position i = Position(pos.x, pos.y); pos.x < 8 && pos.y < 8; i.tr()){
         Piece* capturablePiece = nullptr;
         bool validMove = true;
         bool noPieceBetween = false;
@@ -158,7 +158,7 @@ vector<Move*> Queen::moves(){
         Move *tempMove = new Move(this, nullptr, pos, i);
         possibleMoves.push_back(tempMove);
     }
-    for(Position i = Position(pos.x, pos.y); pos.x <= 8 && pos.y >=0; i.br()){
+    for(Position i = Position(pos.x, pos.y); pos.x < 8 && pos.y >=0; i.br()){
         Piece* capturablePiece = nullptr;
         bool validMove = true;
         bool noPieceBetween = false;
@@ -179,7 +179,7 @@ vector<Move*> Queen::moves(){
         Move *tempMove = new Move(this, nullptr, pos, i);
         possibleMoves.push_back(tempMove);
     }
-    for(Position i = Position(pos.x, pos.y); pos.x >= 0 && pos.y <= 8; i.tl()){
+    for(Position i = Position(pos.x, pos.y); pos.x >= 0 && pos.y < 8; i.tl()){
         Piece* capturablePiece = nullptr;
         bool validMove = true;
         bool noPieceBetween = false;
@@ -210,7 +210,9 @@ vector<Move*> Queen::moves(){
         }
         board->undo();
     }
+    cout << "end" << endl;
     //
+    cout << possibleMoves.size() << endl;
     return possibleMoves;
 }
 
@@ -230,7 +232,7 @@ vector<Move*> Queen::canCapture(){
     }  
 
     //checking right direction
-    for(int i = pos.x; i <= 8; ++i){
+    for(int i = pos.x; i < 8; ++i){
         //black
         Piece* capturablePiece = nullptr;
         Position temp = Position(i, pos.y);
@@ -300,7 +302,7 @@ vector<Move*> Queen::canCapture(){
         }
     }
     //check for up
-    for(int i = pos.y; i <= 8; ++i){
+    for(int i = pos.y; i < 8; ++i){
         //black
         Piece* capturablePiece = nullptr;
         Position temp = Position(pos.x, i);
@@ -322,7 +324,7 @@ vector<Move*> Queen::canCapture(){
             break;
         }
     }
-    for(Position i = Position(pos.x, pos.y); pos.x <= 8 && pos.y <= 8; i.tr()){
+    for(Position i = Position(pos.x, pos.y); pos.x < 8 && pos.y < 8; i.tr()){
         Piece* capturablePiece = nullptr;
         bool validMove = true;
         bool noPieceBetween = false;
@@ -360,7 +362,7 @@ vector<Move*> Queen::canCapture(){
             break;
         }
     }
-    for(Position i = Position(pos.x, pos.y); pos.x <= 8 && pos.y >=0; i.br()){
+    for(Position i = Position(pos.x, pos.y); pos.x < 8 && pos.y >=0; i.br()){
         Piece* capturablePiece = nullptr;
         bool validMove = true;
         bool noPieceBetween = false;
@@ -379,7 +381,7 @@ vector<Move*> Queen::canCapture(){
             break;
         }
     }
-    for(Position i = Position(pos.x, pos.y); pos.x >= 0 && pos.y <= 8; i.tl()){
+    for(Position i = Position(pos.x, pos.y); pos.x >= 0 && pos.y < 8; i.tl()){
         Piece* capturablePiece = nullptr;
         bool validMove = true;
         bool noPieceBetween = false;

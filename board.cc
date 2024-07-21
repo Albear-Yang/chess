@@ -1,15 +1,19 @@
 #include "Board.h"
 
 std::vector<Move*> Board::whiteMoves() {
-     std::vector<Move*> whiteMoves;
-     for (auto p : whitePieces) {
+    std::vector<Move*> whiteMoves;
+    for (auto p : whitePieces) {
+        std::cout << whitePieces.size() << std::endl;
         std::vector<Move*> pMoves = p->moves();
+        //remember to remove
+        std::cout << pMoves.size() << std::endl;
         for (auto t : pMoves) {
             std::cout << t->initPos().x << " " << t->initPos().y << " " << t->finPos().x << " " << t->finPos().y << std::endl;
         }
         whiteMoves.insert(end(whiteMoves), begin(pMoves), end(pMoves));
-     }
-     return whiteMoves;
+    }
+    std::cout << whiteMoves.size() << std::endl;
+    return whiteMoves;
 }
 
 std::vector<Move*> Board::blackMoves() {
@@ -67,7 +71,7 @@ bool Board::check4check(Color king) {
             }
         }
         for (auto p : blackPieces) {
-            for (auto move : p->moves()) {
+            for (auto move : p->canCapture()) {
                 if (k->positionXValue() == move->finPos().x && k->positionYValue() == move->finPos().y) {
                     return true;
                 }
@@ -82,7 +86,7 @@ bool Board::check4check(Color king) {
             }
         }
         for (auto p : whitePieces) {
-            for (auto move : p->moves()) {
+            for (auto move : p->canCapture()) {
                 if (k->positionXValue() == move->finPos().x && k->positionYValue() == move->finPos().y) {
                     return true;
                 }
@@ -100,9 +104,9 @@ void Board::addMove(Move* move) {
     else {
         whosTurn == Color::WHITE;
     }
-    removePiece(pieceMoved);
+    //removePiece(pieceMoved);
     pieceMoved->movePos(move->finPos().x, move->finPos().y);
-    addPiece(pieceMoved);
+    //addPiece(pieceMoved);
     pastMoves.emplace_back(move);
 }
 
@@ -116,7 +120,11 @@ void Board::undo() {
     Move* undoMove = pastMoves.back();
     pastMoves.pop_back();
     Piece* pieceMoved = undoMove->pieceMoved();
-    removePiece(pieceMoved);
+    Move reverse = undoMove->reverseMove();
+    addMove(&reverse);
+    pastMoves.pop_back();
+    //removePiece(pieceMoved);
+    /*
     if (pieceMoved->getColor() == Color::WHITE) {
         Move* lastMove = nullptr;
         for (auto p : pastMoves) {
@@ -157,6 +165,7 @@ void Board::undo() {
             addPiece(pieceMoved);
         }
     }
+    */
 }
 
 void Board::addPiece(Piece* piece) {
