@@ -1,4 +1,4 @@
-#ifdef G
+/*
 #ifndef GRAPHICSDISPLAY_H
 #define GRAPHICSDISPLAY_H
 #include "Board.h"
@@ -15,4 +15,4 @@ public:
 };
 
 #endif 
-#endif
+*/

@@ -1,14 +1,11 @@
-//#define G
+
 #include <iostream>
 #include <vector>
 #include "Board.h"
 #include "Enums.h"
 #include "Computer.h"
 
-
-#ifdef G
-#include "GraphicDisplay.h"
-#endif
+//#include "GraphicDisplay.h"
 
 #include "TextDisplay.h"
 #include <string>
@@ -17,9 +14,7 @@ int main() {
     Board* board = new Board;
     int boardLen = board->boardLength();
     TextDisplay* Text = new TextDisplay(board);
-    #ifdef G
-    GraphicsDisplay* Graphic = new GraphicsDisplay(board, new Xwindow{50*(2 + boardLen), 50*(1 + boardLen)});
-    #endif
+    //GraphicsDisplay* Graphic = new GraphicsDisplay(board, new Xwindow{50*(2 + boardLen), 50*(1 + boardLen)});
 
     std::string command;
     while (std::cin >> command) {
@@ -194,7 +189,6 @@ int main() {
                 else if (type == Type::KNIGHT) board->startingBlackPieces.emplace_back(new Knight(board, *new Position{p->positionXValue(), p->positionYValue()}, p->getColor()));
                 else if (type == Type::PAWN) board->startingBlackPieces.emplace_back(new Pawn(board, *new Position{p->positionXValue(), p->positionYValue()}, p->getColor()));
             }
-            board->round1 = false;
             std::string white, black;
             std::cin >> white >> black;
             while (command != "resign" && command != "checkmate") {
@@ -365,6 +359,9 @@ int main() {
                     }
                 }
                 board->notifyObservers();
+                //for (auto m : board->pastMoves) {
+                //    std::cout << m->initPos().x << " " << m->initPos().y << " " << m->finPos().x << " " << m->finPos().y << ", "<< std::endl;
+                //}
                 board->round1 = false;
                 if (board->checkmate()) {
                     command = "checkmate";
@@ -385,7 +382,5 @@ int main() {
     std::cout << "White: " << board->whiteScore << std::endl;
     std::cout << "Black: " << board->blackScore << std::endl;
     delete Text;
-    #ifdef G
-    delete Graphic;
-    #endif
+    //delete Graphic;
 }
