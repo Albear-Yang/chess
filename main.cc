@@ -175,7 +175,7 @@ int main() {
             std::cout << "Setup Complete" << std::endl;
         }
         else if (command == "game") {
-            board->notifyObservers();
+            //board->notifyObservers();
             for (auto p : board->whitePieces) {
                 Type type = p->typeValue();
                 if (type == Type::ROOK) board->startingWhitePieces.emplace_back(new Rook(board, *new Position{p->positionXValue(), p->positionYValue()}, p->getColor()));
@@ -194,7 +194,7 @@ int main() {
                 else if (type == Type::KNIGHT) board->startingBlackPieces.emplace_back(new Knight(board, *new Position{p->positionXValue(), p->positionYValue()}, p->getColor()));
                 else if (type == Type::PAWN) board->startingBlackPieces.emplace_back(new Pawn(board, *new Position{p->positionXValue(), p->positionYValue()}, p->getColor()));
             }
-            board->round1 = true;
+            board->round1 = false;
             std::string white, black;
             std::cin >> white >> black;
             while (command != "resign" && command != "checkmate") {
