@@ -5,20 +5,20 @@ std::vector<Move*> Board::whiteMoves() {
     
     for (int z = 0; z < whitePieces.size(); ++z) {
         //std::cout << whitePieces.size() << std::endl;
-        /*char c;
+        char c;
         Type type = whitePieces[z]->typeValue();
         if (type == Type::BISHOP) c = 'B';
         else if (type == Type::KNIGHT) c = 'N';
         else if (type == Type::PAWN) c = 'P';
         else if (type == Type::ROOK) c = 'R';
         else if (type == Type::QUEEN) c = 'Q';
-        else if (type == Type::KING) c = 'K';*/
+        else if (type == Type::KING) c = 'K';
         std::vector<Move*> pMoves = whitePieces[z]->moves();
 
-        //std::cout << c << " size " << pMoves.size() << std::endl;
-        //for (auto t : pMoves) {
-        //    std::cout << t->initPos().x << " " << t->initPos().y << " " << t->finPos().x << " " << t->finPos().y << std::endl;
-        //}
+        std::cout << c << " size " << pMoves.size() << std::endl;
+        for (auto t : pMoves) {
+            std::cout << t->initPos().x << " " << t->initPos().y << " " << t->finPos().x << " " << t->finPos().y << std::endl;
+        }
         whiteMoves.insert(end(whiteMoves), begin(pMoves), end(pMoves));
     }
     //std::cout << whiteMoves.size() << std::endl;
@@ -29,7 +29,7 @@ std::vector<Move*> Board::blackMoves() {
     std::vector<Move*> blackMoves;
     for (int z = 0; z < blackPieces.size(); ++z) {
         //std::cout << whitePieces.size() << std::endl;
-        /*char c;
+        char c;
         Type type = blackPieces[z]->typeValue();
         if (type == Type::BISHOP) c = 'b';
         else if (type == Type::KNIGHT) c = 'n';
@@ -37,13 +37,13 @@ std::vector<Move*> Board::blackMoves() {
         else if (type == Type::ROOK) c = 'r';
         else if (type == Type::QUEEN) c = 'q';
         else if (type == Type::KING) c = 'k';
-        std::cout << c << " size ";*/
+        std::cout << c << " size ";
         std::vector<Move*> pMoves = blackPieces[z]->moves();
         //remember to remove
-        //std::cout << pMoves.size() << std::endl;
-        //for (auto t : pMoves) {
-        //    std::cout << t->initPos().x << " " << t->initPos().y << " " << t->finPos().x << " " << t->finPos().y << std::endl;
-        //}
+        std::cout << pMoves.size() << std::endl;
+        for (auto t : pMoves) {
+            std::cout << t->initPos().x << " " << t->initPos().y << " " << t->finPos().x << " " << t->finPos().y << std::endl;
+        }
         blackMoves.insert(end(blackMoves), begin(pMoves), end(pMoves));
     }
     //std::cout << whiteMoves.size() << std::endl;
@@ -161,7 +161,7 @@ void Board::undo() {
             }
             pieceMoved->movePos(piece->positionXValue(), piece->positionYValue());
             if (pieceMoved->typeValue() == Type::PAWN || pieceMoved->typeValue() == Type::ROOK || pieceMoved->typeValue() == Type::KING) {
-                pieceMoved->has_moved = true;
+                pieceMoved->has_moved = false;
             }
         }
     }
@@ -182,7 +182,7 @@ void Board::undo() {
             }
             pieceMoved->movePos(piece->positionXValue(), piece->positionYValue());
             if (pieceMoved->typeValue() == Type::PAWN || pieceMoved->typeValue() == Type::ROOK || pieceMoved->typeValue() == Type::KING) {
-                pieceMoved->has_moved = true;
+                pieceMoved->has_moved = false;
             }
         }
     }
