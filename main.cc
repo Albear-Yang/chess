@@ -3,7 +3,12 @@
 #include "Board.h"
 #include "Enums.h"
 #include "Computer.h"
-//#include "GraphicDisplay.h"
+//#define G
+
+#ifdef G
+#include "GraphicDisplay.h"
+#endif
+
 #include "TextDisplay.h"
 #include <string>
 
@@ -11,7 +16,9 @@ int main() {
     Board* board = new Board;
     int boardLen = board->boardLength();
     TextDisplay* Text = new TextDisplay(board);
-    //GraphicsDisplay* Graphic = new GraphicsDisplay(board, new Xwindow{50*(2 + boardLen), 50*(1 + boardLen)});
+    #ifdef G
+    GraphicsDisplay* Graphic = new GraphicsDisplay(board, new Xwindow{50*(2 + boardLen), 50*(1 + boardLen)});
+    #endif
 
     std::string command;
     while (std::cin >> command) {
@@ -377,5 +384,7 @@ int main() {
     std::cout << "White: " << board->whiteScore << std::endl;
     std::cout << "Black: " << board->blackScore << std::endl;
     delete Text;
-    //delete Graphic;
+    #ifdef G
+    delete Graphic;
+    #endif
 }
