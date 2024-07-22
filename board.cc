@@ -2,10 +2,12 @@
 
 std::vector<Move*> Board::whiteMoves() {
     std::vector<Move*> whiteMoves;
-    
+    //setup test game human human move a7 a8 Q move e8 e7 move a8 a6 move e7 f8 move h1 h7 move f8 g8 move a6 a8
     for (int z = 0; z < whitePieces.size(); ++z) {
+        std::vector<Move*> pMoves = whitePieces[z]->moves();
+        //std::cout << " size " << pMoves.size() << std::endl;
         //std::cout << whitePieces.size() << std::endl;
-        char c;
+        /*char c;
         Type type = whitePieces[z]->typeValue();
         if (type == Type::BISHOP) c = 'B';
         else if (type == Type::KNIGHT) c = 'N';
@@ -13,13 +15,85 @@ std::vector<Move*> Board::whiteMoves() {
         else if (type == Type::ROOK) c = 'R';
         else if (type == Type::QUEEN) c = 'Q';
         else if (type == Type::KING) c = 'K';
-        std::vector<Move*> pMoves = whitePieces[z]->moves();
-
         std::cout << c << " size " << pMoves.size() << std::endl;
         for (auto t : pMoves) {
             std::cout << t->initPos().x << " " << t->initPos().y << " " << t->finPos().x << " " << t->finPos().y << std::endl;
-        }
+        }*/
         whiteMoves.insert(end(whiteMoves), begin(pMoves), end(pMoves));
+    }
+    Piece* r1 = nullptr;
+    Piece* r2 = nullptr;
+    Piece* k = nullptr;
+    for (auto p : whitePieces) {
+        if (p->typeValue() == Type::ROOK) {
+            if (r1 == nullptr) {
+                r1 = p;
+            }
+            else {
+                r2 = p;
+            }
+        }
+        if (p->typeValue() == Type::KING) {
+            k = p;
+        }
+        if (r1 != nullptr && r2 != nullptr && k != nullptr) break;
+    }
+    bool pass = true;
+    int i1, j1, i2, j2, ri1, ri2, rj1, rj2;
+    if (r1 != nullptr) {
+        if (r1->getPos().x == 7 && r1->getPos().y == 0 && k->getPos().x == 7 && k->getPos().y == 4 && empty(7, 1) && empty(7, 2) && empty(7, 3)) {
+            i1 = 7; j1 = 4; i2 = 7; j2 = 2; ri1 = 7; rj1 = 0; ri2 = 7; rj2 = 3;
+            if (!r1->has_moved && !k->has_moved) {
+                for (auto m : blackMoves()) {
+                    if ((m->finPos().x == 7 && m->finPos().y == 4) || (m->finPos().x == 7 && m->finPos().y == 3) || (m->finPos().x == 7 && m->finPos().y == 2)) {
+                        pass = false;
+                    }
+                }
+            }
+        }
+        else if (r1->getPos().x == 7 && r1->getPos().y == 7 && k->getPos().x == 7 && k->getPos().y == 4 && empty(7, 5) && empty(7, 6)) {
+            i1 = 7; j1 = 4; i2 = 7; j2 = 6; ri1 = 7; rj1 = 7; ri2 = 7; rj2 = 5;
+            if (!r1->has_moved && !k->has_moved) {
+                for (auto m : blackMoves()) {
+                    if ((m->finPos().x == 7 && m->finPos().y == 4) || (m->finPos().x == 7 && m->finPos().y == 5) || (m->finPos().x == 7 && m->finPos().y == 6)) {
+                        pass = false;
+                    }
+                }
+            }
+        }
+    }
+    if (pass && r1 != nullptr) {
+        Move* castling = new Move{k, nullptr, *new Position{i1, j1}, *new Position{i2, j2}};
+        castling->castle = new Move{r1, nullptr, *new Position{ri1, rj1}, *new Position{ri2, rj2}};
+        whiteMoves.emplace_back(castling);
+    }
+    
+    if (r2 != nullptr) {
+        if (r2->getPos().x == 7 && r2->getPos().y == 0 && k->getPos().x == 7 && k->getPos().y == 4 && empty(7, 1) && empty(7, 2) && empty(7, 3)) {
+            i1 = 7; j1 = 4; i2 = 7; j2 = 2; ri1 = 7; rj1 = 0; ri2 = 7; rj2 = 3;
+            if (!r2->has_moved && !k->has_moved) {
+                for (auto m : blackMoves()) {
+                    if ((m->finPos().x == 7 && m->finPos().y == 4) || (m->finPos().x == 7 && m->finPos().y == 3) || (m->finPos().x == 7 && m->finPos().y == 2)) {
+                        pass = false;
+                    }
+                }
+            }
+        }
+        else if (r2->getPos().x == 7 && r2->getPos().y == 7 && k->getPos().x == 7 && k->getPos().y == 4 && empty(7, 5) && empty(7, 6)) {
+            i1 = 7; j1 = 4; i2 = 7; j2 = 6; ri1 = 7; rj1 = 7; ri2 = 7; rj2 = 5;
+            if (!r2->has_moved && !k->has_moved) {
+                for (auto m : blackMoves()) {
+                    if ((m->finPos().x == 7 && m->finPos().y == 4) || (m->finPos().x == 7 && m->finPos().y == 5) || (m->finPos().x == 7 && m->finPos().y == 6)) {
+                        pass = false;
+                    }
+                }
+            }
+        }
+    }
+    if (pass && r2 != nullptr) {
+        Move* castling = new Move{k, nullptr, *new Position{i1, j1}, *new Position{i2, j2}};
+        castling->castle = new Move{r2, nullptr, *new Position{ri1, rj1}, *new Position{ri2, rj2}};
+        whiteMoves.emplace_back(castling);
     }
     //std::cout << whiteMoves.size() << std::endl;
     return whiteMoves;
@@ -28,8 +102,10 @@ std::vector<Move*> Board::whiteMoves() {
 std::vector<Move*> Board::blackMoves() {
     std::vector<Move*> blackMoves;
     for (int z = 0; z < blackPieces.size(); ++z) {
+        std::vector<Move*> pMoves = blackPieces[z]->moves();
+        //std::cout << " size " << pMoves.size() << std::endl;
         //std::cout << whitePieces.size() << std::endl;
-        char c;
+        /*char c;
         Type type = blackPieces[z]->typeValue();
         if (type == Type::BISHOP) c = 'b';
         else if (type == Type::KNIGHT) c = 'n';
@@ -38,13 +114,82 @@ std::vector<Move*> Board::blackMoves() {
         else if (type == Type::QUEEN) c = 'q';
         else if (type == Type::KING) c = 'k';
         std::cout << c << " size ";
-        std::vector<Move*> pMoves = blackPieces[z]->moves();
+        
         //remember to remove
         std::cout << pMoves.size() << std::endl;
         for (auto t : pMoves) {
             std::cout << t->initPos().x << " " << t->initPos().y << " " << t->finPos().x << " " << t->finPos().y << std::endl;
-        }
+        }*/
         blackMoves.insert(end(blackMoves), begin(pMoves), end(pMoves));
+    }
+    Piece* r1 = nullptr;
+    Piece* r2 = nullptr;
+    Piece* k = nullptr;
+    for (auto p : blackPieces) {
+        if (p->typeValue() == Type::ROOK) {
+            if (r1 == nullptr) {
+                r1 = p;
+            }
+            else r2 = p;
+        }
+        if (p->typeValue() == Type::KING) k = p;
+        if (r1 != nullptr && r2 != nullptr && k != nullptr) break;
+    }
+    bool pass = true;
+    int i1, j1, i2, j2, ri1, ri2, rj1, rj2;
+    if (r1 != nullptr) {
+        if (r1->getPos().x == 0 && r1->getPos().y == 0 && k->getPos().x == 0 && k->getPos().y == 4 && empty(0, 1) && empty(0, 2) && empty(0, 3)) {
+            i1 = 0; j1 = 4; i2 = 0; j2 = 2; ri1 = 0; rj1 = 0; ri2 = 0; rj2 = 3;
+            if (!r1->has_moved && !k->has_moved) {
+                for (auto m : whiteMoves()) {
+                    if ((m->finPos().x == 0 && m->finPos().y == 4) || (m->finPos().x == 0 && m->finPos().y == 3) || (m->finPos().x == 0 && m->finPos().y == 2)) {
+                        pass = false;
+                    }
+                }
+            }
+        }
+        else if (r1->getPos().x == 0 && r1->getPos().y == 0 && k->getPos().x == 0 && k->getPos().y == 4 && empty(0, 5) && empty(0, 6)) {
+            i1 = 0; j1 = 4; i2 = 0; j2 = 6; ri1 = 0; rj1 = 0; ri2 = 0; rj2 = 5;
+            if (!r1->has_moved && !k->has_moved) {
+                for (auto m : whiteMoves()) {
+                    if ((m->finPos().x == 0 && m->finPos().y == 4) || (m->finPos().x == 0 && m->finPos().y == 5) || (m->finPos().x == 0 && m->finPos().y == 6)) {
+                        pass = false;
+                    }
+                }
+            }
+        }
+    }
+    if (pass && r1 != nullptr) {
+        Move* castling = new Move{k, nullptr, *new Position{i1, j1}, *new Position{i2, j2}};
+        castling->castle = new Move{r1, nullptr, *new Position{ri1, rj1}, *new Position{ri2, rj2}};
+        blackMoves.emplace_back(castling);
+    }
+    if (r2 != nullptr) {
+        if (r2->getPos().x == 0 && r2->getPos().y == 0 && k->getPos().x == 0 && k->getPos().y == 4 && empty(0, 1) && empty(0, 2) && empty(0, 3)) {
+            i1 = 0; j1 = 4; i2 = 0; j2 = 2; ri1 = 0; rj1 = 0; ri2 = 0; rj2 = 3;
+            if (!r2->has_moved && !k->has_moved) {
+                for (auto m : whiteMoves()) {
+                    if ((m->finPos().x == 0 && m->finPos().y == 4) || (m->finPos().x == 0 && m->finPos().y == 3) || (m->finPos().x == 0 && m->finPos().y == 2)) {
+                        pass = false;
+                    }
+                }
+            }
+        }
+        else if (r2->getPos().x == 0 && r2->getPos().y == 0 && k->getPos().x == 0 && k->getPos().y == 4 && empty(0, 5) && empty(0, 6)) {
+            i1 = 0; j1 = 4; i2 = 0; j2 = 6; ri1 = 0; rj1 = 0; ri2 = 0; rj2 = 5;
+            if (!r2->has_moved && !k->has_moved) {
+                for (auto m : whiteMoves()) {
+                    if ((m->finPos().x == 0 && m->finPos().y == 4) || (m->finPos().x == 0 && m->finPos().y == 5) || (m->finPos().x == 0 && m->finPos().y == 6)) {
+                        pass = false;
+                    }
+                }
+            }
+        }
+    }
+    if (pass && r2 != nullptr) {
+        Move* castling = new Move{k, nullptr, *new Position{i1, j1}, *new Position{i2, j2}};
+        castling->castle = new Move{r2, nullptr, *new Position{ri1, rj1}, *new Position{ri2, rj2}};
+        blackMoves.emplace_back(castling);
     }
     //std::cout << whiteMoves.size() << std::endl;
     return blackMoves;
@@ -70,7 +215,27 @@ bool Board::draw() {
     return false;
 }
 
+bool Board::empty(int x, int y) {
+    for (auto p : whitePieces) {
+        if (p->getPos().x == x && p->getPos().y == y) return false;
+    }
+    for (auto p : blackPieces) {
+        if (p->getPos().x == x && p->getPos().y == y) return false;
+    }
+    return true;
+}
+
 bool Board::checkmate() {
+    if (!check4check(Color::WHITE)) return false;
+    if (!check4check(Color::BLACK)) return false;
+    if (whosTurn == Color::WHITE) {
+        if (whiteMoves().empty()) return true;
+    }
+    else if (blackMoves().empty()) return true;
+    return false;
+}
+
+bool Board::stalemate() {
     if (whosTurn == Color::WHITE) {
         if (whiteMoves().empty()) return true;
     }
@@ -121,11 +286,30 @@ void Board::addMove(Move* move) {
         whosTurn == Color::WHITE;
     }
     //removePiece(pieceMoved);
+    /*char c;
+        Type type = pieceMoved->typeValue();
+        if (type == Type::BISHOP) c = 'B';
+        else if (type == Type::KNIGHT) c = 'N';
+        else if (type == Type::PAWN) c = 'P';
+        else if (type == Type::ROOK) c = 'R';
+        else if (type == Type::QUEEN) c = 'Q';
+        else if (type == Type::KING) c = 'K';
+        std::cout << c << std::endl;
+    std::cout << move->finPos().x << " " << move->finPos().y << std::endl;*/
+    //std::cout << pieceMoved->getPos().x << " " << pieceMoved->getPos().x << std::endl;
     pieceMoved->movePos(move->finPos().x, move->finPos().y);
+    //std::cout << pieceMoved->getPos().x << " " << pieceMoved->getPos().x << std::endl;
     //addPiece(pieceMoved);
     pastMoves.emplace_back(move);
-    if (pieceMoved->typeValue() == Type::PAWN) {
-        pieceMoved->has_moved == true;
+    if (move->castle != nullptr) {
+        std::cout << "KEK" << std::endl;
+        if (whosTurn == Color::WHITE) {
+            whosTurn == Color::BLACK;
+        }
+        else {
+            whosTurn == Color::WHITE;
+        }
+        addMove(move->castle);
     }
 }
 
@@ -184,6 +368,11 @@ void Board::undo() {
             if (pieceMoved->typeValue() == Type::PAWN || pieceMoved->typeValue() == Type::ROOK || pieceMoved->typeValue() == Type::KING) {
                 pieceMoved->has_moved = false;
             }
+        }
+    }
+    if (!pastMoves.empty()) {
+        if (pastMoves.back()->castle != nullptr) {
+            undo();
         }
     }
 }
@@ -308,37 +497,41 @@ void Board::removePiece(int x, int y) {
 int Board::boardLength() { return LEN_MAX; }
 
 void Board::clear() {
-    for (auto p : startingBlackPieces) {
-        delete p;
+    startingBlackPieces.clear();
+    startingWhitePieces.clear();
+    blackPieces.clear();
+    whitePieces.clear();
+    pastMoves.clear();
+    castling.clear();
+    hasWhiteKing = false;
+    hasBlackKing = false;
+    round1 = true;
+    whosTurn = Color::WHITE;
+    /*for (int i = 0; i < startingBlackPieces.size(); i++) {
+        startingBlackPieces.pop_back();
     }
-    for (auto p : startingWhitePieces) {
-        delete p;
+    for (int i = 0; i < startingWhitePieces.size(); i++) {
+        startingWhitePieces.pop_back();
     }
-    for (auto p : blackPieces) {
-        delete p;
+    for (int i = 0; i < whitePieces.size(); i++) {
+        whitePieces.pop_back();
     }
-    for (auto p : whitePieces) {
-        delete p;
+    for (int i = 0; i < blackPieces.size(); i++) {
+        blackPieces.pop_back();
     }
-    for (auto m : pastMoves) {
-        delete m;
+    for (int i = 0; i < pastMoves.size(); i++) {
+        pastMoves.pop_back();
     }
+    for (int i = 0; i < castling.size(); i++) {
+        castling.pop_back();
+    }*/
 }
 
 Board::~Board() {
-    for (auto p : startingBlackPieces) {
-        delete p;
-    }
-    for (auto p : startingWhitePieces) {
-        delete p;
-    }
-    for (auto p : blackPieces) {
-        delete p;
-    }
-    for (auto p : whitePieces) {
-        delete p;
-    }
-    for (auto m : pastMoves) {
-        delete m;
-    }
+    startingBlackPieces.clear();
+    startingWhitePieces.clear();
+    blackPieces.clear();
+    whitePieces.clear();
+    pastMoves.clear();
+    castling.clear();
 }

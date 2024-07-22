@@ -27,11 +27,14 @@ public:
     bool round1 = true;
     Color whosTurn = Color::WHITE;
     std::vector<Move*> pastMoves;
+    std::vector<Move*> castling;
 
     std::vector<Move*> whiteMoves(); 
     std::vector<Move*> blackMoves();
+    bool empty(int x, int y);
     bool check4checkMove(Color king, Move* move);
     bool draw();
+    bool stalemate();
     bool checkmate();
     bool check4check(Color king);
     void addPiece(Piece* piece);

@@ -11,6 +11,7 @@ class Move {
     Position initialPos;
     Position finalPos;
 public:
+    Move* castle = nullptr;
     Move(Piece* moving, Piece* captured, Position init, Position final);
     Move(const Move& other);
     Move& operator=(const Move& other);

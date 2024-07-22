@@ -19,7 +19,7 @@ class Piece {
         Color color;
         Position pos;
         bool has_moved = false;
-        Position* enpassable;
+        Position* enpassable = nullptr;
         Piece(Board* board, Position pos, Color color, Type type): board{board}, pos{pos}, color{color}, type{type} {}
         //Piece(const Piece& other): board{other.board}, pos{other.pos}, color{other.color}, type{type} {}
         ~Piece() = default;
