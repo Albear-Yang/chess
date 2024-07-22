@@ -10,7 +10,7 @@ public:
     bool has_moved;
 
     King(Board *board, Position pos, Color color);
-    std::vector<Move*> movesNoCheck() override {return *new std::vector<Move*>;}
+    std::vector<Move*> movesNoCheck() override;
     std::vector<Move *> moves() override;
     void move(Position pos) override;
     std::vector<Move *> canCapture() override;

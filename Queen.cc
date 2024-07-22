@@ -5,8 +5,8 @@ Queen::Queen(Board* board, Position pos, Color color)
     : Piece(board, pos, color, Type::QUEEN) {}
 
 vector<Move*> Queen::moves(){
+    enpassable = nullptr;
     vector<Move*> possibleMoves;
-std::cout << "OG " << pos.x << " " << pos.y << std::endl;
     vector<Piece*> allPieces;
     for(int z = 0; z < board->blackPieces.size(); ++z){
         allPieces.push_back(board->blackPieces[z]);
@@ -26,8 +26,8 @@ std::cout << "OG " << pos.x << " " << pos.y << std::endl;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
             if(temp == allPieces[z]->pos){
+                noPieceBetween = false;
                 if(allPieces[z]->color != color){
-                    noPieceBetween = false;
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -61,8 +61,8 @@ std::cout << "OG " << pos.x << " " << pos.y << std::endl;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
             if(temp == allPieces[z]->pos){
+                noPieceBetween = false;
                 if(allPieces[z]->color != color){
-                    noPieceBetween = false;
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -95,8 +95,8 @@ std::cout << "OG " << pos.x << " " << pos.y << std::endl;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
             if(temp == allPieces[z]->pos){
+                noPieceBetween = false;
                 if(allPieces[z]->color != color){
-                    noPieceBetween = false;
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -129,8 +129,8 @@ std::cout << "OG " << pos.x << " " << pos.y << std::endl;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
             if(temp == allPieces[z]->pos){
+                noPieceBetween = false;
                 if(allPieces[z]->color != color){
-                    noPieceBetween = false;
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -157,8 +157,8 @@ std::cout << "OG " << pos.x << " " << pos.y << std::endl;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
             if(x == allPieces[z]->pos.x && y == allPieces[z]->pos.y){
+                noPieceBetween = false;
                 if(allPieces[z]->color != color){
-                    noPieceBetween = false;
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -185,8 +185,8 @@ std::cout << "OG " << pos.x << " " << pos.y << std::endl;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
             if(x == allPieces[z]->pos.x && y == allPieces[z]->pos.y){
+                noPieceBetween = false;
                 if(allPieces[z]->color != color){
-                    noPieceBetween = false;
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -213,8 +213,8 @@ std::cout << "OG " << pos.x << " " << pos.y << std::endl;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
             if(x == allPieces[z]->pos.x && y == allPieces[z]->pos.y){
+                noPieceBetween = false;
                 if(allPieces[z]->color != color){
-                    noPieceBetween = false;
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -241,8 +241,8 @@ std::cout << "OG " << pos.x << " " << pos.y << std::endl;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
             if(x == allPieces[z]->pos.x && y == allPieces[z]->pos.y){
+                noPieceBetween = false;
                 if(allPieces[z]->color != color){
-                    noPieceBetween = false;
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -384,23 +384,20 @@ std::cout << "OG " << pos.x << " " << pos.y << std::endl;
         Move *tempMove = new Move(this, nullptr, pos, i);
         possibleMoves.push_back(tempMove);
     }*/
-    std::cout << possibleMoves.size() << std::endl;
-    for(int i = 0; i < possibleMoves.size();){
-        if (board->check4checkMove(color, possibleMoves[i])) {
-            possibleMoves.erase(possibleMoves.begin() + i);
+    for(auto i = possibleMoves.begin(); i != possibleMoves.end();){
+        if (board->check4checkMove(color, *i)) {
+            possibleMoves.erase(i);
         }
         else{
             i++;
         }
     }
-    std::cout << possibleMoves.size() << std::endl;
     //
     return possibleMoves;
 }
 
 std::vector<Move*> Queen::movesNoCheck(){
     vector<Move*> possibleMoves;
-std::cout << "OG " << pos.x << " " << pos.y << std::endl;
     vector<Piece*> allPieces;
     for(int z = 0; z < board->blackPieces.size(); ++z){
         allPieces.push_back(board->blackPieces[z]);
@@ -420,8 +417,8 @@ std::cout << "OG " << pos.x << " " << pos.y << std::endl;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
             if(temp == allPieces[z]->pos){
+                noPieceBetween = false;
                 if(allPieces[z]->color != color){
-                    noPieceBetween = false;
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -455,8 +452,8 @@ std::cout << "OG " << pos.x << " " << pos.y << std::endl;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
             if(temp == allPieces[z]->pos){
+                noPieceBetween = false;
                 if(allPieces[z]->color != color){
-                    noPieceBetween = false;
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -489,8 +486,8 @@ std::cout << "OG " << pos.x << " " << pos.y << std::endl;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
             if(temp == allPieces[z]->pos){
+                noPieceBetween = false;
                 if(allPieces[z]->color != color){
-                    noPieceBetween = false;
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -523,8 +520,8 @@ std::cout << "OG " << pos.x << " " << pos.y << std::endl;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
             if(temp == allPieces[z]->pos){
+                noPieceBetween = false;
                 if(allPieces[z]->color != color){
-                    noPieceBetween = false;
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -551,8 +548,8 @@ std::cout << "OG " << pos.x << " " << pos.y << std::endl;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
             if(x == allPieces[z]->pos.x && y == allPieces[z]->pos.y){
+                noPieceBetween = false;
                 if(allPieces[z]->color != color){
-                    noPieceBetween = false;
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -579,8 +576,8 @@ std::cout << "OG " << pos.x << " " << pos.y << std::endl;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
             if(x == allPieces[z]->pos.x && y == allPieces[z]->pos.y){
+                noPieceBetween = false;
                 if(allPieces[z]->color != color){
-                    noPieceBetween = false;
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -607,8 +604,8 @@ std::cout << "OG " << pos.x << " " << pos.y << std::endl;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
             if(x == allPieces[z]->pos.x && y == allPieces[z]->pos.y){
+                noPieceBetween = false;
                 if(allPieces[z]->color != color){
-                    noPieceBetween = false;
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -635,8 +632,8 @@ std::cout << "OG " << pos.x << " " << pos.y << std::endl;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
             if(x == allPieces[z]->pos.x && y == allPieces[z]->pos.y){
+                noPieceBetween = false;
                 if(allPieces[z]->color != color){
-                    noPieceBetween = false;
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }

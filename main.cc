@@ -59,8 +59,10 @@ int main() {
                 else if (command == "test") {
                     board->addPiece(Type::KING, Color::WHITE, 7, 4);
                     board->addPiece(Type::KING, Color::BLACK, 0, 4);
-                    board->addPiece(Type::QUEEN, Color::BLACK, 1, 4);
-                    board->addPiece(Type::QUEEN, Color::WHITE, 6, 4);
+                    board->addPiece(Type::ROOK, Color::WHITE, 7, 0);
+                    board->addPiece(Type::ROOK, Color::WHITE, 1, 7);
+                    board->addPiece(Type::ROOK, Color::BLACK, 6, 7);
+                    board->addPiece(Type::ROOK, Color::BLACK, 5, 7);
                     board->hasBlackKing = true;
                     board->hasWhiteKing = true;
                     command = "done";
@@ -216,12 +218,13 @@ int main() {
                                     else if (type == Type::KING) c = 'K';
                                     std::cout << c << " " << p->initPos().x << " " << p->initPos().y << " " << p->finPos().x << " " << p->finPos().y << std::endl;
                                 }*/
-                                //std::cout << " checkp 1" << std::endl;
+                                //std::cout << board->whitePieces.size() << std::endl;
                                 for (auto p : board->whitePieces) {
                                     //std::cout << 8 - init[1] + '0' << " " << init[0] - 'a' << std::endl;
                                     //std::cout << p->positionXValue() << " " << p->positionYValue() << std::endl;
                                     if (p->positionXValue() == 8 - init[1] + '0' && p->positionYValue() == init[0] - 'a') {
                                         starter = p;
+                                        //std::cout << "starter found" << std::endl;
                                         break;
                                     }
                                 }
@@ -355,19 +358,24 @@ int main() {
                 }
                 board->notifyObservers();
                 board->round1 = false;
-                /*if (board->checkmate()) {
+                if (board->checkmate()) {
                     command = "checkmate";
-                }*/
+                }
             }
             if (board->whosTurn == Color::WHITE) {
+                std::cout << "BLACK wins a game!" << std::endl;
                 board->blackScore++;
             }
             else {
+                std::cout << "WHITE wins a game!" << std::endl;
                 board->whiteScore++;
             }
+            board->clear();
         }
     }
-
+    std::cout << "Final Score: " << std::endl;
+    std::cout << "White: " << board->whiteScore << std::endl;
+    std::cout << "Black: " << board->blackScore << std::endl;
     delete Text;
     //delete Graphic;
 }

@@ -5,22 +5,20 @@ std::vector<Move*> Board::whiteMoves() {
     
     for (int z = 0; z < whitePieces.size(); ++z) {
         //std::cout << whitePieces.size() << std::endl;
-        char c;
+        /*char c;
         Type type = whitePieces[z]->typeValue();
         if (type == Type::BISHOP) c = 'B';
         else if (type == Type::KNIGHT) c = 'N';
         else if (type == Type::PAWN) c = 'P';
         else if (type == Type::ROOK) c = 'R';
         else if (type == Type::QUEEN) c = 'Q';
-        else if (type == Type::KING) c = 'K';
-        std::cout << "sigma" << std::endl;
+        else if (type == Type::KING) c = 'K';*/
         std::vector<Move*> pMoves = whitePieces[z]->moves();
-        std::cout << "sigma2" << std::endl;
-        //remember to remove
-        std::cout << c << " size " << pMoves.size() << std::endl;
-        for (auto t : pMoves) {
-            std::cout << t->initPos().x << " " << t->initPos().y << " " << t->finPos().x << " " << t->finPos().y << std::endl;
-        }
+
+        //std::cout << c << " size " << pMoves.size() << std::endl;
+        //for (auto t : pMoves) {
+        //    std::cout << t->initPos().x << " " << t->initPos().y << " " << t->finPos().x << " " << t->finPos().y << std::endl;
+        //}
         whiteMoves.insert(end(whiteMoves), begin(pMoves), end(pMoves));
     }
     //std::cout << whiteMoves.size() << std::endl;
@@ -31,7 +29,7 @@ std::vector<Move*> Board::blackMoves() {
     std::vector<Move*> blackMoves;
     for (int z = 0; z < blackPieces.size(); ++z) {
         //std::cout << whitePieces.size() << std::endl;
-        char c;
+        /*char c;
         Type type = blackPieces[z]->typeValue();
         if (type == Type::BISHOP) c = 'b';
         else if (type == Type::KNIGHT) c = 'n';
@@ -39,13 +37,13 @@ std::vector<Move*> Board::blackMoves() {
         else if (type == Type::ROOK) c = 'r';
         else if (type == Type::QUEEN) c = 'q';
         else if (type == Type::KING) c = 'k';
-        std::cout << c << " size ";
+        std::cout << c << " size ";*/
         std::vector<Move*> pMoves = blackPieces[z]->moves();
         //remember to remove
-        std::cout << pMoves.size() << std::endl;
-        for (auto t : pMoves) {
-            std::cout << t->initPos().x << " " << t->initPos().y << " " << t->finPos().x << " " << t->finPos().y << std::endl;
-        }
+        //std::cout << pMoves.size() << std::endl;
+        //for (auto t : pMoves) {
+        //    std::cout << t->initPos().x << " " << t->initPos().y << " " << t->finPos().x << " " << t->finPos().y << std::endl;
+        //}
         blackMoves.insert(end(blackMoves), begin(pMoves), end(pMoves));
     }
     //std::cout << whiteMoves.size() << std::endl;
@@ -74,19 +72,10 @@ bool Board::draw() {
 
 bool Board::checkmate() {
     if (whosTurn == Color::WHITE) {
-        if (!check4check(Color::WHITE)) return false;
-        int x, y;
-        for (auto p : whitePieces) {
-            if (p->typeValue() == Type::KING) { x = p->positionXValue(); y = p->positionYValue(); }
-        }
-        for (auto p : whiteMoves()) {
-            if (p->pieceMoved()->typeValue() == Type::KING) return false;
-            addMove(p);
-            if (!check4check(Color::WHITE)) return false;
-            undo();
-        }
+        if (whiteMoves().empty()) return true;
     }
-    return true;
+    else if (blackMoves().empty()) return true;
+    return false;
 }
 
 bool Board::check4check(Color king) {
@@ -98,7 +87,7 @@ bool Board::check4check(Color king) {
             }
         }
         for (auto p : blackPieces) {
-            for (auto move : p->moves()) {
+            for (auto move : p->movesNoCheck()) {
                 if (k->positionXValue() == move->finPos().x && k->positionYValue() == move->finPos().y) {
                     return true;
                 }
@@ -113,7 +102,7 @@ bool Board::check4check(Color king) {
             }
         }
         for (auto p : whitePieces) {
-            for (auto move : p->moves()) {
+            for (auto move : p->movesNoCheck()) {
                 if (k->positionXValue() == move->finPos().x && k->positionYValue() == move->finPos().y) {
                     return true;
                 }
@@ -166,7 +155,7 @@ void Board::undo() {
         else {
             Piece* piece;
             for (auto p : startingWhitePieces) {
-                if (p->positionXValue() == pieceMoved->positionXValue() && p->positionYValue() == pieceMoved->positionYValue()) {
+                if (p->positionXValue() == undoMove->initPos().x && p->positionYValue() == undoMove->initPos().y) {
                     piece = p; break;
                 }
             }
@@ -187,7 +176,7 @@ void Board::undo() {
         else {
             Piece* piece;
             for (auto p : startingBlackPieces) {
-                if (p->positionXValue() == pieceMoved->positionXValue() && p->positionYValue() == pieceMoved->positionYValue()) {
+                if (p->positionXValue() == undoMove->initPos().x && p->positionYValue() == undoMove->initPos().y) {
                     piece = p; break;
                 }
             }
@@ -200,36 +189,10 @@ void Board::undo() {
 }
 
 bool Board::check4checkMove(Color king, Move* move) {
-    Piece* starter = move->pieceMoved();
-    Piece* capturee = nullptr;
-    if (move->pieceCaped() != nullptr) {
-        capturee = move->pieceCaped();
-    }
-    if (king == Color::WHITE) {
-        Piece* k;
-        for (auto p : whitePieces) {
-            if (p->typeValue() == Type::KING) {
-                k = p; break;
-            }
-        }
-        for (int i = k->pos.x + 1; i < 8; ++i) {
-            Position temp = Position(i, k->pos.y);
-            for (auto o : blackPieces) {
-                if (temp == o->getPos()) {
-                    if (o->typeValue() == Type::ROOK || o->typeValue() == Type::QUEEN) {
-                        
-                    }
-                }
-            }
-        }
-    }
-}
-
-/*bool Board::check4checkMove(Color king, Move* move) {
     addMove(move);
     Piece* capturee = nullptr;
-    if (move->pieceCaped() != nullptr) capturee = move->pieceCaped();
-    if (move->pieceCaped() != nullptr) removePiece(capturee);
+    if (move->pieceCaped() != nullptr) {capturee = move->pieceCaped();}
+    //if (capturee != nullptr) removePiece(capturee);
     
     //setup test game human human move e2 f3
     if (king == Color::WHITE) {
@@ -241,10 +204,18 @@ bool Board::check4checkMove(Color king, Move* move) {
         }
         for (auto p : blackPieces) {
             for (auto move : p->movesNoCheck()) {
-                if (k->positionXValue() == move->finPos().x && k->positionYValue() == move->finPos().y) {
-                    undo();
-                    if (move->pieceCaped() != nullptr) addPiece(capturee);
-                    return true;
+                //std::cout << "Q " << whitePieces[1]->pos.x << " " << whitePieces[1]->pos.y << std::endl;
+                if (capturee != nullptr) {
+                    if (move->initPos().x != capturee->getPos().x && move->initPos().y != capturee->getPos().y && k->positionXValue() == move->finPos().x && k->positionYValue() == move->finPos().y) {
+                        undo();
+                        return true;
+                    }
+                }
+                else {
+                    if (k->positionXValue() == move->finPos().x && k->positionYValue() == move->finPos().y) {
+                        undo();
+                        return true;
+                    }
                 }
             }
         }
@@ -258,18 +229,27 @@ bool Board::check4checkMove(Color king, Move* move) {
         }
         for (auto p : whitePieces) {
             for (auto move : p->movesNoCheck()) {
-                if (k->positionXValue() == move->finPos().x && k->positionYValue() == move->finPos().y) {
-                    undo();
-                    if (move->pieceCaped() != nullptr) addPiece(capturee);
-                    return true;
+                if (capturee != nullptr) {
+                    if (move->initPos().x != capturee->getPos().x && move->initPos().y != capturee->getPos().y && k->positionXValue() == move->finPos().x && k->positionYValue() == move->finPos().y) {
+                        undo();
+                        return true;
+                    }
+                }
+                else {
+                    if (k->positionXValue() == move->finPos().x && k->positionYValue() == move->finPos().y) {
+                        undo();
+                        return true;
+                    }
                 }
             }
         }
     }
+    undo();
     return false;
-}*/
+}
 
 void Board::addPiece(Piece* piece) {
+    
     if (piece->getColor() == Color::WHITE) {
         whitePieces.emplace_back(piece);
     }
@@ -326,6 +306,24 @@ void Board::removePiece(int x, int y) {
 }
 
 int Board::boardLength() { return LEN_MAX; }
+
+void Board::clear() {
+    for (auto p : startingBlackPieces) {
+        delete p;
+    }
+    for (auto p : startingWhitePieces) {
+        delete p;
+    }
+    for (auto p : blackPieces) {
+        delete p;
+    }
+    for (auto p : whitePieces) {
+        delete p;
+    }
+    for (auto m : pastMoves) {
+        delete m;
+    }
+}
 
 Board::~Board() {
     for (auto p : startingBlackPieces) {

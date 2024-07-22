@@ -41,6 +41,7 @@ public:
     void undo();
     void addMove(Move* move);
     int boardLength();
+    void clear();
     ~Board();
 };
 
