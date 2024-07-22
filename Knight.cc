@@ -12,8 +12,7 @@ vector<Move*> Knight::moves() {
     }
     for(int z = 0; z < board->whitePieces.size(); ++z){
         allPieces.push_back(board->whitePieces[z]);
-    }  
-
+    } 
     Position possiblePosition[8] = {Position(pos.x + 2, pos.y - 1), Position(pos.x + 2, pos.y + 1), Position(pos.x - 2, pos.y - 1), Position(pos.x - 2, pos.y + 1), Position(pos.x + 1, pos.y - 2), Position(pos.x - 1, pos.y - 2), Position(pos.x + 1, pos.y + 2), Position(pos.x - 1, pos.y + 2)};
 
     for(int i = 0; i < 8; i++){
@@ -24,7 +23,16 @@ vector<Move*> Knight::moves() {
                 if(possiblePosition[i] == allPieces[z]->pos){
                     posOccupied = true;
                     if(allPieces[z]->color != color){
-                        tempMove = new Move(this, board->blackPieces[z], pos, possiblePosition[i]);
+                        Piece* pc = nullptr;
+                        for (auto p : board->blackPieces) {
+                            if (p == allPieces[z]) { pc = p; break; }
+                        } 
+                        if (pc == nullptr) {
+                            for (auto p : board->whitePieces) {
+                                if (p == allPieces[z]) { pc = p; break; }
+                            } 
+                        }
+                        tempMove = new Move(this, pc, pos, possiblePosition[i]);
                         possibleMoves.push_back(tempMove);
                     }
                 }
@@ -37,7 +45,7 @@ vector<Move*> Knight::moves() {
     }
     
    
-    for(int i = 0; i < possibleMoves.size();){
+    /*for(int i = 0; i < possibleMoves.size();){
         board->addMove(possibleMoves[i]);
         if(board->check4check(color)){
             possibleMoves.erase(possibleMoves.begin() + i);
@@ -46,7 +54,7 @@ vector<Move*> Knight::moves() {
             i++;
         }
         board->undo();
-    }
+    }*/
     //
     return possibleMoves;
 }

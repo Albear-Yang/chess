@@ -6,7 +6,6 @@ King::King(Board* board, Position pos, Color color)
 
 vector<Move*> King::moves(){
     vector<Move*> possibleMoves;
-
     vector<Piece*> allPieces;
     for(int z = 0; z < board->blackPieces.size(); ++z){
         allPieces.push_back(board->blackPieces[z]);
@@ -37,7 +36,7 @@ vector<Move*> King::moves(){
             }
         }
     }
-    for(int i = 0; i < possibleMoves.size();){
+    /*for(int i = 0; i < possibleMoves.size();){
         board->addMove(possibleMoves[i]);
         if(board->check4check(color)){
             possibleMoves.erase(possibleMoves.begin() + i);
@@ -46,7 +45,7 @@ vector<Move*> King::moves(){
             i++;
         }
         board->undo();
-    }
+    }*/
     //
     return possibleMoves;
 }

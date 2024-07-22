@@ -30,6 +30,7 @@ public:
 
     std::vector<Move*> whiteMoves(); 
     std::vector<Move*> blackMoves();
+    bool check4checkMove(Color king, Move* move);
     bool draw();
     bool checkmate();
     bool check4check(Color king);

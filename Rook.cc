@@ -5,8 +5,8 @@ Rook::Rook(Board* board, Position pos, Color color)
     : Piece(board, pos, color, Type::ROOK) {}
 
 vector<Move*> Rook::moves(){
-    
-    std::cout << "its a rook time!! " << std::endl;
+    enpassable = nullptr;
+    //std::cout << "its a rook time!! " << std::endl;
     vector<Move*> possibleMoves;
 
     vector<Piece*> allPieces;
@@ -18,7 +18,7 @@ vector<Move*> Rook::moves(){
     }  
 
     //checking right direction
-    for(int i = pos.x; i < 8; ++i){
+    for(int i = pos.x + 1; i < 8; ++i){
         //black
         Piece* capturablePiece = nullptr;
         Position temp = Position(i, pos.y);
@@ -30,7 +30,16 @@ vector<Move*> Rook::moves(){
             if(temp == allPieces[z]->pos){
                 if(allPieces[z]->color != color){
                     noPieceBetween = false;
-                    tempMove = new Move(this, board->blackPieces[z], pos, temp);
+                    Piece* pc = nullptr;
+                    for (auto p : board->blackPieces) {
+                        if (p == allPieces[z]) { pc = p; break; }
+                    } 
+                    if (pc ==  nullptr) {
+                        for (auto p : board->whitePieces) {
+                            if (p == allPieces[z]) { pc = p; break; }
+                        } 
+                    }
+                    tempMove = new Move(this, pc, pos, temp);
                     possibleMoves.push_back(tempMove);
                 }
                 break;
@@ -44,7 +53,7 @@ vector<Move*> Rook::moves(){
     }
 
     // checking left direction
-    for(int i = pos.x; i >= 0; --i){
+    for(int i = pos.x - 1; i >= 0; --i){
         //black
         Piece* capturablePiece = nullptr;
         Position temp = Position(i, pos.y);
@@ -56,7 +65,16 @@ vector<Move*> Rook::moves(){
             if(temp == allPieces[z]->pos){
                 if(allPieces[z]->color != color){
                     noPieceBetween = false;
-                    tempMove = new Move(this, board->blackPieces[z], pos, temp);
+                    Piece* pc = nullptr;
+                    for (auto p : board->blackPieces) {
+                        if (p == allPieces[z]) { pc = p; break; }
+                    } 
+                    if (pc ==  nullptr) {
+                        for (auto p : board->whitePieces) {
+                            if (p == allPieces[z]) { pc = p; break; }
+                        } 
+                    }
+                    tempMove = new Move(this, pc, pos, temp);
                     possibleMoves.push_back(tempMove);
                 }
                 break;
@@ -69,7 +87,7 @@ vector<Move*> Rook::moves(){
         possibleMoves.push_back(tempMove);
     }
     //check for down
-    for(int i = pos.y; i >= 0; --i){
+    for(int i = pos.y - 1; i >= 0; --i){
         //black
         Piece* capturablePiece = nullptr;
         Position temp = Position(pos.x, i);
@@ -81,7 +99,16 @@ vector<Move*> Rook::moves(){
             if(temp == allPieces[z]->pos){
                 if(allPieces[z]->color != color){
                     noPieceBetween = false;
-                    tempMove = new Move(this, board->blackPieces[z], pos, temp);
+                    Piece* pc = nullptr;
+                    for (auto p : board->blackPieces) {
+                        if (p == allPieces[z]) { pc = p; break; }
+                    } 
+                    if (pc ==  nullptr) {
+                        for (auto p : board->whitePieces) {
+                            if (p == allPieces[z]) { pc = p; break; }
+                        } 
+                    }
+                    tempMove = new Move(this, pc, pos, temp);
                     possibleMoves.push_back(tempMove);
                 }
                 break;
@@ -94,7 +121,7 @@ vector<Move*> Rook::moves(){
         possibleMoves.push_back(tempMove);
     }
     //check for up
-    for(int i = pos.y; i < 8; ++i){
+    for(int i = pos.y + 1; i < 8; ++i){
         //black
         Piece* capturablePiece = nullptr;
         Position temp = Position(pos.x, i);
@@ -106,7 +133,16 @@ vector<Move*> Rook::moves(){
             if(temp == allPieces[z]->pos){
                 if(allPieces[z]->color != color){
                     noPieceBetween = false;
-                    tempMove = new Move(this, board->blackPieces[z], pos, temp);
+                    Piece* pc = nullptr;
+                    for (auto p : board->blackPieces) {
+                        if (p == allPieces[z]) { pc = p; break; }
+                    } 
+                    if (pc ==  nullptr) {
+                        for (auto p : board->whitePieces) {
+                            if (p == allPieces[z]) { pc = p; break; }
+                        } 
+                    }
+                    tempMove = new Move(this, pc, pos, temp);
                     possibleMoves.push_back(tempMove);
                 }
                 break;
@@ -118,7 +154,7 @@ vector<Move*> Rook::moves(){
         Move *tempMove = new Move(this, nullptr, pos, temp);
         possibleMoves.push_back(tempMove);
     }
-    for(int i = 0; i < possibleMoves.size();){
+    /*for(int i = 0; i < possibleMoves.size();){
         board->addMove(possibleMoves[i]);
         if(board->check4check(color)){
             possibleMoves.erase(possibleMoves.begin() + i);
@@ -127,7 +163,7 @@ vector<Move*> Rook::moves(){
             i++;
         }
         board->undo();
-    }
+    }*/
     //
     return possibleMoves;
 }
