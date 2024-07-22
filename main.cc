@@ -224,7 +224,7 @@ int main() {
                                 std::cout << " checkp 3" << std::endl;
                                 bool pass = false;
                                 for (auto m : temp) {
-                                    if (m->initPos().x == starter->positionXValue() && m->initPos().y == starter->positionYValue() && (/*(m->finPos().x == capturee->positionXValue() && m->finPos().y == capturee->positionYValue()) ||*/ (m->finPos().x == 8 - init[1] + '0' && m->finPos().y == init[0] - 'a')) && m->pieceMoved() == starter && m->pieceCaped() == capturee) {
+                                    if (m->initPos().x == starter->positionXValue() && m->initPos().y == starter->positionYValue() && (/*(m->finPos().x == capturee->positionXValue() && m->finPos().y == capturee->positionYValue()) ||*/ (m->finPos().x == 8 - fin[1] + '0' && m->finPos().y == fin[0] - 'a')) && m->pieceMoved() == starter && m->pieceCaped() == capturee) {
                                         std::cout << " move found " << std::endl;
                                         /*
                                         board->addMove(new Move(starter, capturee, *new Position{starter->positionXValue(), starter->positionYValue()},  *new Position{capturee->positionXValue(), capturee->positionYValue()}));*/
