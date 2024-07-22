@@ -72,8 +72,8 @@ void GraphicsDisplay::notify() {
         if ((i + j) % 2 == 0) w->fillRectangle(50*(j+2), 50*i, 50, 50, Xwindow::White);
         else w->fillRectangle(50*(j+2), 50*i, 50, 50, Xwindow::Green);
         i = m->finPos().x; j = m->finPos().y;
-        if ((i + j) % 2 == 0) w->fillRectangle(50*i, 50*(j+2), 50, 50, Xwindow::White);
-        else w->fillRectangle(50*i, 50*(j+2), 50, 50, Xwindow::Green);
+        if ((i + j) % 2 == 0) w->fillRectangle(50*(j+2), 50*i, 50, 50, Xwindow::White);
+        else w->fillRectangle(50*(j+2), 50*i, 50, 50, Xwindow::Green);
         w->drawString(50*(j+2)+23, 50*i+25, std::string(1, c));
     }
 }
