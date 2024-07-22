@@ -11,6 +11,7 @@ public:
     GraphicsDisplay(Board* subj);
     void notify() override;
     ~GraphicsDisplay();
+    
 };
 
 #endif 
