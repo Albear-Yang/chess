@@ -11,7 +11,7 @@ int main() {
     Board* board = new Board;
     int boardLen = board->boardLength();
     TextDisplay* Text = new TextDisplay(board);
-    //GraphicsDisplay* Graphic = new GraphicsDisplay(board);
+    //GraphicsDisplay* Graphic = new GraphicsDisplay(board, new Xwindow{50*(2 + boardLen), 50*(1 + boardLen)});
 
     std::string command;
     while (std::cin >> command) {

@@ -1,11 +1,10 @@
 /*#include "GraphicDisplay.h"
 #include <string>
 
-GraphicsDisplay::GraphicsDisplay(Board* subj): subj{subj} { subj->attach(this); }
+GraphicsDisplay::GraphicsDisplay(Board* subj, Xwindow* w): subj{subj}, w{w} { subj->attach(this); }
 
 void GraphicsDisplay::notify() {
     int boardLen = subj->boardLength();
-    Xwindow w{50*(2 + boardLen), 50*(1 + boardLen)};
     if (subj->round1) {
         for (int i = 0; i < boardLen; i++) {
             //w.fillRectangle(0, 50*i, 100, 50, Xwindow::Green);
