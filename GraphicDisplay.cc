@@ -75,8 +75,6 @@ void GraphicsDisplay::notify() {
         else w->fillRectangle(50*i, 50*(j+2), 50, 50, Xwindow::Green);
         w->drawString(50*i, 50*(j+2), std::to_string(c));
     }
-    char c;
-    std::cin >> c;
 }
 
 GraphicsDisplay::~GraphicsDisplay() { subj->detach(this); }
