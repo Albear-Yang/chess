@@ -3,7 +3,6 @@
 #include "Board.h"
 #include "Enums.h"
 #include "Computer.h"
-//#define G
 
 #ifdef G
 #include "GraphicDisplay.h"
