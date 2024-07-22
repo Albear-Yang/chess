@@ -1,6 +1,5 @@
 #ifndef BOARD_H
 #define BOARD_H
-//#define G
 #include <iostream>
 #include <vector>
 #include "Subject.h"
