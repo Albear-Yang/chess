@@ -8,6 +8,7 @@ class Knight : public Piece {
 public:
     std::vector<Move*> moves() override;
     Knight(Board *board, Position pos, Color color);
+    std::vector<Move*> movesNoCheck() override;
     void move(Position pos) override;
     std::vector<Move*> canCapture() override;
 };

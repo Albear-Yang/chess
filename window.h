@@ -1,4 +1,5 @@
-/*#ifndef __WINDOW_H__
+#ifdef G
+#ifndef __WINDOW_H__
 #define __WINDOW_H__
 #include <X11/Xlib.h>
 #include <iostream>
@@ -29,4 +30,4 @@ class Xwindow {
 };
 
 #endif
-*/
+#endif

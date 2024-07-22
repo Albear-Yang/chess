@@ -13,6 +13,7 @@ public:
     std::vector<Move *> moves() override;
     void move(Position pos) override;
     std::vector<Move *> canCapture() override;
+    std::vector<Move*> movesNoCheck() override;
 };
 
 #endif

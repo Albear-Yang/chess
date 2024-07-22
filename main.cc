@@ -3,7 +3,12 @@
 #include "Board.h"
 #include "Enums.h"
 #include "Computer.h"
-//#include "GraphicDisplay.h"
+//#define G
+
+#ifdef G
+#include "GraphicDisplay.h"
+#endif
+
 #include "TextDisplay.h"
 #include <string>
 
@@ -11,7 +16,9 @@ int main() {
     Board* board = new Board;
     int boardLen = board->boardLength();
     TextDisplay* Text = new TextDisplay(board);
-    //GraphicsDisplay* Graphic = new GraphicsDisplay(board);
+    #ifdef G
+    GraphicsDisplay* Graphic = new GraphicsDisplay(board, new Xwindow{50*(2 + boardLen), 50*(1 + boardLen)});
+    #endif
 
     std::string command;
     while (std::cin >> command) {
@@ -55,6 +62,17 @@ int main() {
                     board->addPiece(Type::ROOK, Color::BLACK, 0, 7);
                     board->whosTurn = Color::WHITE;
                     board->notifyObservers();
+                }
+                else if (command == "test") {
+                    board->addPiece(Type::KING, Color::WHITE, 7, 4);
+                    board->addPiece(Type::KING, Color::BLACK, 0, 4);
+                    board->addPiece(Type::ROOK, Color::WHITE, 7, 0);
+                    board->addPiece(Type::ROOK, Color::WHITE, 1, 7);
+                    board->addPiece(Type::ROOK, Color::BLACK, 6, 7);
+                    board->addPiece(Type::ROOK, Color::BLACK, 5, 7);
+                    board->hasBlackKing = true;
+                    board->hasWhiteKing = true;
+                    command = "done";
                 }
                 else if (command == "+") {
                     char c;
@@ -184,18 +202,19 @@ int main() {
                         std::cout << "White Move (move <pos1> <pos2>) : " << std::endl;
                         std::string init, fin;
                         std::cin >> command >> init >> fin;
+                        bool pass = false;
                         if (command == "move") {
-                            std::cout << "uh " << std::endl;
+                            //std::cout << "uh " << std::endl;
                             std::vector<Move*> temp = board->whiteMoves();
-                            std::cout << temp.size() << " temp size" << std:: endl;
+                            //std::cout << temp.size() << " temp size" << std:: endl;
                             while (true) {
                                 //remember to remove
-                                std::cout << "hi" << std::endl;
+                                //std::cout << "hi" << std::endl;
 
                                 Piece* starter = nullptr;
                                 Piece* capturee = nullptr;
                                 //if (board->whiteMoves().empty()) std::cout << "hi" << std::endl;
-                                for (auto p : temp) {
+                                /*for (auto p : temp) {
                                     char c;
                                     Type type = p->pieceMoved()->typeValue();
                                     if (type == Type::BISHOP) c = 'B';
@@ -205,46 +224,61 @@ int main() {
                                     else if (type == Type::QUEEN) c = 'Q';
                                     else if (type == Type::KING) c = 'K';
                                     std::cout << c << " " << p->initPos().x << " " << p->initPos().y << " " << p->finPos().x << " " << p->finPos().y << std::endl;
-                                }
-                                std::cout << " checkp 1" << std::endl;
+                                }*/
+                                //std::cout << board->whitePieces.size() << std::endl;
                                 for (auto p : board->whitePieces) {
+                                    //std::cout << 8 - init[1] + '0' << " " << init[0] - 'a' << std::endl;
+                                    //std::cout << p->positionXValue() << " " << p->positionYValue() << std::endl;
                                     if (p->positionXValue() == 8 - init[1] + '0' && p->positionYValue() == init[0] - 'a') {
                                         starter = p;
-                                        std::cout << " starter found" << std::endl;
+                                        //std::cout << "starter found" << std::endl;
                                         break;
                                     }
                                 }
-                                std::cout << " checkp 2" << std::endl;
+                                //std::cout << " checkp 2" << std::endl;
                                 for (auto p : board->blackPieces) {
-                                    if (p->positionXValue() == 8 - init[1] + '0' && p->positionYValue() == init[0] - 'a') {
+                                    if (p->positionXValue() == 8 - fin[1] + '0' && p->positionYValue() == fin[0] - 'a') {
                                         capturee = p;
                                         break;
                                     }
                                 }
-                                std::cout << " checkp 3" << std::endl;
-                                bool pass = false;
-                                for (auto m : temp) {
-                                    if (m->initPos().x == starter->positionXValue() && m->initPos().y == starter->positionYValue() && (/*(m->finPos().x == capturee->positionXValue() && m->finPos().y == capturee->positionYValue()) ||*/ (m->finPos().x == 8 - fin[1] + '0' && m->finPos().y == fin[0] - 'a')) && m->pieceMoved() == starter && m->pieceCaped() == capturee) {
-                                        std::cout << " move found " << std::endl;
-                                        /*
-                                        board->addMove(new Move(starter, capturee, *new Position{starter->positionXValue(), starter->positionYValue()},  *new Position{capturee->positionXValue(), capturee->positionYValue()}));*/
-                                        
-                                        // add if statements later!!!!!
+                                //std::cout << " checkp 3" << std::endl;
+                                if (starter != nullptr) {
+                                    for (auto m : temp) {
+                                        if (capturee == nullptr) {
+                                            if (m->initPos().x == starter->positionXValue() && m->initPos().y == starter->positionYValue() && m->initPos().x == 8 - init[1] + '0' && m->initPos().y == init[0] - 'a' && m->finPos().x == 8 - fin[1] + '0' && m->finPos().y == fin[0] - 'a' && m->pieceMoved() == starter) {
+                                                //std::cout << " move found " << std::endl;
+                                                if (starter->enpassable != nullptr) {
+                                                    if (8 - fin[1] + '0' == starter->enpassable->x && fin[0] - 'a' == starter->enpassable->y) {
+                                                        board->removePiece(starter->enpassable->x + 1, starter->enpassable->y);
+                                                    }
+                                                }
+                                                board->addMove(new Move(starter, capturee, *new Position{starter->positionXValue(), starter->positionYValue()},  *new Position{8 - fin[1] + '0', fin[0] - 'a'}));
+                                                starter->movePos(8 - fin[1] + '0', fin[0] - 'a');
+                                                board->whosTurn = Color::BLACK;
+                                                pass = true;
+                                                if (starter->typeValue() == Type::PAWN || starter->typeValue() == Type::ROOK || starter->typeValue() == Type::KING) starter->has_moved = true;
+                                                break;
+                                            }
+                                        }
+                                        else if (m->initPos().x == starter->positionXValue() && m->initPos().y == starter->positionYValue() && m->finPos().x == capturee->positionXValue() && m->finPos().y == capturee->positionYValue() && m->initPos().x == 8 - init[1] + '0' && m->initPos().y == init[0] - 'a' && m->finPos().x == 8 - fin[1] + '0' && m->finPos().y == fin[0] - 'a' && m->pieceMoved() == starter && m->pieceCaped() == capturee) {
+                                            //std::cout << " move found " << std::endl;
+                                            board->removePiece(8 - fin[1] + '0', fin[0] - 'a');
+                                            board->addMove(new Move(starter, capturee, *new Position{starter->positionXValue(), starter->positionYValue()},  *new Position{capturee->positionXValue(), capturee->positionYValue()}));
+                                            starter->movePos(8 - fin[1] + '0', fin[0] - 'a');
+                                            //std::cout << 8 - init[1] << " " << init[0] - 'a' << std::endl;
 
-                                        //board->removePiece(capturee->positionXValue(), capturee->positionYValue());
-                                        //starter->movePos(capturee->positionXValue(), capturee->positionYValue());
-                                        std::cout << 8 - init[1] << " " << init[0] - 'a' << std::endl;
-
-                                        board->addMove(m);
-                                        std::cout << m->finPos().x << " " << m->finPos().y << std::endl;
-                                        std::cout << starter->positionXValue() << " " << starter->positionYValue() << std::endl;
-
-                                        board->whosTurn = Color::BLACK;
-                                        pass = true;
-                                        break;
+                                            //board->addMove(m);
+                                            //std::cout << m->finPos().x << " " << m->finPos().y << std::endl;
+                                            //std::cout << starter->positionXValue() << " " << starter->positionYValue() << std::endl;
+                                            if (starter->typeValue() == Type::PAWN || starter->typeValue() == Type::ROOK || starter->typeValue() == Type::KING) starter->has_moved = true;
+                                            board->whosTurn = Color::BLACK;
+                                            pass = true;
+                                            break;
+                                        }
                                     }
                                 }
-                                std::cout << " checkp 4" << std::endl;
+                                //std::cout << " checkp 4" << std::endl;
                                 if (!pass) {
                                     std::cout << "Invalid move" << std::endl;
                                     std::cin >> command >> init >> fin;
@@ -267,6 +301,7 @@ int main() {
                         std::string init, fin;
                         std::cin >> command >> init >> fin;
                         if (command == "move") {
+                            std::vector<Move*> temp = board->blackMoves();
                             while (true) {
                                 Piece* starter = nullptr;
                                 Piece* capturee = nullptr;
@@ -277,20 +312,39 @@ int main() {
                                     }
                                 }
                                 for (auto p : board->whitePieces) {
-                                    if (p->positionXValue() == 8 - init[1] + '0' && p->positionYValue() == init[0] - 'a') {
+                                    if (p->positionXValue() == 8 - fin[1] + '0' && p->positionYValue() == fin[0] - 'a') {
                                         capturee = p;
                                         break;
                                     }
                                 }
+                                
                                 bool pass = false;
-                                for (auto m : board->blackMoves()) {
-                                    if (m->initPos().x == starter->positionXValue() && m->initPos().y == starter->positionYValue() && m->finPos().x == capturee->positionXValue() && m->finPos().y == capturee->positionYValue() && m->pieceMoved() == starter && m->pieceCaped() == capturee) {
-                                        board->addMove(new Move(starter, capturee, *new Position{starter->positionXValue(), starter->positionYValue()},  *new Position{capturee->positionXValue(), capturee->positionYValue()}));
-                                        board->removePiece(capturee->positionXValue(), capturee->positionYValue());
-                                        starter->movePos(capturee->positionXValue(), capturee->positionYValue());
-                                        board->whosTurn = Color::WHITE;
-                                        pass = true;
-                                        break;
+                                if (starter != nullptr) {
+                                    for (auto m : temp) {
+                                        if (capturee == nullptr) {
+                                            if (m->initPos().x == starter->positionXValue() && m->initPos().y == starter->positionYValue() && m->initPos().x == 8 - init[1] + '0' && m->initPos().y == init[0] - 'a' && m->finPos().x == 8 - fin[1] + '0' && m->finPos().y == fin[0] - 'a' && m->pieceMoved() == starter) {
+                                                if (starter->enpassable != nullptr) {
+                                                    if (8 - fin[1] + '0' == starter->enpassable->x && fin[0] - 'a' == starter->enpassable->y) {
+                                                        board->removePiece(starter->enpassable->x - 1, starter->enpassable->y);
+                                                    }
+                                                }
+                                                board->addMove(new Move(starter, capturee, *new Position{starter->positionXValue(), starter->positionYValue()},  *new Position{8 - fin[1] + '0', fin[0] - 'a'}));
+                                                starter->movePos(8 - fin[1] + '0', fin[0] - 'a');
+                                                if (starter->typeValue() == Type::PAWN || starter->typeValue() == Type::ROOK || starter->typeValue() == Type::KING) starter->has_moved = true;
+                                                board->whosTurn = Color::WHITE;
+                                                pass = true;
+                                                break;
+                                            }
+                                        }
+                                        else if (m->initPos().x == starter->positionXValue() && m->initPos().y == starter->positionYValue() && m->finPos().x == capturee->positionXValue() && m->finPos().y == capturee->positionYValue() && m->initPos().x == 8 - init[1] + '0' && m->initPos().y == init[0] - 'a' && m->finPos().x == 8 - fin[1] + '0' && m->finPos().y == fin[0] - 'a' && m->pieceMoved() == starter && m->pieceCaped() == capturee) {
+                                            board->removePiece(8 - fin[1] + '0', fin[0] - 'a');
+                                            board->addMove(new Move(starter, capturee, *new Position{starter->positionXValue(), starter->positionYValue()},  *new Position{capturee->positionXValue(), capturee->positionYValue()}));
+                                            starter->movePos(8 - fin[1] + '0', fin[0] - 'a');
+                                            if (starter->typeValue() == Type::PAWN || starter->typeValue() == Type::ROOK || starter->typeValue() == Type::KING) starter->has_moved = true;
+                                            board->whosTurn = Color::WHITE;
+                                            pass = true;
+                                            break;
+                                        }
                                     }
                                 }
                                 if (!pass) {
@@ -316,14 +370,21 @@ int main() {
                 }
             }
             if (board->whosTurn == Color::WHITE) {
+                std::cout << "BLACK wins a game!" << std::endl;
                 board->blackScore++;
             }
             else {
+                std::cout << "WHITE wins a game!" << std::endl;
                 board->whiteScore++;
             }
+            board->clear();
         }
     }
-
+    std::cout << "Final Score: " << std::endl;
+    std::cout << "White: " << board->whiteScore << std::endl;
+    std::cout << "Black: " << board->blackScore << std::endl;
     delete Text;
-    //delete Graphic;
+    #ifdef G
+    delete Graphic;
+    #endif
 }

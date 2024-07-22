@@ -1,4 +1,5 @@
-/*#ifndef GRAPHICSDISPLAY_H
+#ifdef G
+#ifndef GRAPHICSDISPLAY_H
 #define GRAPHICSDISPLAY_H
 #include "Board.h"
 #include "Observer.h"
@@ -6,11 +7,12 @@
 
 class GraphicsDisplay : public Observer {
     Board* subj;
+    Xwindow* w;
 public:
-    GraphicsDisplay(Board* subj);
+    GraphicsDisplay(Board* subj, Xwindow* w);
     void notify() override;
     ~GraphicsDisplay();
 };
 
 #endif 
-*/
+#endif
