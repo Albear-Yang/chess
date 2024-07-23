@@ -566,5 +566,10 @@ Board::~Board() {
     blackPieces.clear();
     whitePieces.clear();
     pastMoves.clear();
-    castling.clear();
+    for (auto m : board->castling) {
+        delete m->castle;
+    }
+    board->castling.clear();
+    if (board->enpassed != nullptr) delete board->enpassed;
+    board->enpassed = nullptr;
 }

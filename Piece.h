@@ -22,7 +22,7 @@ class Piece {
         Position* enpassable = nullptr;
         Piece(Board* board, Position pos, Color color, Type type): board{board}, pos{pos}, color{color}, type{type} {}
         //Piece(const Piece& other): board{other.board}, pos{other.pos}, color{other.color}, type{type} {}
-        ~Piece() = default;
+        ~Piece() { delete &pos; };
         virtual std::vector<Move*> moves() = 0;
         virtual void move(Position pos) = 0;
         virtual std::vector<Move*> canCapture() = 0;

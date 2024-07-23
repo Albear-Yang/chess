@@ -195,6 +195,7 @@ int main() {
             std::string white, black;
             std::cin >> white >> black;
             while (command != "resign" && command != "checkmate" && command != "stalemate") {
+                
                 for (auto m : board->castling) {
                     delete m->castle;
                 }
@@ -383,11 +384,17 @@ int main() {
                                 //std::cout << " checkp 4" << std::endl;
                                 if (!pass) {
                                     std::cout << "Invalid move" << std::endl;
-                                    std::cin >> command >> init >> fin;
+                                    std::cin >> command;
                                 }
                                 else break;
+                                while (command != "resign" && command != "move") {
+                                    std::cout << "Invalid input (resign or move <pos1> <pos2>)" << std::endl;
+                                    std::cin >> command;
+                                }
+                                if (command == "resign") break;
+                                else std::cin >> init >> fin;
                             }
-                            std::cout << "Move made" << std::endl;
+                            if (command != "resign") std::cout << "Move made" << std::endl;
                         }
                     }
                     else { //FILL WITH AI
@@ -544,11 +551,17 @@ int main() {
                                 }
                                 if (!pass) {
                                     std::cout << "Invalid move" << std::endl;
-                                    std::cin >> command >> init >> fin;
+                                    std::cin >> command;
                                 }
                                 else break;
+                                while (command != "resign" && command != "move") {
+                                    std::cout << "Invalid input (resign or move <pos1> <pos2>)" << std::endl;
+                                    std::cin >> command;
+                                }
+                                if (command == "resign") break;
+                                else std::cin >> init >> fin;
                             }
-                            std::cout << "Move made" << std::endl;
+                            if (command != "resign") std::cout << "Move made" << std::endl;
                         }
                     }
                     else { //FILL WITH AI
