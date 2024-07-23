@@ -41,23 +41,19 @@ std::vector<Move*> Board::whiteMoves() {
     bool pass = true;
     int i1, j1, i2, j2, ri1, ri2, rj1, rj2;
     if (r1 != nullptr) {
-        if (r1->getPos().x == 7 && r1->getPos().y == 0 && k->getPos().x == 7 && k->getPos().y == 4 && empty(7, 1) && empty(7, 2) && empty(7, 3)) {
+        if (r1->getPos().x == 7 && r1->getPos().y == 0 && k->getPos().x == 7 && k->getPos().y == 4 && empty(7, 1) && empty(7, 2) && empty(7, 3) && !r1->has_moved && !k->has_moved) {
             i1 = 7; j1 = 4; i2 = 7; j2 = 2; ri1 = 7; rj1 = 0; ri2 = 7; rj2 = 3;
-            if (!r1->has_moved && !k->has_moved) {
-                for (auto m : blackMovesNoCastle()) {
-                    if ((m->finPos().x == 7 && m->finPos().y == 4) || (m->finPos().x == 7 && m->finPos().y == 3) || (m->finPos().x == 7 && m->finPos().y == 2)) {
-                        pass = false;
-                    }
+            for (auto m : blackMovesNoCastle()) {
+                if ((m->finPos().x == 7 && m->finPos().y == 4) || (m->finPos().x == 7 && m->finPos().y == 3) || (m->finPos().x == 7 && m->finPos().y == 2)) {
+                    pass = false;
                 }
             }
         }
-        else if (r1->getPos().x == 7 && r1->getPos().y == 7 && k->getPos().x == 7 && k->getPos().y == 4 && empty(7, 5) && empty(7, 6)) {
+        else if (r1->getPos().x == 7 && r1->getPos().y == 7 && k->getPos().x == 7 && k->getPos().y == 4 && empty(7, 5) && empty(7, 6) && !r1->has_moved && !k->has_moved) {
             i1 = 7; j1 = 4; i2 = 7; j2 = 6; ri1 = 7; rj1 = 7; ri2 = 7; rj2 = 5;
-            if (!r1->has_moved && !k->has_moved) {
-                for (auto m : blackMovesNoCastle()) {
-                    if ((m->finPos().x == 7 && m->finPos().y == 4) || (m->finPos().x == 7 && m->finPos().y == 5) || (m->finPos().x == 7 && m->finPos().y == 6)) {
-                        pass = false;
-                    }
+            for (auto m : blackMovesNoCastle()) {
+                if ((m->finPos().x == 7 && m->finPos().y == 4) || (m->finPos().x == 7 && m->finPos().y == 5) || (m->finPos().x == 7 && m->finPos().y == 6)) {
+                    pass = false;
                 }
             }
         }
@@ -69,23 +65,19 @@ std::vector<Move*> Board::whiteMoves() {
     }
     pass = true;
     if (r2 != nullptr) {
-        if (r2->getPos().x == 7 && r2->getPos().y == 0 && k->getPos().x == 7 && k->getPos().y == 4 && empty(7, 1) && empty(7, 2) && empty(7, 3)) {
+        if (r2->getPos().x == 7 && r2->getPos().y == 0 && k->getPos().x == 7 && k->getPos().y == 4 && empty(7, 1) && empty(7, 2) && empty(7, 3) && !r2->has_moved && !k->has_moved) {
             i1 = 7; j1 = 4; i2 = 7; j2 = 2; ri1 = 7; rj1 = 0; ri2 = 7; rj2 = 3;
-            if (!r2->has_moved && !k->has_moved) {
-                for (auto m : blackMovesNoCastle()) {
-                    if ((m->finPos().x == 7 && m->finPos().y == 4) || (m->finPos().x == 7 && m->finPos().y == 3) || (m->finPos().x == 7 && m->finPos().y == 2)) {
-                        pass = false;
-                    }
+            for (auto m : blackMovesNoCastle()) {
+                if ((m->finPos().x == 7 && m->finPos().y == 4) || (m->finPos().x == 7 && m->finPos().y == 3) || (m->finPos().x == 7 && m->finPos().y == 2)) {
+                    pass = false;
                 }
             }
         }
-        else if (r2->getPos().x == 7 && r2->getPos().y == 7 && k->getPos().x == 7 && k->getPos().y == 4 && empty(7, 5) && empty(7, 6)) {
+        else if (r2->getPos().x == 7 && r2->getPos().y == 7 && k->getPos().x == 7 && k->getPos().y == 4 && empty(7, 5) && empty(7, 6) && !r2->has_moved && !k->has_moved) {
             i1 = 7; j1 = 4; i2 = 7; j2 = 6; ri1 = 7; rj1 = 7; ri2 = 7; rj2 = 5;
-            if (!r2->has_moved && !k->has_moved) {
-                for (auto m : blackMovesNoCastle()) {
-                    if ((m->finPos().x == 7 && m->finPos().y == 4) || (m->finPos().x == 7 && m->finPos().y == 5) || (m->finPos().x == 7 && m->finPos().y == 6)) {
-                        pass = false;
-                    }
+            for (auto m : blackMovesNoCastle()) {
+                if ((m->finPos().x == 7 && m->finPos().y == 4) || (m->finPos().x == 7 && m->finPos().y == 5) || (m->finPos().x == 7 && m->finPos().y == 6)) {
+                    pass = false;
                 }
             }
         }
@@ -163,23 +155,19 @@ std::vector<Move*> Board::blackMoves() {
     bool pass = true;
     int i1, j1, i2, j2, ri1, ri2, rj1, rj2;
     if (r1 != nullptr) {
-        if (r1->getPos().x == 0 && r1->getPos().y == 0 && k->getPos().x == 0 && k->getPos().y == 4 && empty(0, 1) && empty(0, 2) && empty(0, 3)) {
+        if (r1->getPos().x == 0 && r1->getPos().y == 0 && k->getPos().x == 0 && k->getPos().y == 4 && empty(0, 1) && empty(0, 2) && empty(0, 3) && !r1->has_moved && !k->has_moved) {
             i1 = 0; j1 = 4; i2 = 0; j2 = 2; ri1 = 0; rj1 = 0; ri2 = 0; rj2 = 3;
-            if (!r1->has_moved && !k->has_moved) {
-                for (auto m : whiteMovesNoCastle()) {
-                    if ((m->finPos().x == 0 && m->finPos().y == 4) || (m->finPos().x == 0 && m->finPos().y == 3) || (m->finPos().x == 0 && m->finPos().y == 2)) {
-                        pass = false;
-                    }
+            for (auto m : whiteMovesNoCastle()) {
+                if ((m->finPos().x == 0 && m->finPos().y == 4) || (m->finPos().x == 0 && m->finPos().y == 3) || (m->finPos().x == 0 && m->finPos().y == 2)) {
+                    pass = false;
                 }
             }
         }
-        else if (r1->getPos().x == 0 && r1->getPos().y == 0 && k->getPos().x == 0 && k->getPos().y == 4 && empty(0, 5) && empty(0, 6)) {
+        else if (r1->getPos().x == 0 && r1->getPos().y == 0 && k->getPos().x == 0 && k->getPos().y == 4 && empty(0, 5) && empty(0, 6) && !r1->has_moved && !k->has_moved) {
             i1 = 0; j1 = 4; i2 = 0; j2 = 6; ri1 = 0; rj1 = 0; ri2 = 0; rj2 = 5;
-            if (!r1->has_moved && !k->has_moved) {
-                for (auto m : whiteMovesNoCastle()) {
-                    if ((m->finPos().x == 0 && m->finPos().y == 4) || (m->finPos().x == 0 && m->finPos().y == 5) || (m->finPos().x == 0 && m->finPos().y == 6)) {
-                        pass = false;
-                    }
+            for (auto m : whiteMovesNoCastle()) {
+                if ((m->finPos().x == 0 && m->finPos().y == 4) || (m->finPos().x == 0 && m->finPos().y == 5) || (m->finPos().x == 0 && m->finPos().y == 6)) {
+                    pass = false;
                 }
             }
         }
@@ -191,23 +179,19 @@ std::vector<Move*> Board::blackMoves() {
     }
     pass = true;
     if (r2 != nullptr) {
-        if (r2->getPos().x == 0 && r2->getPos().y == 0 && k->getPos().x == 0 && k->getPos().y == 4 && empty(0, 1) && empty(0, 2) && empty(0, 3)) {
+        if (r2->getPos().x == 0 && r2->getPos().y == 0 && k->getPos().x == 0 && k->getPos().y == 4 && empty(0, 1) && empty(0, 2) && empty(0, 3) && !r2->has_moved && !k->has_moved) {
             i1 = 0; j1 = 4; i2 = 0; j2 = 2; ri1 = 0; rj1 = 0; ri2 = 0; rj2 = 3;
-            if (!r2->has_moved && !k->has_moved) {
-                for (auto m : whiteMovesNoCastle()) {
-                    if ((m->finPos().x == 0 && m->finPos().y == 4) || (m->finPos().x == 0 && m->finPos().y == 3) || (m->finPos().x == 0 && m->finPos().y == 2)) {
-                        pass = false;
-                    }
+            for (auto m : whiteMovesNoCastle()) {
+                if ((m->finPos().x == 0 && m->finPos().y == 4) || (m->finPos().x == 0 && m->finPos().y == 3) || (m->finPos().x == 0 && m->finPos().y == 2)) {
+                    pass = false;
                 }
             }
         }
-        else if (r2->getPos().x == 0 && r2->getPos().y == 0 && k->getPos().x == 0 && k->getPos().y == 4 && empty(0, 5) && empty(0, 6)) {
+        else if (r2->getPos().x == 0 && r2->getPos().y == 0 && k->getPos().x == 0 && k->getPos().y == 4 && empty(0, 5) && empty(0, 6) && !r2->has_moved && !k->has_moved) {
             i1 = 0; j1 = 4; i2 = 0; j2 = 6; ri1 = 0; rj1 = 0; ri2 = 0; rj2 = 5;
-            if (!r2->has_moved && !k->has_moved) {
-                for (auto m : whiteMovesNoCastle()) {
-                    if ((m->finPos().x == 0 && m->finPos().y == 4) || (m->finPos().x == 0 && m->finPos().y == 5) || (m->finPos().x == 0 && m->finPos().y == 6)) {
-                        pass = false;
-                    }
+            for (auto m : whiteMovesNoCastle()) {
+                if ((m->finPos().x == 0 && m->finPos().y == 4) || (m->finPos().x == 0 && m->finPos().y == 5) || (m->finPos().x == 0 && m->finPos().y == 6)) {
+                    pass = false;
                 }
             }
         }
@@ -332,6 +316,7 @@ bool Board::check4check(Color king) {
 
 void Board::addMove(Move* move) {
     Piece* pieceMoved = move->pieceMoved();
+    pieceMoved->has_moved = true;
     if (whosTurn == Color::WHITE) {
         whosTurn == Color::BLACK;
     }
@@ -396,9 +381,7 @@ void Board::undo() {
                 }
             }
             pieceMoved->movePos(piece->positionXValue(), piece->positionYValue());
-            if (pieceMoved->typeValue() == Type::PAWN || pieceMoved->typeValue() == Type::ROOK || pieceMoved->typeValue() == Type::KING) {
-                pieceMoved->has_moved = false;
-            }
+            pieceMoved->has_moved = false;
         }
     }
     else {
@@ -417,9 +400,7 @@ void Board::undo() {
                 }
             }
             pieceMoved->movePos(piece->positionXValue(), piece->positionYValue());
-            if (pieceMoved->typeValue() == Type::PAWN || pieceMoved->typeValue() == Type::ROOK || pieceMoved->typeValue() == Type::KING) {
-                pieceMoved->has_moved = false;
-            }
+            pieceMoved->has_moved = false;
         }
     }
     if (!pastMoves.empty()) {
