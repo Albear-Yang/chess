@@ -25,6 +25,7 @@ public:
     bool hasWhiteKing = false;
     bool hasBlackKing = false;
     bool round1 = true;
+    Position* enpassed = nullptr;
     Color whosTurn = Color::WHITE;
     std::vector<Move*> pastMoves;
     std::vector<Move*> castling;

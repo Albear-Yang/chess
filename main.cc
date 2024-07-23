@@ -15,6 +15,7 @@ int main() {
     int boardLen = board->boardLength();
     TextDisplay* Text = new TextDisplay(board);
     //GraphicsDisplay* Graphic = new GraphicsDisplay(board, new Xwindow{50*(2 + boardLen), 50*(1 + boardLen)});
+    //WAIT UNTIL GRAPHICS LOAD BEFORE INPUT
 
     std::string command;
     while (std::cin >> command) {
@@ -193,6 +194,8 @@ int main() {
             std::cin >> white >> black;
             while (command != "resign" && command != "checkmate" && command != "stalemate") {
                 board->castling.clear();
+                if (board->enpassed != nullptr) delete board->enpassed;
+                board->enpassed = nullptr;
                 if (board->whosTurn == Color::WHITE) {
                     if (white == "human") {
                         std::cout << "White Move (move <pos1> <pos2>) : " << std::endl;
@@ -249,6 +252,7 @@ int main() {
                                                 if (starter->enpassable != nullptr) {
                                                     if (8 - fin[1] + '0' == starter->enpassable->x && fin[0] - 'a' == starter->enpassable->y) {
                                                         board->removePiece(starter->enpassable->x + 1, starter->enpassable->y);
+                                                        board->enpassed = new Position{starter->enpassable->x + 1, starter->enpassable->y};
                                                     }
                                                 }
                                                 //board->addMove(new Move(starter, capturee, *new Position{starter->positionXValue(), starter->positionYValue()},  *new Position{8 - fin[1] + '0', fin[0] - 'a'}));
@@ -419,6 +423,7 @@ int main() {
                                                 if (starter->enpassable != nullptr) {
                                                     if (8 - fin[1] + '0' == starter->enpassable->x && fin[0] - 'a' == starter->enpassable->y) {
                                                         board->removePiece(starter->enpassable->x - 1, starter->enpassable->y);
+                                                        board->enpassed = new Position{starter->enpassable->x + 1, starter->enpassable->y};
                                                     }
                                                 }
                                                 //board->addMove(m);
