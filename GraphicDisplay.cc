@@ -81,16 +81,16 @@ void GraphicsDisplay::notify() {
             else w->fillRectangle(50*(j+2), 50*i, 50, 50, Xwindow::Green);
         }
         if (subj->pastMoves.size() >= 2) {
-            m = subj->pastMoves[subj->pastMoves.size() - 2]->castle;
-            if (m != nullptr) {
+            m = subj->pastMoves[subj->pastMoves.size() - 2];
+            if (m->castle != nullptr) {
                 char c;
                 Type type = m->pieceMoved()->typeValue();
                 Color color = m->pieceMoved()->getColor();
                 if (color == Color::BLACK) {
-                    c = 'r';
+                    c = 'k';
                 }
                 else {
-                    c = 'R';
+                    c = 'K';
                 }
                 int i = m->initPos().x; int j = m->initPos().y;
                 if ((i + j) % 2 == 0) w->fillRectangle(50*(j+2), 50*i, 50, 50, Xwindow::White);

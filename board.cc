@@ -100,7 +100,6 @@ std::vector<Move*> Board::whiteMoves() {
 }
 
 std::vector<Move*> Board::whiteMovesNoCastle() {
-    std::cout << "called" << std::endl;
     std::vector<Move*> whiteMoves;
     //setup test game human human move a7 a8 Q move e8 e7 move a8 a6 move e7 f8 move h1 h7 move f8 g8 move a6 a8
     for (int z = 0; z < whitePieces.size(); ++z) {
