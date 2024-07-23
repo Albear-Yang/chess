@@ -75,6 +75,32 @@ void GraphicsDisplay::notify() {
         if ((i + j) % 2 == 0) w->fillRectangle(50*(j+2), 50*i, 50, 50, Xwindow::White);
         else w->fillRectangle(50*(j+2), 50*i, 50, 50, Xwindow::Green);
         w->drawString(50*(j+2)+23, 50*i+25, std::string(1, c));
+        if (subj->enpassed != nullptr) {
+            i = subj->enpassed->x; j = subj->enpassed->y;
+            if ((i + j) % 2 == 0) w->fillRectangle(50*(j+2), 50*i, 50, 50, Xwindow::White);
+            else w->fillRectangle(50*(j+2), 50*i, 50, 50, Xwindow::Green);
+        }
+        if (subj->pastMoves.size() >= 2) {
+            m = subj->pastMoves[pastMoves.size() - 2]->castle;
+            if (m != nullptr) {
+                char c;
+                Type type = m->pieceMoved()->typeValue();
+                Color color = m->pieceMoved()->getColor();
+                if (color == Color::BLACK) {
+                    c = 'r';
+                }
+                else {
+                    c = 'R';
+                }
+                int i = m->initPos().x; int j = m->initPos().y;
+                if ((i + j) % 2 == 0) w->fillRectangle(50*(j+2), 50*i, 50, 50, Xwindow::White);
+                else w->fillRectangle(50*(j+2), 50*i, 50, 50, Xwindow::Green);
+                i = m->finPos().x; j = m->finPos().y;
+                if ((i + j) % 2 == 0) w->fillRectangle(50*(j+2), 50*i, 50, 50, Xwindow::White);
+                else w->fillRectangle(50*(j+2), 50*i, 50, 50, Xwindow::Green);
+                w->drawString(50*(j+2)+23, 50*i+25, std::string(1, c));
+            }
+        }
     }
 }
 
