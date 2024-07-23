@@ -9,7 +9,7 @@ class Computer : public Player {
 protected:
     Board *board;
 public:
-    virtual Move algorithm() = 0;
+    virtual Move* algorithm() = 0;
 };
 
 #endif

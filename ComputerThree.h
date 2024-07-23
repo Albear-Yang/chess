@@ -8,7 +8,7 @@
 
 class ComputerThree : public Computer {
 public:
-    Move algorithm() = 0;
+    Move* algorithm();
 };
 
 #endif

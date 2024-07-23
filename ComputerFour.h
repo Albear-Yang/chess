@@ -9,7 +9,7 @@
 class ComputerFour : public Computer {
 public:
     int eval();
-    Move algorithm() = 0;
+    Move* algorithm();
 };
 
 #endif

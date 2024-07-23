@@ -7,8 +7,9 @@
 #include "Move.h"
 
 class ComputerOne : public Computer {
+    
 public:
-    virtual Move algorithm() = 0;
+    Move* algorithm();
 };
 
 #endif
