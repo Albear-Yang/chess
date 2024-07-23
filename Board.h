@@ -32,6 +32,8 @@ public:
 
     std::vector<Move*> whiteMoves(); 
     std::vector<Move*> blackMoves();
+    std::vector<Move*> whiteMovesNoCastle(); 
+    std::vector<Move*> blackMovesNoCastle();
     bool empty(int x, int y);
     bool check4checkMove(Color king, Move* move);
     bool draw();

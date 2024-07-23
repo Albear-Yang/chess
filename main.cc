@@ -10,6 +10,8 @@
 #include "TextDisplay.h"
 #include <string>
 
+//setup default done game human human move e2 e4 move d7 d5 move e4 d5 move c7 c5 move d5 c6 move b8 c6 move g2 g3 move c8 g4 move f1 h3 move d8 d7 move g1 f3
+
 int main() {
     Board* board = new Board;
     int boardLen = board->boardLength();
@@ -193,9 +195,14 @@ int main() {
             std::string white, black;
             std::cin >> white >> black;
             while (command != "resign" && command != "checkmate" && command != "stalemate") {
+                for (auto m : board->castling) {
+                    delete m->castle;
+                }
                 board->castling.clear();
                 if (board->enpassed != nullptr) delete board->enpassed;
                 board->enpassed = nullptr;
+//setup default done game human human move e2 e4 move d7 d5 move e4 d5 move c7 c5 move d5 c6 move b8 c6 move g2 g3 move c8 g4 move f1 h3 move d8 d7 move g1 f3
+
                 if (board->whosTurn == Color::WHITE) {
                     if (white == "human") {
                         std::cout << "White Move (move <pos1> <pos2>) : " << std::endl;
