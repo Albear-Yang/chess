@@ -81,7 +81,7 @@ void GraphicsDisplay::notify() {
             else w->fillRectangle(50*(j+2), 50*i, 50, 50, Xwindow::Green);
         }
         if (subj->pastMoves.size() >= 2) {
-            m = subj->pastMoves[pastMoves.size() - 2]->castle;
+            m = subj->pastMoves[subj->pastMoves.size() - 2]->castle;
             if (m != nullptr) {
                 char c;
                 Type type = m->pieceMoved()->typeValue();
