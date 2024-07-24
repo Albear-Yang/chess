@@ -43,19 +43,23 @@ std::vector<Move*> Board::whiteMoves() {
     if (r1 != nullptr) {
         if (r1->getPos()->x == 7 && r1->getPos()->y == 0 && k->getPos()->x == 7 && k->getPos()->y == 4 && empty(7, 1) && empty(7, 2) && empty(7, 3) && !r1->has_moved && !k->has_moved) {
             i1 = 7; j1 = 4; i2 = 7; j2 = 2; ri1 = 7; rj1 = 0; ri2 = 7; rj2 = 3;
-            for (auto m : blackMovesNoCastle()) {
+            std::vector<Move*> temp = blackMovesNoCastle();
+            for (auto m : temp) {
                 if ((m->finPos()->x == 7 && m->finPos()->y == 4) || (m->finPos()->x == 7 && m->finPos()->y == 3) || (m->finPos()->x == 7 && m->finPos()->y == 2)) {
                     pass = false;
                 }
             }
+            for (auto m : temp) { delete m; }
         }
         else if (r1->getPos()->x == 7 && r1->getPos()->y == 7 && k->getPos()->x == 7 && k->getPos()->y == 4 && empty(7, 5) && empty(7, 6) && !r1->has_moved && !k->has_moved) {
             i1 = 7; j1 = 4; i2 = 7; j2 = 6; ri1 = 7; rj1 = 7; ri2 = 7; rj2 = 5;
-            for (auto m : blackMovesNoCastle()) {
+            std::vector<Move*> temp = blackMovesNoCastle();
+            for (auto m : temp) {
                 if ((m->finPos()->x == 7 && m->finPos()->y == 4) || (m->finPos()->x == 7 && m->finPos()->y == 5) || (m->finPos()->x == 7 && m->finPos()->y == 6)) {
                     pass = false;
                 }
             }
+            for (auto m : temp) { delete m; }
         }
     }
     if (pass && r1 != nullptr) {
@@ -67,19 +71,23 @@ std::vector<Move*> Board::whiteMoves() {
     if (r2 != nullptr) {
         if (r2->getPos()->x == 7 && r2->getPos()->y == 0 && k->getPos()->x == 7 && k->getPos()->y == 4 && empty(7, 1) && empty(7, 2) && empty(7, 3) && !r2->has_moved && !k->has_moved) {
             i1 = 7; j1 = 4; i2 = 7; j2 = 2; ri1 = 7; rj1 = 0; ri2 = 7; rj2 = 3;
-            for (auto m : blackMovesNoCastle()) {
+            std::vector<Move*> temp = blackMovesNoCastle();
+            for (auto m : temp) {
                 if ((m->finPos()->x == 7 && m->finPos()->y == 4) || (m->finPos()->x == 7 && m->finPos()->y == 3) || (m->finPos()->x == 7 && m->finPos()->y == 2)) {
                     pass = false;
                 }
             }
+            for (auto m : temp) { delete m; }
         }
         else if (r2->getPos()->x == 7 && r2->getPos()->y == 7 && k->getPos()->x == 7 && k->getPos()->y == 4 && empty(7, 5) && empty(7, 6) && !r2->has_moved && !k->has_moved) {
             i1 = 7; j1 = 4; i2 = 7; j2 = 6; ri1 = 7; rj1 = 7; ri2 = 7; rj2 = 5;
-            for (auto m : blackMovesNoCastle()) {
+            std::vector<Move*> temp = blackMovesNoCastle();
+            for (auto m : temp) {
                 if ((m->finPos()->x == 7 && m->finPos()->y == 4) || (m->finPos()->x == 7 && m->finPos()->y == 5) || (m->finPos()->x == 7 && m->finPos()->y == 6)) {
                     pass = false;
                 }
             }
+            for (auto m : temp) { delete m; }
         }
     }
     if (pass && r2 != nullptr) {
@@ -118,7 +126,9 @@ std::vector<Move*> Board::whiteMovesNoCastle() {
 
 std::vector<Move*> Board::blackMoves() {
     std::vector<Move*> blackMoves;
+    //std::cout << "BLACK PIECES NUMBER " << blackPieces.size() << std::endl;
     for (int z = 0; z < blackPieces.size(); ++z) {
+        //std::cout << blackPieces[z]->getPos()->x << " " << blackPieces[z]->getPos()->y << std::endl;
         std::vector<Move*> pMoves = blackPieces[z]->moves();
         //std::cout << " size " << pMoves.size() << std::endl;
         //std::cout << whitePieces.size() << std::endl;
@@ -157,19 +167,23 @@ std::vector<Move*> Board::blackMoves() {
     if (r1 != nullptr) {
         if (r1->getPos()->x == 0 && r1->getPos()->y == 0 && k->getPos()->x == 0 && k->getPos()->y == 4 && empty(0, 1) && empty(0, 2) && empty(0, 3) && !r1->has_moved && !k->has_moved) {
             i1 = 0; j1 = 4; i2 = 0; j2 = 2; ri1 = 0; rj1 = 0; ri2 = 0; rj2 = 3;
-            for (auto m : whiteMovesNoCastle()) {
+            std::vector<Move*> temp = whiteMovesNoCastle();
+            for (auto m : temp) {
                 if ((m->finPos()->x == 0 && m->finPos()->y == 4) || (m->finPos()->x == 0 && m->finPos()->y == 3) || (m->finPos()->x == 0 && m->finPos()->y == 2)) {
                     pass = false;
                 }
             }
+            for (auto m : temp) { delete m; }
         }
         else if (r1->getPos()->x == 0 && r1->getPos()->y == 0 && k->getPos()->x == 0 && k->getPos()->y == 4 && empty(0, 5) && empty(0, 6) && !r1->has_moved && !k->has_moved) {
             i1 = 0; j1 = 4; i2 = 0; j2 = 6; ri1 = 0; rj1 = 0; ri2 = 0; rj2 = 5;
-            for (auto m : whiteMovesNoCastle()) {
+            std::vector<Move*> temp = whiteMovesNoCastle();
+            for (auto m : temp) {
                 if ((m->finPos()->x == 0 && m->finPos()->y == 4) || (m->finPos()->x == 0 && m->finPos()->y == 5) || (m->finPos()->x == 0 && m->finPos()->y == 6)) {
                     pass = false;
                 }
             }
+            for (auto m : temp) { delete m; }
         }
     }
     if (pass && r1 != nullptr) {
@@ -181,19 +195,23 @@ std::vector<Move*> Board::blackMoves() {
     if (r2 != nullptr) {
         if (r2->getPos()->x == 0 && r2->getPos()->y == 0 && k->getPos()->x == 0 && k->getPos()->y == 4 && empty(0, 1) && empty(0, 2) && empty(0, 3) && !r2->has_moved && !k->has_moved) {
             i1 = 0; j1 = 4; i2 = 0; j2 = 2; ri1 = 0; rj1 = 0; ri2 = 0; rj2 = 3;
-            for (auto m : whiteMovesNoCastle()) {
+            std::vector<Move*> temp = whiteMovesNoCastle();
+            for (auto m : temp) {
                 if ((m->finPos()->x == 0 && m->finPos()->y == 4) || (m->finPos()->x == 0 && m->finPos()->y == 3) || (m->finPos()->x == 0 && m->finPos()->y == 2)) {
                     pass = false;
                 }
             }
+            for (auto m : temp) { delete m; }
         }
         else if (r2->getPos()->x == 0 && r2->getPos()->y == 0 && k->getPos()->x == 0 && k->getPos()->y == 4 && empty(0, 5) && empty(0, 6) && !r2->has_moved && !k->has_moved) {
             i1 = 0; j1 = 4; i2 = 0; j2 = 6; ri1 = 0; rj1 = 0; ri2 = 0; rj2 = 5;
-            for (auto m : whiteMovesNoCastle()) {
+            std::vector<Move*> temp = whiteMovesNoCastle();
+            for (auto m : temp) {
                 if ((m->finPos()->x == 0 && m->finPos()->y == 4) || (m->finPos()->x == 0 && m->finPos()->y == 5) || (m->finPos()->x == 0 && m->finPos()->y == 6)) {
                     pass = false;
                 }
             }
+            for (auto m : temp) { delete m; }
         }
     }
     if (pass && r2 != nullptr) {
@@ -233,8 +251,6 @@ std::vector<Move*> Board::blackMovesNoCastle() {
 }
 
 bool Board::draw() {
-    if (whosTurn == Color::WHITE && whiteMoves().empty()) return true;
-    if (whosTurn == Color::BLACK && blackMoves().empty()) return true;
     if (whitePieces.size() == 1 && blackPieces.size() == 1 && whitePieces[0]->typeValue() == Type::KING && blackPieces[0]->typeValue() == Type::KING) return true;
     if (whitePieces.size() == 1 && blackPieces.size() == 1 && whitePieces[0]->typeValue() == Type::KING && blackPieces[0]->typeValue() == Type::KING) return true;
     if (whitePieces.size() == 2 && blackPieces.size() == 1 && whitePieces[0]->typeValue() == Type::KING && whitePieces[1]->typeValue() == Type::BISHOP && blackPieces[0]->typeValue() == Type::KING) return true;
@@ -266,17 +282,29 @@ bool Board::checkmate() {
     if (!check4check(Color::WHITE)) return false;
     if (!check4check(Color::BLACK)) return false;
     if (whosTurn == Color::WHITE) {
-        if (whiteMoves().empty()) return true;
+        std::vector<Move*> temp = whiteMoves();
+        if (temp.empty()) { for (auto m : temp) { if (m->castle != nullptr) { delete m->castle; } delete m; } return true; } 
+        for (auto m : temp) { if (m->castle != nullptr) { delete m->castle; } delete m; }
     }
-    else if (blackMoves().empty()) return true;
+    else {
+        std::vector<Move*> temp = blackMoves();
+        if (temp.empty()) { for (auto m : temp) { if (m->castle != nullptr) { delete m->castle; } delete m; } return true; } 
+        for (auto m : temp) { if (m->castle != nullptr) { delete m->castle; } delete m; }
+    } 
     return false;
 }
 
 bool Board::stalemate() {
     if (whosTurn == Color::WHITE) {
-        if (whiteMoves().empty()) return true;
+        std::vector<Move*> temp = whiteMoves();
+        if (temp.empty()) { for (auto m : temp) { if (m->castle != nullptr) { delete m->castle; } delete m; } return true; } 
+        for (auto m : temp) { if (m->castle != nullptr) { delete m->castle; } delete m; }
     }
-    else if (blackMoves().empty()) return true;
+    else {
+        std::vector<Move*> temp = blackMoves();
+        if (temp.empty()) { for (auto m : temp) { if (m->castle != nullptr) { delete m->castle; } delete m; } return true; } 
+        for (auto m : temp) { if (m->castle != nullptr) { delete m->castle; } delete m; }
+    } 
     return false;
 }
 
@@ -289,11 +317,14 @@ bool Board::check4check(Color king) {
             }
         }
         for (auto p : blackPieces) {
-            for (auto move : p->movesNoCheck()) {
+            std::vector<Move*> temp = p->movesNoCheck();
+            for (auto move : temp) {
                 if (k->positionXValue() == move->finPos()->x && k->positionYValue() == move->finPos()->y) {
+                    for (auto m : temp) { delete m; }
                     return true;
                 }
             }
+            for (auto m : temp) { delete m; }
         }
     }
     else {
@@ -304,11 +335,14 @@ bool Board::check4check(Color king) {
             }
         }
         for (auto p : whitePieces) {
-            for (auto move : p->movesNoCheck()) {
+            std::vector<Move*> temp = p->movesNoCheck();
+            for (auto move : temp) {
                 if (k->positionXValue() == move->finPos()->x && k->positionYValue() == move->finPos()->y) {
+                    for (auto m : temp) { delete m; }
                     return true;
                 }
             }
+            for (auto m : temp) { delete m; }
         }
     }
     return false;
@@ -425,21 +459,25 @@ bool Board::check4checkMove(Color king, Move* move) {
             }
         }
         for (auto p : blackPieces) {
-            for (auto move : p->movesNoCheck()) {
+            std::vector<Move*> temp = p->movesNoCheck();
+            for (auto move : temp) {
                 //std::cout << "Q " << whitePieces[1]->pos.x << " " << whitePieces[1]->pos.y << std::endl;
                 if (capturee != nullptr) {
                     if (move->initPos()->x != capturee->getPos()->x && move->initPos()->y != capturee->getPos()->y && k->positionXValue() == move->finPos()->x && k->positionYValue() == move->finPos()->y) {
                         undo();
+                        for (auto m : temp) { delete m; }
                         return true;
                     }
                 }
                 else {
                     if (k->positionXValue() == move->finPos()->x && k->positionYValue() == move->finPos()->y) {
                         undo();
+                        for (auto m : temp) { delete m; }
                         return true;
                     }
                 }
             }
+            for (auto m : temp) { delete m; }
         }
     }
     else {
@@ -450,20 +488,24 @@ bool Board::check4checkMove(Color king, Move* move) {
             }
         }
         for (auto p : whitePieces) {
-            for (auto move : p->movesNoCheck()) {
+            std::vector<Move*> temp = p->movesNoCheck();
+            for (auto move : temp) {
                 if (capturee != nullptr) {
                     if (move->initPos()->x != capturee->getPos()->x && move->initPos()->y != capturee->getPos()->y && k->positionXValue() == move->finPos()->x && k->positionYValue() == move->finPos()->y) {
                         undo();
+                        for (auto m : temp) { delete m; }
                         return true;
                     }
                 }
                 else {
                     if (k->positionXValue() == move->finPos()->x && k->positionYValue() == move->finPos()->y) {
                         undo();
+                        for (auto m : temp) { delete m; }
                         return true;
                     }
                 }
             }
+            for (auto m : temp) { delete m; }
         }
     }
     undo();
@@ -493,7 +535,7 @@ void Board::removePiece(Piece* piece) {
     if (piece->getColor() == Color::WHITE) {
         for (auto p = whitePieces.begin(); p != whitePieces.end();) {
             if (*p == piece) {
-                delete *p;
+                gone.emplace_back(*p);
                 whitePieces.erase(p);
                 return;
             }
@@ -503,7 +545,7 @@ void Board::removePiece(Piece* piece) {
     else {
         for (auto p = blackPieces.begin(); p != blackPieces.end();) {
             if (*p == piece) {
-                delete *p;
+                gone.emplace_back(*p);
                 blackPieces.erase(p);
                 return;
             }
@@ -515,7 +557,7 @@ void Board::removePiece(Piece* piece) {
 void Board::removePiece(int x, int y) {
     for (auto p = whitePieces.begin(); p != whitePieces.end();) {
         if ((*p)->positionXValue() == x && (*p)->positionYValue() == y) {
-            delete *p;
+            gone.emplace_back(*p);
             whitePieces.erase(p);
             return;
         }
@@ -523,7 +565,7 @@ void Board::removePiece(int x, int y) {
     }
     for (auto p = blackPieces.begin(); p != blackPieces.end();) {
         if ((*p)->positionXValue() == x && (*p)->positionYValue() == y) {
-            delete *p;
+            gone.emplace_back(*p);
             blackPieces.erase(p);
             return;
         }
@@ -549,15 +591,15 @@ void Board::clear() {
     for (int i = 0; i < pastMoves.size(); i++) {
         delete pastMoves[i];
     }
-    for (int i = 0; i < castling.size(); i++) {
-        delete castling[i];
+    for (int i = 0; i < gone.size(); i++) {
+        delete gone[i];
     }
     startingBlackPieces.clear();
     startingWhitePieces.clear();
     blackPieces.clear();
     whitePieces.clear();
     pastMoves.clear();
-    castling.clear();
+    gone.clear();
     hasWhiteKing = false;
     hasBlackKing = false;
     round1 = true;
