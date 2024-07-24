@@ -33,9 +33,7 @@ Move& Move::operator=(Move&& other){
 }
 
 Move::~Move() {
-    pieceMoving = nullptr;
-    pieceCapturing = nullptr;
-    delete &initialPos; delete &finalPos;
+    delete initialPos; delete finalPos;
 }
 
 Move Move::reverseMove(){

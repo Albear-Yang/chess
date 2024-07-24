@@ -20,15 +20,15 @@ public:
     std::vector<Piece*> startingBlackPieces;
     std::vector<Piece*> whitePieces;
     std::vector<Piece*> blackPieces;
-    int whiteScore = 0;
-    int blackScore = 0;
+    std::vector<Piece*> gone;
+    float whiteScore = 0;
+    float blackScore = 0;
     bool hasWhiteKing = false;
     bool hasBlackKing = false;
     bool round1 = true;
     Position* enpassed = nullptr;
     Color whosTurn = Color::WHITE;
     std::vector<Move*> pastMoves;
-    std::vector<Move*> castling;
 
     std::vector<Move*> whiteMoves(); 
     std::vector<Move*> blackMoves();

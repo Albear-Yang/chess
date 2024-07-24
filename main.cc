@@ -10,7 +10,7 @@
 #include "TextDisplay.h"
 #include <string>
 
-//setup default done game human human move e2 e4 move d7 d5 move e4 d5 move c7 c5 move d5 c6 move b8 c6 move g2 g3 move c8 g4 move f1 h3 move d8 d7 move g1 f3
+//setup default done game human human move e2 e4 move d7 d5 move e4 d5 move c7 c5 move d5 c6 move b8 c6 move g2 g3 move c8 g4 move f1 h3 move d8 d7 move g1 f3 move e8 c8
 
 int main() {
     Board* board = new Board;
@@ -195,10 +195,6 @@ int main() {
             std::string white, black;
             std::cin >> white >> black;
             while (command != "resign" && command != "checkmate" && command != "stalemate") {
-                for (auto m : board->castling) {
-                    delete m->castle;
-                }
-                board->castling.clear();
                 if (board->enpassed != nullptr) delete board->enpassed;
                 board->enpassed = nullptr;
 //setup default done game human human move e2 e4 move d7 d5 move e4 d5 move c7 c5 move d5 c6 move b8 c6 move g2 g3 move c8 g4 move f1 h3 move d8 d7 move g1 f3
@@ -369,9 +365,9 @@ int main() {
                                                     board->startingWhitePieces.emplace_back(new Bishop(board, new Position{m->finPos()->x, m->finPos()->y}, Color::WHITE));
                                                     break;
                                                 }
-                                                board->addMove(new Move(promo, nullptr, new Position{m->initPos()->x, m->initPos()->y},  new Position{8 - fin[1] + '0', fin[0] - 'a'}));
+                                                board->addMove(new Move(promo, capturee, new Position{m->initPos()->x, m->initPos()->y},  new Position{8 - fin[1] + '0', fin[0] - 'a'}));
                                             }
-                                            else board->addMove(new Move(starter, nullptr, new Position{m->initPos()->x, m->initPos()->y},  new Position{8 - fin[1] + '0', fin[0] - 'a'}));
+                                            else board->addMove(m);
 
                                             starter->has_moved = true;
                                             board->whosTurn = Color::BLACK;
@@ -392,6 +388,25 @@ int main() {
                                 }
                                 if (command == "resign") break;
                                 else std::cin >> init >> fin;
+                            }
+                            for(auto i = temp.begin(); i != temp.end();){
+                                bool flag = false;
+                                if ((*i)->castle != nullptr) flag = true;
+                                if (flag) {
+                                    if (board->pastMoves.back() != (*i)->castle) {
+                                        delete (*i)->castle;
+                                        delete *i;
+                                        temp.erase(i);
+                                    }
+                                    else i++;
+                                }
+                                else if (board->pastMoves.back() != *i) {
+                                    delete *i;
+                                    temp.erase(i);
+                                }
+                                else {
+                                    i++;
+                                }
                             }
                             if (command != "resign") std::cout << "Move made" << std::endl;
                         }
@@ -427,7 +442,6 @@ int main() {
                                         break;
                                     }
                                 }
-                                
                                 
                                 if (starter != nullptr) {
                                     for (auto m : temp) {
@@ -485,7 +499,6 @@ int main() {
                                                     board->addMove(new Move(promo, capturee, new Position{m->initPos()->x, m->initPos()->y},  new Position{8 - fin[1] + '0', fin[0] - 'a'}));
                                                 }
                                                 else board->addMove(m);
-
                                                 starter->has_moved = true;
                                                 board->whosTurn = Color::WHITE;
                                                 pass = true;
@@ -537,9 +550,9 @@ int main() {
                                                     board->startingBlackPieces.emplace_back(new Bishop(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK));
                                                     break;
                                                 }
-                                                board->addMove(new Move(promo, nullptr, new Position{m->initPos()->x, m->initPos()->y},  new Position{8 - fin[1] + '0', fin[0] - 'a'}));
+                                                board->addMove(new Move(promo, capturee, new Position{m->initPos()->x, m->initPos()->y},  new Position{8 - fin[1] + '0', fin[0] - 'a'}));
                                             }
-                                            else board->addMove(new Move(starter, nullptr, new Position{m->initPos()->x, m->initPos()->y},  new Position{8 - fin[1] + '0', fin[0] - 'a'}));
+                                            else board->addMove(m);
 
                                             starter->has_moved = true;
                                             board->whosTurn = Color::WHITE;
@@ -559,6 +572,25 @@ int main() {
                                 }
                                 if (command == "resign") break;
                                 else std::cin >> init >> fin;
+                            }
+                            for(auto i = temp.begin(); i != temp.end();){
+                                bool flag = false;
+                                if ((*i)->castle != nullptr) flag = true;
+                                if (flag) {
+                                    if (board->pastMoves.back() != (*i)->castle) {
+                                        delete (*i)->castle;
+                                        delete *i;
+                                        temp.erase(i);
+                                    }
+                                    else i++;
+                                }
+                                else if (board->pastMoves.back() != *i) {
+                                    delete *i;
+                                    temp.erase(i);
+                                }
+                                else {
+                                    i++;
+                                }
                             }
                             if (command != "resign") std::cout << "Move made" << std::endl;
                         }
