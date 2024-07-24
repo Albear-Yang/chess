@@ -47,8 +47,6 @@ public:
     void removePiece(int x, int y);
     void undo();
     void addMove(Move* move);
-    void undoMinMax();
-    void addMoveMinMax(Move* move);
     int boardLength();
     void clear();
     ~Board();
