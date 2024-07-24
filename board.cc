@@ -40,6 +40,7 @@ std::vector<Move*> Board::whiteMoves() {
     }
     bool pass = true;
     int i1, j1, i2, j2, ri1, ri2, rj1, rj2;
+    i1 = j1 = i2 = j2 = ri1 = ri2 = rj1 = rj2 = -1;
     if (r1 != nullptr) {
         if (r1->getPos()->x == 7 && r1->getPos()->y == 0 && k->getPos()->x == 7 && k->getPos()->y == 4 && empty(7, 1) && empty(7, 2) && empty(7, 3) && !r1->has_moved && !k->has_moved) {
             i1 = 7; j1 = 4; i2 = 7; j2 = 2; ri1 = 7; rj1 = 0; ri2 = 7; rj2 = 3;
@@ -62,12 +63,13 @@ std::vector<Move*> Board::whiteMoves() {
             for (auto m : temp) { delete m; }
         }
     }
-    if (pass && r1 != nullptr) {
+    if (pass && r1 != nullptr && i1 != -1) {
         Move* castling = new Move{k, nullptr, new Position{i1, j1}, new Position{i2, j2}};
         castling->castle = new Move{r1, nullptr, new Position{ri1, rj1}, new Position{ri2, rj2}};
         whiteMoves.emplace_back(castling);
     }
     pass = true;
+    i1 = j1 = i2 = j2 = ri1 = ri2 = rj1 = rj2 = -1;
     if (r2 != nullptr) {
         if (r2->getPos()->x == 7 && r2->getPos()->y == 0 && k->getPos()->x == 7 && k->getPos()->y == 4 && empty(7, 1) && empty(7, 2) && empty(7, 3) && !r2->has_moved && !k->has_moved) {
             i1 = 7; j1 = 4; i2 = 7; j2 = 2; ri1 = 7; rj1 = 0; ri2 = 7; rj2 = 3;
@@ -90,7 +92,7 @@ std::vector<Move*> Board::whiteMoves() {
             for (auto m : temp) { delete m; }
         }
     }
-    if (pass && r2 != nullptr) {
+    if (pass && r2 != nullptr && i1 != -1) {
         Move* castling = new Move{k, nullptr, new Position{i1, j1}, new Position{i2, j2}};
         castling->castle = new Move{r2, nullptr, new Position{ri1, rj1}, new Position{ri2, rj2}};
         whiteMoves.emplace_back(castling);
@@ -164,6 +166,7 @@ std::vector<Move*> Board::blackMoves() {
     }
     bool pass = true;
     int i1, j1, i2, j2, ri1, ri2, rj1, rj2;
+    i1 = j1 = i2 = j2 = ri1 = ri2 = rj1 = rj2 = -1;
     if (r1 != nullptr) {
         if (r1->getPos()->x == 0 && r1->getPos()->y == 0 && k->getPos()->x == 0 && k->getPos()->y == 4 && empty(0, 1) && empty(0, 2) && empty(0, 3) && !r1->has_moved && !k->has_moved) {
             i1 = 0; j1 = 4; i2 = 0; j2 = 2; ri1 = 0; rj1 = 0; ri2 = 0; rj2 = 3;
@@ -186,12 +189,13 @@ std::vector<Move*> Board::blackMoves() {
             for (auto m : temp) { delete m; }
         }
     }
-    if (pass && r1 != nullptr) {
+    if (pass && r1 != nullptr && i1 != -1) {
         Move* castling = new Move{k, nullptr, new Position{i1, j1}, new Position{i2, j2}};
         castling->castle = new Move{r1, nullptr, new Position{ri1, rj1}, new Position{ri2, rj2}};
         blackMoves.emplace_back(castling);
     }
     pass = true;
+    i1 = j1 = i2 = j2 = ri1 = ri2 = rj1 = rj2 = -1;
     if (r2 != nullptr) {
         if (r2->getPos()->x == 0 && r2->getPos()->y == 0 && k->getPos()->x == 0 && k->getPos()->y == 4 && empty(0, 1) && empty(0, 2) && empty(0, 3) && !r2->has_moved && !k->has_moved) {
             i1 = 0; j1 = 4; i2 = 0; j2 = 2; ri1 = 0; rj1 = 0; ri2 = 0; rj2 = 3;
@@ -214,12 +218,12 @@ std::vector<Move*> Board::blackMoves() {
             for (auto m : temp) { delete m; }
         }
     }
-    if (pass && r2 != nullptr) {
+    if (pass && r2 != nullptr && i1 != -1) {
         Move* castling = new Move{k, nullptr, new Position{i1, j1}, new Position{i2, j2}};
         castling->castle = new Move{r2, nullptr, new Position{ri1, rj1}, new Position{ri2, rj2}};
         blackMoves.emplace_back(castling);
     }
-    //std::cout << whiteMoves.size() << std::endl;
+    //std::cout << blackMoves.size() << std::endl;
     return blackMoves;
 }
 
