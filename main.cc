@@ -631,6 +631,6 @@ int main() {
     std::cout << "White: " << board->whiteScore << std::endl;
     std::cout << "Black: " << board->blackScore << std::endl;
     delete Text;
-    delete board;
     //delete Graphic;
+    delete board;
 }
