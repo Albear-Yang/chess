@@ -8,11 +8,11 @@ class Piece;
 class Move {
     Piece *pieceMoving;
     Piece *pieceCapturing;
-    Position initialPos;
-    Position finalPos;
+    Position* initialPos;
+    Position* finalPos;
 public:
     Move* castle = nullptr;
-    Move(Piece* moving, Piece* captured, Position init, Position final);
+    Move(Piece* moving, Piece* captured, Position* init, Position* final);
     Move(const Move& other);
     Move& operator=(const Move& other);
     Move(Move && other);
@@ -25,10 +25,10 @@ public:
     Piece* pieceCaped(){
         return pieceCapturing;
     }
-    Position initPos(){
+    Position* initPos(){
         return initialPos;
     };
-    Position finPos(){
+    Position* finPos(){
         return finalPos;
     };
 

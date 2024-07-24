@@ -7,9 +7,10 @@ class Queen : public Piece {
 public:
     std::vector<Move*> moves() override;
     std::vector<Move*> movesNoCheck() override;
-    Queen(Board *board, Position pos, Color color);
-    void move(Position newpos) override;
-    std::vector<Move*> canCapture() override;
+    Queen(Board *board, Position* pos, Color color);
+    //void move(Position newpos) override;
+    //std::vector<Move*> canCapture() override;
+    ~Queen() {}
 };
 
 #endif

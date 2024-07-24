@@ -7,9 +7,10 @@ class Bishop : public Piece {
 public:
     std::vector<Move*> moves() override;
     std::vector<Move*> movesNoCheck() override;
-    Bishop(Board *board, Position pos, Color color);
-    void move(Position pos) override;
-    std::vector<Move*> canCapture() override;
+    Bishop(Board *board, Position* pos, Color color);
+    //void move(Position pos) override;
+    //std::vector<Move*> canCapture() override;
+    ~Bishop() {}
 };
 
 #endif // BISHOP_H

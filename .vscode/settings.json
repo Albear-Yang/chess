@@ -64,6 +64,9 @@
         "deque": "cpp",
         "queue": "cpp",
         "span": "cpp",
-        "stack": "cpp"
-    }
+        "stack": "cpp",
+        "numeric": "cpp",
+        "numbers": "cpp"
+    },
+    "C_Cpp.default.compilerPath": "/usr/bin/gcc"
 }

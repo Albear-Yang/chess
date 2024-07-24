@@ -1,7 +1,7 @@
 #include "King.h"
 using namespace std;
 
-King::King(Board* board, Position pos, Color color)
+King::King(Board* board, Position* pos, Color color)
     : Piece(board, pos, color, Type::KING) {}
 
 vector<Move*> King::moves(){
@@ -20,12 +20,12 @@ vector<Move*> King::moves(){
             if(x == 0 && y == 0){
                 continue;
             }
-            if(pos.x + x < 8 && pos.x + x >= 0 && pos.y + y < 8 && pos.y + y < 8){
-                Position tempPos = Position(pos.x + x, pos.y + y);
+            if(pos->x + x < 8 && pos->x + x >= 0 && pos->y + y < 8 && pos->y + y < 8){
+                //Position* tempPos = new Position(pos->x + x, pos->y + y);
                 bool pass = true;
                 for(int z = 0; z < allPieces.size(); ++z){
                     Move *tempMove = nullptr;
-                    if(tempPos == allPieces[z]->pos){
+                    if(pos->x + x == allPieces[z]->pos->x && pos->y + y == allPieces[z]->pos->y){
                         pass = false;
                         if(allPieces[z]->color != color){
                             Piece* pc = nullptr;
@@ -37,13 +37,13 @@ vector<Move*> King::moves(){
                                     if (p == allPieces[z]) { pc = p; break; }
                                 } 
                             }
-                            tempMove = new Move(this, pc, pos, tempPos);
+                            tempMove = new Move(this, pc, new Position{pos->x, pos->y}, new Position(pos->x + x, pos->y + y));
                             possibleMoves.push_back(tempMove);
                         }
                     }
                 }
                 if (pass) {
-                    Move *tempMove = new Move(this, nullptr, pos, tempPos);
+                    Move *tempMove = new Move(this, nullptr, new Position{pos->x, pos->y}, new Position(pos->x + x, pos->y + y));
                     possibleMoves.push_back(tempMove);
                 }
             }
@@ -51,6 +51,7 @@ vector<Move*> King::moves(){
     }
     for(auto i = possibleMoves.begin(); i != possibleMoves.end();){
         if (board->check4checkMove(color, *i)) {
+            delete *i;
             possibleMoves.erase(i);
         }
         else{
@@ -75,19 +76,19 @@ std::vector<Move*> King::movesNoCheck() {
             if(x == 0 && y == 0){
                 continue;
             }
-            if(pos.x + x < 8 && pos.x + x >= 0 && pos.y + y < 8 && pos.y + y < 8){
-                Position tempPos = Position(pos.x + x, pos.y + y);
+            if(pos->x + x < 8 && pos->x + x >= 0 && pos->y + y < 8 && pos->y + y < 8){
+                Position* tempPos = new Position(pos->x + x, pos->y + y);
 
                 for(int z = 0; z < allPieces.size(); ++z){
                     Move *tempMove = nullptr;
                     if(tempPos == allPieces[z]->pos){
                         if(allPieces[z]->color != color){
-                            tempMove = new Move(this, board->blackPieces[z], pos, tempPos);
+                            tempMove = new Move(this, board->blackPieces[z], new Position{pos->x, pos->y}, tempPos);
                             possibleMoves.push_back(tempMove);
                         }
                     }
                 }
-                Move *tempMove = new Move(this, nullptr, pos, tempPos);
+                Move *tempMove = new Move(this, nullptr, new Position{pos->x, pos->y}, tempPos);
                 possibleMoves.push_back(tempMove);
             }
         }
@@ -95,7 +96,7 @@ std::vector<Move*> King::movesNoCheck() {
     return possibleMoves;
 }
 
-void King::move(Position newpos){
+/*void King::move(Position newpos){
     has_moved = true;
     pos = newpos;
 }
@@ -113,14 +114,14 @@ vector<Move*> King::canCapture(){
 
     for(int x = -1; x < 2; x++){
         for(int y = -1; y < 2; y++){
-            if(pos.x + x < 8 && pos.x + x >= 0 && pos.y + y < 8 && pos.y + y < 8){
-                Position tempPos = Position(pos.x + x, pos.y + y);
+            if(pos->x + x < 8 && pos->x + x >= 0 && pos->y + y < 8 && pos->y + y < 8){
+                Position tempPos = Position(pos->x + x, pos->y + y);
                 
                 for(int z = 0; z < allPieces.size(); ++z){
                     Move *tempMove = nullptr;
                     if(tempPos == allPieces[z]->pos){
                         if(allPieces[z]->color != color){
-                            tempMove = new Move(this, board->blackPieces[z], pos, tempPos);
+                            tempMove = new Move(this, board->blackPieces[z], new Position{pos->x, pos->y}, tempPos);
                             possibleMoves.push_back(tempMove);
                         }
                     }
@@ -129,4 +130,4 @@ vector<Move*> King::canCapture(){
         }
     }
     return possibleMoves;
-}
+}*/

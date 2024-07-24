@@ -1,6 +1,6 @@
 #include "Move.h"
 
-Move::Move(Piece* moving, Piece* captured, Position init, Position final): pieceMoving{moving}, pieceCapturing{captured}, initialPos{init}, finalPos{final} {}
+Move::Move(Piece* moving, Piece* captured, Position* init, Position* final): pieceMoving{moving}, pieceCapturing{captured}, initialPos{init}, finalPos{final} {}
 
 Move::Move(const Move& other): pieceMoving{other.pieceMoving}, pieceCapturing{other.pieceCapturing}, initialPos{other.initialPos}, finalPos{other.finalPos} {}
 
@@ -35,6 +35,7 @@ Move& Move::operator=(Move&& other){
 Move::~Move() {
     pieceMoving = nullptr;
     pieceCapturing = nullptr;
+    delete &initialPos; delete &finalPos;
 }
 
 Move Move::reverseMove(){

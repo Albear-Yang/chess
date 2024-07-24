@@ -1,7 +1,7 @@
 #include "Pawn.h"
 using namespace std;
 
-Pawn::Pawn(Board* board, Position pos, Color color)
+Pawn::Pawn(Board* board, Position* pos, Color color)
     : Piece(board, pos, color, Type::PAWN) {}
 
 vector<Move*> Pawn::moves() {
@@ -20,7 +20,7 @@ vector<Move*> Pawn::moves() {
     }
 
     for (auto p : board->startingWhitePieces) {
-        if (p == this && (p->getPos().x != pos.x || p->getPos().y != pos.y)) {
+        if (p == this && (p->getPos()->x != pos->x || p->getPos()->y != pos->y)) {
             has_moved = false;
         }
     }
@@ -35,7 +35,7 @@ vector<Move*> Pawn::moves() {
         if (i == 2 && has_moved) {
             continue;
         }
-        //Position tempPos = Position(pos.x, pos.y + reverse * i);
+        //Position tempPos = Position(pos->x, pos->y + reverse * i);
 
         /*for (int z = 0; z < allPieces.size() && noPieceBetween; ++z) {
             if (tempPos == allPieces[z]->pos) {
@@ -49,53 +49,51 @@ vector<Move*> Pawn::moves() {
 
         bool pass = true;
         for (int z = 0; z < allPieces.size(); ++z) {
-            if (pos.x + reverse * i == allPieces[z]->getPos().x && pos.y == allPieces[z]->getPos().y) {
+            if (pos->x + reverse * i == allPieces[z]->getPos()->x && pos->y == allPieces[z]->getPos()->y) {
                 pass = false;
                 break;
             }
         }   
-        if (pass) possibleMoves.push_back(new Move(this, nullptr, pos, *new Position{pos.x + reverse * i, pos.y})); //does tempPos go out of stack? *new Position{pos.x, pos.y + reverse * i}
+        if (pass) possibleMoves.push_back(new Move(this, nullptr, new Position{pos->x, pos->y}, new Position{pos->x + reverse * i, pos->y})); //does tempPos go out of stack? new Position{pos->x, pos->y + reverse * i}
         else break;
     }
 
     // Normal capturing
-    Position captR = Position(pos.x + reverse, pos.y + 1);
-    Position captL = Position(pos.x + reverse, pos.y - 1);
     for (int z = 0; z < allPieces.size(); ++z) {
-        if (captR == allPieces[z]->pos && allPieces[z]->getColor() != color) {
-            possibleMoves.push_back(new Move(this, allPieces[z], pos, captR));
+        if (pos->x + reverse == allPieces[z]->pos->x && pos->y + 1 == allPieces[z]->pos->y && allPieces[z]->getColor() != color) {
+            possibleMoves.push_back(new Move(this, allPieces[z], new Position{pos->x, pos->y}, new Position(pos->x + reverse, pos->y + 1)));
         }
-        if (captL == allPieces[z]->pos && allPieces[z]->getColor() != color) {
-            possibleMoves.push_back(new Move(this, allPieces[z], pos, captL));
+        if (pos->x + reverse == allPieces[z]->pos->x && pos->y - 1 == allPieces[z]->pos->y && allPieces[z]->getColor() != color) {
+            possibleMoves.push_back(new Move(this, allPieces[z], new Position{pos->x, pos->y}, new Position(pos->x + reverse, pos->y - 1)));
         }
     }
 
     // En passant capturing
-    if (color == Color::WHITE && pos.x == 3) {
+    if (color == Color::WHITE && pos->x == 3) {
         for (auto m : board->pastMoves) {
             if (m->pieceMoved()->typeValue() == Type::PAWN && m->pieceMoved()->getColor() == Color::BLACK) {
-                if (!(m->finPos().x == 2 && (m->finPos().y == pos.y - 1 || m->finPos().y == pos.y + 1)) && m->pieceMoved() == board->pastMoves.back()->pieceMoved() && board->pastMoves.back()->finPos().x == 3) {
-                    possibleMoves.push_back(new Move(this, board->pastMoves.back()->pieceMoved(), pos, *new Position{2, board->pastMoves.back()->finPos().y}));
-                    enpassable = new Position{2, board->pastMoves.back()->finPos().y};
+                if (!(m->finPos()->x == 2 && (m->finPos()->y == pos->y - 1 || m->finPos()->y == pos->y + 1)) && m->pieceMoved() == board->pastMoves.back()->pieceMoved() && board->pastMoves.back()->finPos()->x == 3) {
+                    possibleMoves.push_back(new Move(this, board->pastMoves.back()->pieceMoved(), new Position{pos->x, pos->y}, new Position{2, board->pastMoves.back()->finPos()->y}));
+                    enpassable = new Position{2, board->pastMoves.back()->finPos()->y};
                     break;
                 }
             } 
         }
 
         /*const auto& lastMove = board->pastMoves.back();
-        if (lastMove->pieceMoved()->typeValue() == Type::PAWN && abs(lastMove->initPos().y - lastMove->finPos().y) == 2) {
+        if (lastMove->pieceMoved()->typeValue() == Type::PAWN && abs(lastMove->initPos().y - lastMove->finPos()->y) == 2) {
             Position capturedPos = lastMove->finPos();
-            if (capturedPos.y == pos.y && (capturedPos.x == pos.x - 1 || capturedPos.x == pos.x + 1)) {
-                possibleMoves.push_back(new Move(this, lastMove->pieceMoved(), pos, Position(capturedPos.x, pos.y + reverse)));
+            if (capturedpos->y == pos->y && (capturedpos->x == pos->x - 1 || capturedpos->x == pos->x + 1)) {
+                possibleMoves.push_back(new Move(this, lastMove->pieceMoved(), new Position{pos->x, pos->y}, Position(capturedpos->x, pos->y + reverse)));
             }
         }*/
     }
-    else if (color == Color::BLACK && pos.x == 4) {
+    else if (color == Color::BLACK && pos->x == 4) {
         for (auto m : board->pastMoves) {
             if (m->pieceMoved()->typeValue() == Type::PAWN && m->pieceMoved()->getColor() == Color::WHITE) {
-                if (!(m->finPos().x == 5 && (m->finPos().y == pos.y - 1 || m->finPos().y == pos.y + 1)) && m->pieceMoved() == board->pastMoves.back()->pieceMoved() && board->pastMoves.back()->finPos().x == 4) {
-                    possibleMoves.push_back(new Move(this, board->pastMoves.back()->pieceMoved(), pos, *new Position{5, board->pastMoves.back()->finPos().y}));
-                    enpassable = new Position{5, board->pastMoves.back()->finPos().y};
+                if (!(m->finPos()->x == 5 && (m->finPos()->y == pos->y - 1 || m->finPos()->y == pos->y + 1)) && m->pieceMoved() == board->pastMoves.back()->pieceMoved() && board->pastMoves.back()->finPos()->x == 4) {
+                    possibleMoves.push_back(new Move(this, board->pastMoves.back()->pieceMoved(), new Position{pos->x, pos->y}, new Position{5, board->pastMoves.back()->finPos()->y}));
+                    enpassable = new Position{5, board->pastMoves.back()->finPos()->y};
                     break;
                 }
             } 
@@ -103,6 +101,7 @@ vector<Move*> Pawn::moves() {
     }
     for(auto i = possibleMoves.begin(); i != possibleMoves.end();){
         if (board->check4checkMove(color, *i)) {
+            delete *i;
             possibleMoves.erase(i);
         }
         else{
@@ -128,7 +127,7 @@ std::vector<Move*> Pawn::movesNoCheck() {
     }
 
     for (auto p : board->startingWhitePieces) {
-        if (p == this && (p->getPos().x != pos.x || p->getPos().y != pos.y)) {
+        if (p == this && (p->getPos()->x != pos->x || p->getPos()->y != pos->y)) {
             has_moved = false;
         }
     }
@@ -143,7 +142,7 @@ std::vector<Move*> Pawn::movesNoCheck() {
         if (i == 2 && has_moved) {
             continue;
         }
-        //Position tempPos = Position(pos.x, pos.y + reverse * i);
+        //Position tempPos = Position(pos->x, pos->y + reverse * i);
 
         /*for (int z = 0; z < allPieces.size() && noPieceBetween; ++z) {
             if (tempPos == allPieces[z]->pos) {
@@ -157,53 +156,51 @@ std::vector<Move*> Pawn::movesNoCheck() {
 
         bool pass = true;
         for (int z = 0; z < allPieces.size(); ++z) {
-            if (pos.x + reverse * i == allPieces[z]->getPos().x && pos.y == allPieces[z]->getPos().y) {
+            if (pos->x + reverse * i == allPieces[z]->getPos()->x && pos->y == allPieces[z]->getPos()->y) {
                 pass = false;
                 break;
             }
         }   
-        if (pass) possibleMoves.push_back(new Move(this, nullptr, pos, *new Position{pos.x + reverse * i, pos.y})); //does tempPos go out of stack? *new Position{pos.x, pos.y + reverse * i}
+        if (pass) possibleMoves.push_back(new Move(this, nullptr, new Position{pos->x, pos->y}, new Position{pos->x + reverse * i, pos->y})); //does tempPos go out of stack? new Position{pos->x, pos->y + reverse * i}
         else break;
     }
 
     // Normal capturing
-    Position captR = Position(pos.x + reverse, pos.y + 1);
-    Position captL = Position(pos.x + reverse, pos.y - 1);
     for (int z = 0; z < allPieces.size(); ++z) {
-        if (captR == allPieces[z]->pos && allPieces[z]->getColor() != color) {
-            possibleMoves.push_back(new Move(this, allPieces[z], pos, captR));
+        if (pos->x + reverse == allPieces[z]->pos->x && pos->y + 1 == allPieces[z]->pos->y && allPieces[z]->getColor() != color) {
+            possibleMoves.push_back(new Move(this, allPieces[z], new Position{pos->x, pos->y}, new Position(pos->x + reverse, pos->y + 1)));
         }
-        if (captL == allPieces[z]->pos && allPieces[z]->getColor() != color) {
-            possibleMoves.push_back(new Move(this, allPieces[z], pos, captL));
+        if (pos->x + reverse == allPieces[z]->pos->x && pos->y - 1 == allPieces[z]->pos->y && allPieces[z]->getColor() != color) {
+            possibleMoves.push_back(new Move(this, allPieces[z], new Position{pos->x, pos->y}, new Position(pos->x + reverse, pos->y - 1)));
         }
     }
 
     // En passant capturing
-    if (color == Color::WHITE && pos.x == 3) {
+    if (color == Color::WHITE && pos->x == 3) {
         for (auto m : board->pastMoves) {
             if (m->pieceMoved()->typeValue() == Type::PAWN && m->pieceMoved()->getColor() == Color::BLACK) {
-                if (!(m->finPos().x == 2 && (m->finPos().y == pos.y - 1 || m->finPos().y == pos.y + 1)) && m->pieceMoved() == board->pastMoves.back()->pieceMoved() && board->pastMoves.back()->finPos().x == 3) {
-                    possibleMoves.push_back(new Move(this, board->pastMoves.back()->pieceMoved(), pos, *new Position{2, board->pastMoves.back()->finPos().y}));
-                    enpassable = new Position{2, board->pastMoves.back()->finPos().y};
+                if (!(m->finPos()->x == 2 && (m->finPos()->y == pos->y - 1 || m->finPos()->y == pos->y + 1)) && m->pieceMoved() == board->pastMoves.back()->pieceMoved() && board->pastMoves.back()->finPos()->x == 3) {
+                    possibleMoves.push_back(new Move(this, board->pastMoves.back()->pieceMoved(), new Position{pos->x, pos->y}, new Position{2, board->pastMoves.back()->finPos()->y}));
+                    enpassable = new Position{2, board->pastMoves.back()->finPos()->y};
                     break;
                 }
             } 
         }
 
         /*const auto& lastMove = board->pastMoves.back();
-        if (lastMove->pieceMoved()->typeValue() == Type::PAWN && abs(lastMove->initPos().y - lastMove->finPos().y) == 2) {
+        if (lastMove->pieceMoved()->typeValue() == Type::PAWN && abs(lastMove->initPos().y - lastMove->finPos()->y) == 2) {
             Position capturedPos = lastMove->finPos();
-            if (capturedPos.y == pos.y && (capturedPos.x == pos.x - 1 || capturedPos.x == pos.x + 1)) {
-                possibleMoves.push_back(new Move(this, lastMove->pieceMoved(), pos, Position(capturedPos.x, pos.y + reverse)));
+            if (capturedpos->y == pos->y && (capturedpos->x == pos->x - 1 || capturedpos->x == pos->x + 1)) {
+                possibleMoves.push_back(new Move(this, lastMove->pieceMoved(), new Position{pos->x, pos->y}, Position(capturedpos->x, pos->y + reverse)));
             }
         }*/
     }
-    else if (color == Color::BLACK && pos.x == 4) {
+    else if (color == Color::BLACK && pos->x == 4) {
         for (auto m : board->pastMoves) {
             if (m->pieceMoved()->typeValue() == Type::PAWN && m->pieceMoved()->getColor() == Color::WHITE) {
-                if (!(m->finPos().x == 5 && (m->finPos().y == pos.y - 1 || m->finPos().y == pos.y + 1)) && m->pieceMoved() == board->pastMoves.back()->pieceMoved() && board->pastMoves.back()->finPos().x == 4) {
-                    possibleMoves.push_back(new Move(this, board->pastMoves.back()->pieceMoved(), pos, *new Position{5, board->pastMoves.back()->finPos().y}));
-                    enpassable = new Position{5, board->pastMoves.back()->finPos().y};
+                if (!(m->finPos()->x == 5 && (m->finPos()->y == pos->y - 1 || m->finPos()->y == pos->y + 1)) && m->pieceMoved() == board->pastMoves.back()->pieceMoved() && board->pastMoves.back()->finPos()->x == 4) {
+                    possibleMoves.push_back(new Move(this, board->pastMoves.back()->pieceMoved(), new Position{pos->x, pos->y}, new Position{5, board->pastMoves.back()->finPos()->y}));
+                    enpassable = new Position{5, board->pastMoves.back()->finPos()->y};
                     break;
                 }
             } 
@@ -225,7 +222,7 @@ std::vector<Move*> Pawn::movesNoCheck() {
     return possibleMoves;
 }
 
-void Pawn::move(Position newpos) {
+/*void Pawn::move(Position newpos) {
     has_moved = true;
     pos = newpos;
 }
@@ -247,26 +244,26 @@ vector<Move*> Pawn::canCapture() {
     }
 
     // Normal capturing
-    Position captR = Position(pos.x + 1, pos.y + reverse);
-    Position captL = Position(pos.x - 1, pos.y + reverse);
+    Position captR = Position(pos->x + 1, pos->y + reverse);
+    Position captL = Position(pos->x - 1, pos->y + reverse);
     for (int z = 0; z < allPieces.size(); ++z) {
         if (captR == allPieces[z]->pos) {
-            possibleMoves.push_back(new Move(this, allPieces[z], pos, captR));
+            possibleMoves.push_back(new Move(this, allPieces[z], new Position{pos->x, pos->y}, captR));
         } else if (captL == allPieces[z]->pos) {
-            possibleMoves.push_back(new Move(this, allPieces[z], pos, captL));
+            possibleMoves.push_back(new Move(this, allPieces[z], new Position{pos->x, pos->y}, captL));
         }
     }
 
     // En passant capturing
-    if (color == Color::WHITE && pos.y == 5 || color == Color::BLACK && pos.y == 4) {
+    if (color == Color::WHITE && pos->y == 5 || color == Color::BLACK && pos->y == 4) {
         const auto& lastMove = board->pastMoves.back();
-        if (lastMove->pieceMoved()->typeValue() == Type::PAWN && abs(lastMove->initPos().y - lastMove->finPos().y) == 2) {
+        if (lastMove->pieceMoved()->typeValue() == Type::PAWN && abs(lastMove->initPos().y - lastMove->finPos()->y) == 2) {
             Position capturedPos = lastMove->finPos();
-            if (capturedPos.y == pos.y && (capturedPos.x == pos.x - 1 || capturedPos.x == pos.x + 1)) {
-                possibleMoves.push_back(new Move(this, lastMove->pieceMoved(), pos, Position(capturedPos.x, pos.y + reverse)));
+            if (capturedpos->y == pos->y && (capturedpos->x == pos->x - 1 || capturedpos->x == pos->x + 1)) {
+                possibleMoves.push_back(new Move(this, lastMove->pieceMoved(), new Position{pos->x, pos->y}, Position(capturedpos->x, pos->y + reverse)));
             }
         }
     }
 
     return possibleMoves;
-}
+}*/

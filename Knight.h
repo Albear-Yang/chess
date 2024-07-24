@@ -7,10 +7,11 @@ class Knight : public Piece {
     int value = 3;
 public:
     std::vector<Move*> moves() override;
-    Knight(Board *board, Position pos, Color color);
+    Knight(Board *board, Position* pos, Color color);
     std::vector<Move*> movesNoCheck() override;
-    void move(Position pos) override;
-    std::vector<Move*> canCapture() override;
+    //void move(Position pos) override;
+    //std::vector<Move*> canCapture() override;
+    ~Knight() {}
 };
 
 #endif

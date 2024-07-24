@@ -77,9 +77,9 @@ int ComputerFour:: eval(){
     int material = 0;
 
     for(auto p : board->whitePieces){
-        Position pos = p->getPos();
-        int x = pos.x;
-        int y = pos.y;
+        Position* pos = p->getPos();
+        int x = pos->x;
+        int y = pos->y;
         if(p->typeValue() == Type::PAWN){
             pawnsq += pawntable[x][y];
             material += 100;
@@ -105,9 +105,9 @@ int ComputerFour:: eval(){
         }
     }
     for(auto p: board->blackPieces){
-        Position pos = p->getPos();
-        int x = 7 -  pos.x;
-        int y = 7 - pos.y;
+        Position* pos = p->getPos();
+        int x = 7 -  pos->x;
+        int y = 7 - pos->y;
         if(p->typeValue() == Type::PAWN){
             pawnsq -= pawntable[x][y];
             material -= 100;

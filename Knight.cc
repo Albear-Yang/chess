@@ -1,7 +1,7 @@
 #include "Knight.h"
 using namespace std;
 
-Knight::Knight(Board* board, Position pos, Color color)
+Knight::Knight(Board* board, Position* pos, Color color)
     : Piece(board, pos, color, Type::KNIGHT) {}
 
 vector<Move*> Knight::moves() {
@@ -14,14 +14,14 @@ vector<Move*> Knight::moves() {
     for(int z = 0; z < board->whitePieces.size(); ++z){
         allPieces.push_back(board->whitePieces[z]);
     } 
-    Position possiblePosition[8] = {Position(pos.x + 2, pos.y - 1), Position(pos.x + 2, pos.y + 1), Position(pos.x - 2, pos.y - 1), Position(pos.x - 2, pos.y + 1), Position(pos.x + 1, pos.y - 2), Position(pos.x - 1, pos.y - 2), Position(pos.x + 1, pos.y + 2), Position(pos.x - 1, pos.y + 2)};
+    Position* possiblePosition[8] = {new Position(pos->x + 2, pos->y - 1), new Position(pos->x + 2, pos->y + 1), new Position(pos->x - 2, pos->y - 1), new Position(pos->x - 2, pos->y + 1), new Position(pos->x + 1, pos->y - 2), new Position(pos->x - 1, pos->y - 2), new Position(pos->x + 1, pos->y + 2), new Position(pos->x - 1, pos->y + 2)};
 
     for(int i = 0; i < 8; i++){
-        if(possiblePosition[i].inBoard()){
+        if(possiblePosition[i]->inBoard()){
             bool posOccupied = false;
             Move *tempMove = nullptr;
             for(int z = 0; z < allPieces.size(); ++z){
-                if(possiblePosition[i] == allPieces[z]->pos){
+                if(possiblePosition[i]->x == allPieces[z]->pos->x && possiblePosition[i]->y == allPieces[z]->pos->y){
                     posOccupied = true;
                     if(allPieces[z]->color != color){
                         Piece* pc = nullptr;
@@ -33,24 +33,28 @@ vector<Move*> Knight::moves() {
                                 if (p == allPieces[z]) { pc = p; break; }
                             } 
                         }
-                        tempMove = new Move(this, pc, pos, possiblePosition[i]);
+                        tempMove = new Move(this, pc, new Position{pos->x, pos->y}, new Position(possiblePosition[i]->x, possiblePosition[i]->y));
                         possibleMoves.push_back(tempMove);
                     }
                 }
             }
             if(posOccupied == false){
-                tempMove = new Move(this, nullptr, pos, possiblePosition[i]);
+                tempMove = new Move(this, nullptr, new Position{pos->x, pos->y}, new Position(possiblePosition[i]->x, possiblePosition[i]->y));
                 possibleMoves.push_back(tempMove);
             }
         }
     }
     for(auto i = possibleMoves.begin(); i != possibleMoves.end();){
         if (board->check4checkMove(color, *i)) {
+            delete *i;
             possibleMoves.erase(i);
         }
         else{
             i++;
         }
+    }
+    for (auto p : possiblePosition) {
+        delete p;
     }
     return possibleMoves;
 }
@@ -64,10 +68,10 @@ std::vector<Move*> Knight::movesNoCheck() {
     for(int z = 0; z < board->whitePieces.size(); ++z){
         allPieces.push_back(board->whitePieces[z]);
     } 
-    Position possiblePosition[8] = {Position(pos.x + 2, pos.y - 1), Position(pos.x + 2, pos.y + 1), Position(pos.x - 2, pos.y - 1), Position(pos.x - 2, pos.y + 1), Position(pos.x + 1, pos.y - 2), Position(pos.x - 1, pos.y - 2), Position(pos.x + 1, pos.y + 2), Position(pos.x - 1, pos.y + 2)};
+    Position* possiblePosition[8] = {new Position(pos->x + 2, pos->y - 1), new Position(pos->x + 2, pos->y + 1), new Position(pos->x - 2, pos->y - 1), new Position(pos->x - 2, pos->y + 1), new Position(pos->x + 1, pos->y - 2), new Position(pos->x - 1, pos->y - 2), new Position(pos->x + 1, pos->y + 2), new Position(pos->x - 1, pos->y + 2)};
 
     for(int i = 0; i < 8; i++){
-        if(possiblePosition[i].inBoard()){
+        if(possiblePosition[i]->inBoard()){
             bool posOccupied = false;
             Move *tempMove = nullptr;
             for(int z = 0; z < allPieces.size(); ++z){
@@ -83,21 +87,24 @@ std::vector<Move*> Knight::movesNoCheck() {
                                 if (p == allPieces[z]) { pc = p; break; }
                             } 
                         }
-                        tempMove = new Move(this, pc, pos, possiblePosition[i]);
+                        tempMove = new Move(this, pc, new Position{pos->x, pos->y}, new Position(possiblePosition[i]->x, possiblePosition[i]->y));
                         possibleMoves.push_back(tempMove);
                     }
                 }
             }
             if(posOccupied == false){
-                tempMove = new Move(this, nullptr, pos, possiblePosition[i]);
+                tempMove = new Move(this, nullptr, new Position{pos->x, pos->y}, new Position(possiblePosition[i]->x, possiblePosition[i]->y));
                 possibleMoves.push_back(tempMove);
             }
         }
     }
+    for (auto p : possiblePosition) {
+        delete p;
+    }
     return possibleMoves;
 }
 
-void Knight::move(Position newpos){
+/*void Knight::move(Position newpos){
     pos = newpos;
 }
 
@@ -112,7 +119,7 @@ vector<Move*> Knight::canCapture(){
         allPieces.push_back(board->whitePieces[z]);
     }  
 
-    Position possiblePosition[8] = {Position(pos.x + 2, pos.y - 1), Position(pos.x + 2, pos.y + 1), Position(pos.x - 2, pos.y - 1), Position(pos.x - 2, pos.y + 1), Position(pos.x + 1, pos.y - 2), Position(pos.x - 1, pos.y - 2), Position(pos.x + 1, pos.y + 2), Position(pos.x - 1, pos.y + 2)};
+    Position possiblePosition[8] = {Position(pos->x + 2, pos->y - 1), Position(pos->x + 2, pos->y + 1), Position(pos->x - 2, pos->y - 1), Position(pos->x - 2, pos->y + 1), Position(pos->x + 1, pos->y - 2), Position(pos->x - 1, pos->y - 2), Position(pos->x + 1, pos->y + 2), Position(pos->x - 1, pos->y + 2)};
 
     for(int i = 0; i < 8; i++){
         if(possiblePosition[i].inBoard()){
@@ -122,7 +129,7 @@ vector<Move*> Knight::canCapture(){
                 if(possiblePosition[i] == allPieces[z]->pos){
                     posOccupied = true;
                     if(allPieces[z]->color != color){
-                        tempMove = new Move(this, board->blackPieces[z], pos, possiblePosition[i]);
+                        tempMove = new Move(this, board->blackPieces[z], new Position{pos->x, pos->y}, possiblePosition[i]);
                         possibleMoves.push_back(tempMove);
                     }
                 }
@@ -132,4 +139,4 @@ vector<Move*> Knight::canCapture(){
 
 
     return possibleMoves;
-}
+}*/

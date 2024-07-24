@@ -68,10 +68,10 @@ void GraphicsDisplay::notify() {
             else if (type == Type::QUEEN) c = 'Q';
             else if (type == Type::KING) c = 'K';
         }
-        int i = m->initPos().x; int j = m->initPos().y;
+        int i = m->initPos()->x; int j = m->initPos()->y;
         if ((i + j) % 2 == 0) w->fillRectangle(50*(j+2), 50*i, 50, 50, Xwindow::White);
         else w->fillRectangle(50*(j+2), 50*i, 50, 50, Xwindow::Green);
-        i = m->finPos().x; j = m->finPos().y;
+        i = m->finPos()->x; j = m->finPos()->y;
         if ((i + j) % 2 == 0) w->fillRectangle(50*(j+2), 50*i, 50, 50, Xwindow::White);
         else w->fillRectangle(50*(j+2), 50*i, 50, 50, Xwindow::Green);
         w->drawString(50*(j+2)+23, 50*i+25, std::string(1, c));
@@ -92,10 +92,10 @@ void GraphicsDisplay::notify() {
                 else {
                     c = 'K';
                 }
-                int i = m->initPos().x; int j = m->initPos().y;
+                int i = m->initPos()->x; int j = m->initPos()->y;
                 if ((i + j) % 2 == 0) w->fillRectangle(50*(j+2), 50*i, 50, 50, Xwindow::White);
                 else w->fillRectangle(50*(j+2), 50*i, 50, 50, Xwindow::Green);
-                i = m->finPos().x; j = m->finPos().y;
+                i = m->finPos()->x; j = m->finPos()->y;
                 if ((i + j) % 2 == 0) w->fillRectangle(50*(j+2), 50*i, 50, 50, Xwindow::White);
                 else w->fillRectangle(50*(j+2), 50*i, 50, 50, Xwindow::Green);
                 w->drawString(50*(j+2)+23, 50*i+25, std::string(1, c));

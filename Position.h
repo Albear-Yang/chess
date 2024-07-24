@@ -6,6 +6,9 @@ public:
     int x;
     int y;
     Position(int x, int y): x{x}, y{y}{}
+    bool operator==(const Position* &other) const{
+        return (other->x == x) && (other->y == y);
+    };
     bool operator==(const Position &other) const{
         return (other.x == x) && (other.y == y);
     };
