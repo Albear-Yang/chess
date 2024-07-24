@@ -147,3 +147,52 @@ int ComputerFour:: eval(){
     return material + kingsq + queensq + pawnsq + rooksq + bishopsq + knightsq;
 }
 
+int ComputerFour::maxi(int depth){
+    Move* bestMove = nullptr;
+    if(depth == 0){
+        return eval();
+    }
+    int maximum = -999999;
+    int score = 0;
+    for(auto p : board->whiteMoves()){
+        board->addMove(p);
+        score = mini(depth - 1);
+        board->undo();
+
+        if(score > maximum){
+            maximum = score;
+            bestMove = p;
+        }
+    }
+    return eval();
+}
+int ComputerFour::mini(int depth){
+    Move* bestMove = nullptr;
+    if(depth == 0){
+        return eval();
+    }
+    int minimum = 99999;
+    for(auto p : board->blackMoves()){
+        board->addMove(p);
+        score = maxi(depth - 1);
+        board->undo();
+
+        if(score < minimum){
+            minimum = score;
+            bestMove = p;
+        }
+    }
+
+    return eval();
+}
+
+Move* ComputerFour::algorithm(){
+    if(board->whosTurn == Color::WHITE){
+        int score = maxi(4);
+        return bestMove;
+    }
+    else{
+        int score = mini(4);
+        return bestMove;
+    }
+}

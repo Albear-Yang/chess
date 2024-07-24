@@ -8,8 +8,13 @@
 
 class ComputerFour : public Computer {
 public:
+    int evaluation;
+    Move* bestMove;
+
     int eval();
     Move* algorithm();
+    int mini(int depth);
+    int maxi(int depth);
 };
 
 #endif
