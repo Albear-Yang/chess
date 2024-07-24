@@ -20,7 +20,7 @@ vector<Move*> King::moves(){
             if(x == 0 && y == 0){
                 continue;
             }
-            if(pos->x + x < 8 && pos->x + x >= 0 && pos->y + y < 8 && pos->y + y < 8){
+            if(pos->x + x < 8 && pos->x + x >= 0 && pos->y + y < 8 && pos->y + y >= 0){
                 //Position* tempPos = new Position(pos->x + x, pos->y + y);
                 bool pass = true;
                 for(int z = 0; z < allPieces.size(); ++z){
@@ -41,6 +41,7 @@ vector<Move*> King::moves(){
                             possibleMoves.push_back(tempMove);
                         }
                     }
+                    
                 }
                 if (pass) {
                     Move *tempMove = new Move(this, nullptr, new Position{pos->x, pos->y}, new Position(pos->x + x, pos->y + y));

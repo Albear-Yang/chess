@@ -224,6 +224,9 @@ std::vector<Move*> Board::blackMoves() {
         blackMoves.emplace_back(castling);
     }
     //std::cout << blackMoves.size() << std::endl;
+    /*for (auto t : blackMoves) {
+        std::cout << t->initPos()->x << " " << t->initPos()->y << " " << t->finPos()->x << " " << t->finPos()->y << std::endl;
+    }*/
     return blackMoves;
 }
 
@@ -608,6 +611,7 @@ void Board::clear() {
     hasBlackKing = false;
     round1 = true;
     whosTurn = Color::WHITE;
+    setup = false;
 }
 
 Board::~Board() {

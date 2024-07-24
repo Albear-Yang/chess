@@ -17,6 +17,7 @@
 //setup default done game human human move e2 e4 move d7 d5 move e4 d5 move c7 c5 move d5 c6 move b8 c6 move g2 g3 move c8 g4 move f1 h3 move d8 d7 move g1 f3 move e8 c8 move e1 g1
 
 int main() {
+    int count = 0;
     Board* board = new Board;
     int boardLen = board->boardLength();
     TextDisplay* Text = new TextDisplay(board);
@@ -26,6 +27,7 @@ int main() {
     std::string command;
     while (std::cin >> command) {
         if (command == "setup") {
+            board->setup= true;
             board->notifyObservers();
             while (command != "done") {
                 std::cin >> command;
@@ -68,7 +70,7 @@ int main() {
                     board->notifyObservers();
                 }
                 else if (command == "test") {
-                    board->addPiece(Type::KING, Color::WHITE, 7, 4);
+                    board->addPiece(Type::KING, Color::WHITE, 5, 1);
                     board->addPiece(Type::KING, Color::BLACK, 0, 4);
                     board->addPiece(Type::PAWN, Color::WHITE, 1, 0);
                     board->addPiece(Type::ROOK, Color::WHITE, 7, 7);
@@ -175,7 +177,11 @@ int main() {
             }
             std::cout << "Setup Complete" << std::endl;
         }
-        else if (command == "game") {
+        else if (command == "game" && board->setup) {
+            //setup default done game computer[1] computer[1]
+            //setup default done game computer[2] computer[2]
+            //setup default done game computer[3] computer[3]
+            //setup default done game computer[4] computer[4]
             ComputerOne compOne(board);
             ComputerTwo compTwo(board);
             ComputerThree compThree(board);
@@ -202,7 +208,9 @@ int main() {
             }
             std::string white, black;
             std::cin >> white >> black;
-            while (command != "resign" && command != "checkmate" && command != "stalemate") {
+            while (command != "resign" && command != "checkmate" && command != "stalemate" && command != "draw") {
+                //count++;
+                //if (count == 300) std::exit(0);
                 if (board->enpassed != nullptr) delete board->enpassed;
                 board->enpassed = nullptr;
 //setup default done game human human move e2 e4 move d7 d5 move e4 d5 move c7 c5 move d5 c6 move b8 c6 move g2 g3 move c8 g4 move f1 h3 move d8 d7 move g1 f3
@@ -436,37 +444,31 @@ int main() {
                             board->removePiece(m->finPos()->x, m->finPos()->y);
                             if (starter->typeValue() == Type::PAWN && m->finPos()->x == 0) {
                                 Piece* promo;
-                                char c;
-                                while (true) {
-                                    std::cout << "Select a Promotion for Pawn moved (Q/R/N/B): " << std::endl;
-                                    std::cin >> c;
-                                    if (c == 'Q' || c == 'R' || c == 'N' || c == 'B') break;
-                                    else std::cout << "Invalid Selection" << std::endl;
-                                }
+                                int c = rand() % 4;
                                 switch (c)
                                 {
-                                case 'Q':
+                                case 0:
                                     board->removePiece(starter);
                                     promo = new Queen(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK);
                                     promo->has_moved = true;
                                     board->addPiece(promo);
                                     board->startingWhitePieces.emplace_back(new Queen(board, new Position{m->finPos()->x, m->finPos()->y}, Color::WHITE));
                                     break;
-                                case 'R':
+                                case 1:
                                     board->removePiece(starter);
                                     promo = new Rook(board, new Position{m->finPos()->x, m->finPos()->y}, Color::WHITE);
                                     promo->has_moved = true;
                                     board->addPiece(promo);
                                     board->startingWhitePieces.emplace_back(new Rook(board, new Position{m->finPos()->x, m->finPos()->y}, Color::WHITE));
                                     break;
-                                case 'N':
+                                case 2:
                                     board->removePiece(starter);
                                     promo = new Knight(board, new Position{m->finPos()->x, m->finPos()->y}, Color::WHITE);
                                     promo->has_moved = true;
                                     board->addPiece(promo);
                                     board->startingWhitePieces.emplace_back(new Knight(board, new Position{m->finPos()->x, m->finPos()->y}, Color::WHITE));
                                     break;
-                                case 'B':
+                                case 3:
                                     board->removePiece(starter);
                                     promo = new Bishop(board, new Position{m->finPos()->x, m->finPos()->y}, Color::WHITE);
                                     promo->has_moved = true;
@@ -481,9 +483,10 @@ int main() {
                             
                             board->whosTurn = Color::BLACK;
                             starter->has_moved = true;
+                            std::cout << "Move made" << std::endl;
                         }
                         else if (white == "computer[2]"){
-                            Move* m = compTwo.algorithm();
+                            Move* m = compOne.algorithm();
                             //std::cout << m->initPos()->x << " " << m->initPos()->y << " " << m->finPos()->x << " " << m->finPos()->y << std::endl;
                             Piece* starter = m->pieceMoved();
                             Piece* capturee = m->pieceCaped();
@@ -496,37 +499,31 @@ int main() {
                             board->removePiece(m->finPos()->x, m->finPos()->y);
                             if (starter->typeValue() == Type::PAWN && m->finPos()->x == 0) {
                                 Piece* promo;
-                                char c;
-                                while (true) {
-                                    std::cout << "Select a Promotion for Pawn moved (Q/R/N/B): " << std::endl;
-                                    std::cin >> c;
-                                    if (c == 'Q' || c == 'R' || c == 'N' || c == 'B') break;
-                                    else std::cout << "Invalid Selection" << std::endl;
-                                }
+                                int c = rand() % 4;
                                 switch (c)
                                 {
-                                case 'Q':
+                                case 0:
                                     board->removePiece(starter);
                                     promo = new Queen(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK);
                                     promo->has_moved = true;
                                     board->addPiece(promo);
                                     board->startingWhitePieces.emplace_back(new Queen(board, new Position{m->finPos()->x, m->finPos()->y}, Color::WHITE));
                                     break;
-                                case 'R':
+                                case 1:
                                     board->removePiece(starter);
                                     promo = new Rook(board, new Position{m->finPos()->x, m->finPos()->y}, Color::WHITE);
                                     promo->has_moved = true;
                                     board->addPiece(promo);
                                     board->startingWhitePieces.emplace_back(new Rook(board, new Position{m->finPos()->x, m->finPos()->y}, Color::WHITE));
                                     break;
-                                case 'N':
+                                case 2:
                                     board->removePiece(starter);
                                     promo = new Knight(board, new Position{m->finPos()->x, m->finPos()->y}, Color::WHITE);
                                     promo->has_moved = true;
                                     board->addPiece(promo);
                                     board->startingWhitePieces.emplace_back(new Knight(board, new Position{m->finPos()->x, m->finPos()->y}, Color::WHITE));
                                     break;
-                                case 'B':
+                                case 3:
                                     board->removePiece(starter);
                                     promo = new Bishop(board, new Position{m->finPos()->x, m->finPos()->y}, Color::WHITE);
                                     promo->has_moved = true;
@@ -541,9 +538,10 @@ int main() {
                             
                             board->whosTurn = Color::BLACK;
                             starter->has_moved = true;
+                            std::cout << "Move made" << std::endl;
                         }
                         else if (white == "computer[3]"){
-                            Move* m = compThree.algorithm();
+                            Move* m = compOne.algorithm();
                             //std::cout << m->initPos()->x << " " << m->initPos()->y << " " << m->finPos()->x << " " << m->finPos()->y << std::endl;
                             Piece* starter = m->pieceMoved();
                             Piece* capturee = m->pieceCaped();
@@ -556,37 +554,31 @@ int main() {
                             board->removePiece(m->finPos()->x, m->finPos()->y);
                             if (starter->typeValue() == Type::PAWN && m->finPos()->x == 0) {
                                 Piece* promo;
-                                char c;
-                                while (true) {
-                                    std::cout << "Select a Promotion for Pawn moved (Q/R/N/B): " << std::endl;
-                                    std::cin >> c;
-                                    if (c == 'Q' || c == 'R' || c == 'N' || c == 'B') break;
-                                    else std::cout << "Invalid Selection" << std::endl;
-                                }
+                                int c = rand() % 4;
                                 switch (c)
                                 {
-                                case 'Q':
+                                case 0:
                                     board->removePiece(starter);
                                     promo = new Queen(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK);
                                     promo->has_moved = true;
                                     board->addPiece(promo);
                                     board->startingWhitePieces.emplace_back(new Queen(board, new Position{m->finPos()->x, m->finPos()->y}, Color::WHITE));
                                     break;
-                                case 'R':
+                                case 1:
                                     board->removePiece(starter);
                                     promo = new Rook(board, new Position{m->finPos()->x, m->finPos()->y}, Color::WHITE);
                                     promo->has_moved = true;
                                     board->addPiece(promo);
                                     board->startingWhitePieces.emplace_back(new Rook(board, new Position{m->finPos()->x, m->finPos()->y}, Color::WHITE));
                                     break;
-                                case 'N':
+                                case 2:
                                     board->removePiece(starter);
                                     promo = new Knight(board, new Position{m->finPos()->x, m->finPos()->y}, Color::WHITE);
                                     promo->has_moved = true;
                                     board->addPiece(promo);
                                     board->startingWhitePieces.emplace_back(new Knight(board, new Position{m->finPos()->x, m->finPos()->y}, Color::WHITE));
                                     break;
-                                case 'B':
+                                case 3:
                                     board->removePiece(starter);
                                     promo = new Bishop(board, new Position{m->finPos()->x, m->finPos()->y}, Color::WHITE);
                                     promo->has_moved = true;
@@ -601,9 +593,10 @@ int main() {
                             
                             board->whosTurn = Color::BLACK;
                             starter->has_moved = true;
+                            std::cout << "Move made" << std::endl;
                         }
                         else if (white == "computer[4]"){
-                            Move* m = compFour.algorithm();
+                            Move* m = compOne.algorithm();
                             //std::cout << m->initPos()->x << " " << m->initPos()->y << " " << m->finPos()->x << " " << m->finPos()->y << std::endl;
                             Piece* starter = m->pieceMoved();
                             Piece* capturee = m->pieceCaped();
@@ -616,37 +609,31 @@ int main() {
                             board->removePiece(m->finPos()->x, m->finPos()->y);
                             if (starter->typeValue() == Type::PAWN && m->finPos()->x == 0) {
                                 Piece* promo;
-                                char c;
-                                while (true) {
-                                    std::cout << "Select a Promotion for Pawn moved (Q/R/N/B): " << std::endl;
-                                    std::cin >> c;
-                                    if (c == 'Q' || c == 'R' || c == 'N' || c == 'B') break;
-                                    else std::cout << "Invalid Selection" << std::endl;
-                                }
+                                int c = rand() % 4;
                                 switch (c)
                                 {
-                                case 'Q':
+                                case 0:
                                     board->removePiece(starter);
                                     promo = new Queen(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK);
                                     promo->has_moved = true;
                                     board->addPiece(promo);
                                     board->startingWhitePieces.emplace_back(new Queen(board, new Position{m->finPos()->x, m->finPos()->y}, Color::WHITE));
                                     break;
-                                case 'R':
+                                case 1:
                                     board->removePiece(starter);
                                     promo = new Rook(board, new Position{m->finPos()->x, m->finPos()->y}, Color::WHITE);
                                     promo->has_moved = true;
                                     board->addPiece(promo);
                                     board->startingWhitePieces.emplace_back(new Rook(board, new Position{m->finPos()->x, m->finPos()->y}, Color::WHITE));
                                     break;
-                                case 'N':
+                                case 2:
                                     board->removePiece(starter);
                                     promo = new Knight(board, new Position{m->finPos()->x, m->finPos()->y}, Color::WHITE);
                                     promo->has_moved = true;
                                     board->addPiece(promo);
                                     board->startingWhitePieces.emplace_back(new Knight(board, new Position{m->finPos()->x, m->finPos()->y}, Color::WHITE));
                                     break;
-                                case 'B':
+                                case 3:
                                     board->removePiece(starter);
                                     promo = new Bishop(board, new Position{m->finPos()->x, m->finPos()->y}, Color::WHITE);
                                     promo->has_moved = true;
@@ -661,6 +648,7 @@ int main() {
                             
                             board->whosTurn = Color::BLACK;
                             starter->has_moved = true;
+                            std::cout << "Move made" << std::endl;
                         }
                     }
                 }
@@ -856,39 +844,33 @@ int main() {
                                 }
                             }
                             board->removePiece(m->finPos()->x, m->finPos()->y);
-                            if (starter->typeValue() == Type::PAWN && m->finPos()->x == 0) {
+                            if (starter->typeValue() == Type::PAWN && m->finPos()->x == 7) {
                                 Piece* promo;
-                                char c;
-                                while (true) {
-                                    std::cout << "Select a Promotion for Pawn moved (Q/R/N/B): " << std::endl;
-                                    std::cin >> c;
-                                    if (c == 'Q' || c == 'R' || c == 'N' || c == 'B') break;
-                                    else std::cout << "Invalid Selection" << std::endl;
-                                }
+                                int c = rand() % 4;
                                 switch (c)
                                 {
-                                case 'Q':
+                                case 0:
                                     board->removePiece(starter);
                                     promo = new Queen(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK);
                                     promo->has_moved = true;
                                     board->addPiece(promo);
                                     board->startingBlackPieces.emplace_back(new Queen(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK));
                                     break;
-                                case 'R':
+                                case 1:
                                     board->removePiece(starter);
                                     promo = new Rook(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK);
                                     promo->has_moved = true;
                                     board->addPiece(promo);
                                     board->startingBlackPieces.emplace_back(new Rook(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK));
                                     break;
-                                case 'N':
+                                case 2:
                                     board->removePiece(starter);
                                     promo = new Knight(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK);
                                     promo->has_moved = true;
                                     board->addPiece(promo);
                                     board->startingBlackPieces.emplace_back(new Knight(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK));
                                     break;
-                                case 'B':
+                                case 3:
                                     board->removePiece(starter);
                                     promo = new Bishop(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK);
                                     promo->has_moved = true;
@@ -903,9 +885,10 @@ int main() {
                             
                             board->whosTurn = Color::WHITE;
                             starter->has_moved = true;
+                            std::cout << "Move made" << std::endl;
                         }
                         else if (black == "computer[2]"){
-                            Move* m = compTwo.algorithm();
+                            Move* m = compOne.algorithm();
                             //std::cout << m->initPos()->x << " " << m->initPos()->y << " " << m->finPos()->x << " " << m->finPos()->y << std::endl;
                             Piece* starter = m->pieceMoved();
                             Piece* capturee = m->pieceCaped();
@@ -916,39 +899,33 @@ int main() {
                                 }
                             }
                             board->removePiece(m->finPos()->x, m->finPos()->y);
-                            if (starter->typeValue() == Type::PAWN && m->finPos()->x == 0) {
+                            if (starter->typeValue() == Type::PAWN && m->finPos()->x == 7) {
                                 Piece* promo;
-                                char c;
-                                while (true) {
-                                    std::cout << "Select a Promotion for Pawn moved (Q/R/N/B): " << std::endl;
-                                    std::cin >> c;
-                                    if (c == 'Q' || c == 'R' || c == 'N' || c == 'B') break;
-                                    else std::cout << "Invalid Selection" << std::endl;
-                                }
+                                int c = rand() % 4;
                                 switch (c)
                                 {
-                                case 'Q':
+                                case 0:
                                     board->removePiece(starter);
                                     promo = new Queen(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK);
                                     promo->has_moved = true;
                                     board->addPiece(promo);
                                     board->startingBlackPieces.emplace_back(new Queen(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK));
                                     break;
-                                case 'R':
+                                case 1:
                                     board->removePiece(starter);
                                     promo = new Rook(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK);
                                     promo->has_moved = true;
                                     board->addPiece(promo);
                                     board->startingBlackPieces.emplace_back(new Rook(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK));
                                     break;
-                                case 'N':
+                                case 2:
                                     board->removePiece(starter);
                                     promo = new Knight(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK);
                                     promo->has_moved = true;
                                     board->addPiece(promo);
                                     board->startingBlackPieces.emplace_back(new Knight(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK));
                                     break;
-                                case 'B':
+                                case 3:
                                     board->removePiece(starter);
                                     promo = new Bishop(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK);
                                     promo->has_moved = true;
@@ -963,9 +940,10 @@ int main() {
                             
                             board->whosTurn = Color::WHITE;
                             starter->has_moved = true;
+                            std::cout << "Move made" << std::endl;
                         }
                         else if (black == "computer[3]"){
-                            Move* m = compThree.algorithm();
+                            Move* m = compOne.algorithm();
                             //std::cout << m->initPos()->x << " " << m->initPos()->y << " " << m->finPos()->x << " " << m->finPos()->y << std::endl;
                             Piece* starter = m->pieceMoved();
                             Piece* capturee = m->pieceCaped();
@@ -976,39 +954,33 @@ int main() {
                                 }
                             }
                             board->removePiece(m->finPos()->x, m->finPos()->y);
-                            if (starter->typeValue() == Type::PAWN && m->finPos()->x == 0) {
+                            if (starter->typeValue() == Type::PAWN && m->finPos()->x == 7) {
                                 Piece* promo;
-                                char c;
-                                while (true) {
-                                    std::cout << "Select a Promotion for Pawn moved (Q/R/N/B): " << std::endl;
-                                    std::cin >> c;
-                                    if (c == 'Q' || c == 'R' || c == 'N' || c == 'B') break;
-                                    else std::cout << "Invalid Selection" << std::endl;
-                                }
+                                int c = rand() % 4;
                                 switch (c)
                                 {
-                                case 'Q':
+                                case 0:
                                     board->removePiece(starter);
                                     promo = new Queen(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK);
                                     promo->has_moved = true;
                                     board->addPiece(promo);
                                     board->startingBlackPieces.emplace_back(new Queen(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK));
                                     break;
-                                case 'R':
+                                case 1:
                                     board->removePiece(starter);
                                     promo = new Rook(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK);
                                     promo->has_moved = true;
                                     board->addPiece(promo);
                                     board->startingBlackPieces.emplace_back(new Rook(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK));
                                     break;
-                                case 'N':
+                                case 2:
                                     board->removePiece(starter);
                                     promo = new Knight(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK);
                                     promo->has_moved = true;
                                     board->addPiece(promo);
                                     board->startingBlackPieces.emplace_back(new Knight(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK));
                                     break;
-                                case 'B':
+                                case 3:
                                     board->removePiece(starter);
                                     promo = new Bishop(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK);
                                     promo->has_moved = true;
@@ -1023,9 +995,10 @@ int main() {
                             
                             board->whosTurn = Color::WHITE;
                             starter->has_moved = true;
+                            std::cout << "Move made" << std::endl;
                         }
                         else if (black == "computer[4]"){
-                            Move* m = compFour.algorithm();
+                            Move* m = compOne.algorithm();
                             //std::cout << m->initPos()->x << " " << m->initPos()->y << " " << m->finPos()->x << " " << m->finPos()->y << std::endl;
                             Piece* starter = m->pieceMoved();
                             Piece* capturee = m->pieceCaped();
@@ -1036,39 +1009,33 @@ int main() {
                                 }
                             }
                             board->removePiece(m->finPos()->x, m->finPos()->y);
-                            if (starter->typeValue() == Type::PAWN && m->finPos()->x == 0) {
+                            if (starter->typeValue() == Type::PAWN && m->finPos()->x == 7) {
                                 Piece* promo;
-                                char c;
-                                while (true) {
-                                    std::cout << "Select a Promotion for Pawn moved (Q/R/N/B): " << std::endl;
-                                    std::cin >> c;
-                                    if (c == 'Q' || c == 'R' || c == 'N' || c == 'B') break;
-                                    else std::cout << "Invalid Selection" << std::endl;
-                                }
+                                int c = rand() % 4;
                                 switch (c)
                                 {
-                                case 'Q':
+                                case 0:
                                     board->removePiece(starter);
                                     promo = new Queen(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK);
                                     promo->has_moved = true;
                                     board->addPiece(promo);
                                     board->startingBlackPieces.emplace_back(new Queen(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK));
                                     break;
-                                case 'R':
+                                case 1:
                                     board->removePiece(starter);
                                     promo = new Rook(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK);
                                     promo->has_moved = true;
                                     board->addPiece(promo);
                                     board->startingBlackPieces.emplace_back(new Rook(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK));
                                     break;
-                                case 'N':
+                                case 2:
                                     board->removePiece(starter);
                                     promo = new Knight(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK);
                                     promo->has_moved = true;
                                     board->addPiece(promo);
                                     board->startingBlackPieces.emplace_back(new Knight(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK));
                                     break;
-                                case 'B':
+                                case 3:
                                     board->removePiece(starter);
                                     promo = new Bishop(board, new Position{m->finPos()->x, m->finPos()->y}, Color::BLACK);
                                     promo->has_moved = true;
@@ -1083,6 +1050,7 @@ int main() {
                             
                             board->whosTurn = Color::WHITE;
                             starter->has_moved = true;
+                            std::cout << "Move made" << std::endl;
                         }
                     }
                 }
@@ -1094,11 +1062,17 @@ int main() {
                 else if (board->stalemate()) {
                     command = "stalemate";
                 }
+                else if (board->draw()) {
+                    command = "draw";
+                }
             }
             if (command == "stalemate") {
                 std::cout << "STALEMATE" << std::endl;
                 board->blackScore += 0.5;
                 board->whiteScore += 0.5;
+            }
+            else if (command == "draw") {
+                std::cout << "DRAW" << std::endl;
             }
             else if (board->whosTurn == Color::WHITE) {
                 std::cout << "BLACK wins a game!" << std::endl;
