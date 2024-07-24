@@ -211,6 +211,8 @@ int main() {
             while (command != "resign" && command != "checkmate" && command != "stalemate" && command != "draw") {
                 //count++;
                 //if (count == 300) std::exit(0);
+                // REMEMBER TO DELETE
+                std::cout << board->empty(2, 7) << std::endl;
                 if (board->enpassed != nullptr) delete board->enpassed;
                 board->enpassed = nullptr;
 //setup default done game human human move e2 e4 move d7 d5 move e4 d5 move c7 c5 move d5 c6 move b8 c6 move g2 g3 move c8 g4 move f1 h3 move d8 d7 move g1 f3
@@ -226,7 +228,7 @@ int main() {
                             //std::cout << "uh " << std::endl;
                             std::vector<Move*> temp = board->whiteMoves();
                             
-                            //std::cout << temp.size() << " temp size" << std:: endl;
+                            std::cout << temp.size() << " temp size" << std:: endl;
                             while (true) {
                                 //remember to remove
                                 //std::cout << "hi" << std::endl;
@@ -1046,7 +1048,12 @@ int main() {
                                 board->addMove(new Move(promo, capturee, new Position{m->initPos()->x, m->initPos()->y},  new Position{m->finPos()->x, m->finPos()->y}));
                                 delete m;
                             }
-                            else board->addMove(m);
+                            
+                            else{
+                                std::cout << board->empty(2,7)  << std:: endl;
+                                board->addMove(m);
+                                std::cout << board->empty(2,7)  << std:: endl;
+                            } 
                             
                             board->whosTurn = Color::WHITE;
                             starter->has_moved = true;

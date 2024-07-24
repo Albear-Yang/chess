@@ -405,7 +405,6 @@ void Board::undo() {
     addMove(&reverse);
     pastMoves.pop_back();*/
     //removePiece(pieceMoved);
-    
     if (pieceMoved->getColor() == Color::WHITE) {
         Move* lastMove = nullptr;
         for (auto p : pastMoves) {
@@ -449,7 +448,9 @@ void Board::undo() {
             undo();
         }
     }
+
 }
+
 
 bool Board::check4checkMove(Color king, Move* move) {
     addMove(move);
