@@ -540,7 +540,7 @@ int main() {
                             
                             board->whosTurn = Color::BLACK;
                             starter->has_moved = true;
-                            std::cout << "Move made ["<< m->initPos()-> x << " " <<  m->initPos()-> y <<  " to "<<m->finPos()->x << " " <<  m->finPos()->y << std::endl;
+                            std::cout << "Move made" << std::endl; //["<< m->initPos()-> x << " " <<  m->initPos()-> y <<  " to "<<m->finPos()->x << " " <<  m->finPos()->y << std::endl;
                         }
                         else if (white == "computer[3]"){
                             Move* m = compThree.algorithm();
@@ -595,7 +595,7 @@ int main() {
                             
                             board->whosTurn = Color::BLACK;
                             starter->has_moved = true;
-                            std::cout << "Move made ["<< m->initPos()-> x << " " <<  m->initPos()-> y <<  " to "<<m->finPos()->x << " " <<  m->finPos()->y << std::endl;
+                            std::cout << "Move made" << std::endl; //["<< m->initPos()-> x << " " <<  m->initPos()-> y <<  " to "<<m->finPos()->x << " " <<  m->finPos()->y << std::endl;
                         }
                         else if (white == "computer[4]"){
                             Move* m = compFour.algorithm();
@@ -650,7 +650,7 @@ int main() {
                             
                             board->whosTurn = Color::BLACK;
                             starter->has_moved = true;
-                            std::cout << "Move made ["<< m->initPos()-> x << " " <<  m->initPos()-> y <<  " to "<<m->finPos()->x << " " <<  m->finPos()->y << std::endl;
+                            std::cout << "Move made" << std::endl; //["<< m->initPos()-> x << " " <<  m->initPos()-> y <<  " to "<<m->finPos()->x << " " <<  m->finPos()->y << std::endl;
                         }
                     }
                 }
@@ -830,7 +830,7 @@ int main() {
                                     i++;
                                 }
                             }
-                            if (command != "resign") std::cout << "Move made ["<< board->pastMoves.back()->initPos()-> x << " " <<  board->pastMoves.back()->initPos()-> y <<  " to "<<board->pastMoves.back()->finPos()->x << " " <<  board->pastMoves.back()->finPos()->y << std::endl;
+                            if (command != "resign") std::cout << "Move made" << std::endl; //["<< board->pastMoves.back()->initPos()-> x << " " <<  board->pastMoves.back()->initPos()-> y <<  " to "<<board->pastMoves.back()->finPos()->x << " " <<  board->pastMoves.back()->finPos()->y << std::endl;
                         }
                     }
                     else { //FILL WITH AI
@@ -887,7 +887,7 @@ int main() {
                             
                             board->whosTurn = Color::WHITE;
                             starter->has_moved = true;
-                            std::cout << "Move made ["<< m->initPos()-> x << " " <<  m->initPos()-> y <<  " to "<<m->finPos()->x << " " <<  m->finPos()->y << std::endl;
+                            std::cout << "Move made" << std::endl; //["<< m->initPos()-> x << " " <<  m->initPos()-> y <<  " to "<<m->finPos()->x << " " <<  m->finPos()->y << std::endl;
                         }
                         else if (black == "computer[2]"){
                             Move* m = compTwo.algorithm();
@@ -942,7 +942,7 @@ int main() {
                             
                             board->whosTurn = Color::WHITE;
                             starter->has_moved = true;
-                            std::cout << "Move made ["<< m->initPos()-> x << " " <<  m->initPos()-> y <<  " to "<<m->finPos()->x << " " <<  m->finPos()->y << std::endl;
+                            std::cout << "Move made" << std::endl; //["<< m->initPos()-> x << " " <<  m->initPos()-> y <<  " to "<<m->finPos()->x << " " <<  m->finPos()->y << std::endl;
                         }
                         else if (black == "computer[3]"){
                             Move* m = compThree.algorithm();
@@ -997,7 +997,7 @@ int main() {
                             
                             board->whosTurn = Color::WHITE;
                             starter->has_moved = true;
-                            std::cout << "Move made ["<< m->initPos()-> x << " " <<  m->initPos()-> y <<  " to "<<m->finPos()->x << " " <<  m->finPos()->y << std::endl;
+                            std::cout << "Move made" << std::endl; //["<< m->initPos()-> x << " " <<  m->initPos()-> y <<  " to "<<m->finPos()->x << " " <<  m->finPos()->y << std::endl;
                         }
                         else if (black == "computer[4]"){
                             Move* m = compFour.algorithm();
@@ -1057,10 +1057,7 @@ int main() {
                             
                             board->whosTurn = Color::WHITE;
                             starter->has_moved = true;
-                            std::cout << "Move made ["<< m->initPos()-> x << " " <<  m->initPos()-> y <<  " to "<<m->finPos()->x << " " <<  m->finPos()->y << std::endl;
-                            for(int i = 0; i < board->pastMoves.size(); ++i){
-                                std::cout << "Move made ["<< board->pastMoves[i]->initPos()-> x << " " <<  board->pastMoves[i]->initPos()-> y <<  " to "<<board->pastMoves[i]->finPos()->x << " " <<  board->pastMoves[i]->finPos()->y << std::endl;
-                            }
+                            std::cout << "Move made" << std::endl; //["<< m->initPos()-> x << " " <<  m->initPos()-> y <<  " to "<<m->finPos()->x << " " <<  m->finPos()->y << std::endl;
                         }
                     }
                 }

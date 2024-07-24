@@ -628,6 +628,12 @@ void Board::addPiece(Piece* piece) {
     else {
         blackPieces.emplace_back(piece);
     }
+    for (auto i = gone.begin(); i != gone.end(); i++) {
+        if (*i == piece) {
+            gone.erase(i);
+            break;
+        }
+    }
 }
 
 void Board::addPiece(Type type, Color color, int x, int y) {
