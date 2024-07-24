@@ -154,7 +154,8 @@ int ComputerFour::maxi(int depth){
     int maximum = -999999;
     int score = 0;
     Move* m = nullptr;
-    for(auto p : board->whiteMoves()){
+    std::vector<Move *> temp = board->whiteMoves();
+    for(auto p : temp){
         board->addMove(p);
         Piece* capturee = p->pieceCaped();
         if (capturee) board->removePiece(capturee);
@@ -166,6 +167,8 @@ int ComputerFour::maxi(int depth){
             m = p;
         }
     }
+    for (auto m : temp) { if (m->castle != nullptr) { delete m->castle; } delete m; }
+    if (bestMove) delete bestMove;
     bestMove = m;
     return eval();
 }
@@ -176,7 +179,8 @@ int ComputerFour::mini(int depth){
     int minimum = 99999;
     int score = 0;
     Move* m = nullptr;
-    for(auto p : board->blackMoves()){
+    std::vector<Move *> temp = board->whiteMoves();
+    for(auto p : temp){
         board->addMove(p);
         Piece* capturee = p->pieceCaped();
         if (capturee) board->removePiece(capturee);
@@ -189,6 +193,8 @@ int ComputerFour::mini(int depth){
             m = p;
         }
     }
+    for (auto m : temp) { if (m->castle != nullptr) { delete m->castle; } delete m; }
+    if (bestMove) delete bestMove;
     bestMove = m;
     return eval();
 }

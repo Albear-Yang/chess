@@ -9,7 +9,7 @@
 class ComputerFour : public Computer {
 public:
     int evaluation;
-    Move* bestMove;
+    Move* bestMove = nullptr;
 
     ComputerFour(Board* board): Computer(board){}
     int eval();
