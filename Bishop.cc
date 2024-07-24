@@ -20,9 +20,9 @@ vector<Move*> Bishop::moves(){
         bool noPieceBetween = true;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(x == allPieces[z]->pos->x && y == allPieces[z]->pos->y){
+            if(x == allPieces[z]->getPos()->x && y == allPieces[z]->getPos()->y){
                 noPieceBetween = false;
-                if(allPieces[z]->color != color){
+                if(allPieces[z]->getColor() != color){
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -48,9 +48,9 @@ vector<Move*> Bishop::moves(){
         bool noPieceBetween = true;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(x == allPieces[z]->pos->x && y == allPieces[z]->pos->y){
+            if(x == allPieces[z]->getPos()->x && y == allPieces[z]->getPos()->y){
                 noPieceBetween = false;
-                if(allPieces[z]->color != color){
+                if(allPieces[z]->getColor() != color){
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -76,9 +76,9 @@ vector<Move*> Bishop::moves(){
         bool noPieceBetween = true;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(x == allPieces[z]->pos->x && y == allPieces[z]->pos->y){
+            if(x == allPieces[z]->getPos()->x && y == allPieces[z]->getPos()->y){
                 noPieceBetween = false;
-                if(allPieces[z]->color != color){
+                if(allPieces[z]->getColor() != color){
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -104,9 +104,9 @@ vector<Move*> Bishop::moves(){
         bool noPieceBetween = true;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(x == allPieces[z]->pos->x && y == allPieces[z]->pos->y){
+            if(x == allPieces[z]->getPos()->x && y == allPieces[z]->getPos()->y){
                 noPieceBetween = false;
-                if(allPieces[z]->color != color){
+                if(allPieces[z]->getColor() != color){
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -155,9 +155,9 @@ std::vector<Move*> Bishop::movesNoCheck() {
         bool noPieceBetween = true;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(x == allPieces[z]->pos->x && y == allPieces[z]->pos->y){
+            if(x == allPieces[z]->getPos()->x && y == allPieces[z]->getPos()->y){
                 noPieceBetween = false;
-                if(allPieces[z]->color != color){
+                if(allPieces[z]->getColor() != color){
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -183,9 +183,9 @@ std::vector<Move*> Bishop::movesNoCheck() {
         bool noPieceBetween = true;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(x == allPieces[z]->pos->x && y == allPieces[z]->pos->y){
+            if(x == allPieces[z]->getPos()->x && y == allPieces[z]->getPos()->y){
                 noPieceBetween = false;
-                if(allPieces[z]->color != color){
+                if(allPieces[z]->getColor() != color){
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -211,9 +211,9 @@ std::vector<Move*> Bishop::movesNoCheck() {
         bool noPieceBetween = true;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(x == allPieces[z]->pos->x && y == allPieces[z]->pos->y){
+            if(x == allPieces[z]->getPos()->x && y == allPieces[z]->getPos()->y){
                 noPieceBetween = false;
-                if(allPieces[z]->color != color){
+                if(allPieces[z]->getColor() != color){
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -239,9 +239,9 @@ std::vector<Move*> Bishop::movesNoCheck() {
         bool noPieceBetween = true;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(x == allPieces[z]->pos->x && y == allPieces[z]->pos->y){
+            if(x == allPieces[z]->getPos()->x && y == allPieces[z]->getPos()->y){
                 noPieceBetween = false;
-                if(allPieces[z]->color != color){
+                if(allPieces[z]->getColor() != color){
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -286,8 +286,8 @@ vector<Move*> Bishop::canCapture(){
         bool noPieceBetween = false;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(i == allPieces[z]->pos){
-                if(allPieces[z]->color != color){
+            if(i == allPieces[z]->getPos()){
+                if(allPieces[z]->getColor() != color){
                     noPieceBetween = false;
                     tempMove = new Move(this, board->blackPieces[z], new Position{pos->x, pos->y}, i);
                     possibleMoves.push_back(tempMove);
@@ -305,8 +305,8 @@ vector<Move*> Bishop::canCapture(){
         bool noPieceBetween = false;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(i == allPieces[z]->pos){
-                if(allPieces[z]->color != color){
+            if(i == allPieces[z]->getPos()){
+                if(allPieces[z]->getColor() != color){
                     noPieceBetween = false;
                     tempMove = new Move(this, board->blackPieces[z], new Position{pos->x, pos->y}, i);
                     possibleMoves.push_back(tempMove);
@@ -324,8 +324,8 @@ vector<Move*> Bishop::canCapture(){
         bool noPieceBetween = false;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(i == allPieces[z]->pos){
-                if(allPieces[z]->color != color){
+            if(i == allPieces[z]->getPos()){
+                if(allPieces[z]->getColor() != color){
                     noPieceBetween = false;
                     tempMove = new Move(this, board->blackPieces[z], new Position{pos->x, pos->y}, i);
                     possibleMoves.push_back(tempMove);
@@ -343,8 +343,8 @@ vector<Move*> Bishop::canCapture(){
         bool noPieceBetween = false;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(i == allPieces[z]->pos){
-                if(allPieces[z]->color != color){
+            if(i == allPieces[z]->getPos()){
+                if(allPieces[z]->getColor() != color){
                     noPieceBetween = false;
                     tempMove = new Move(this, board->blackPieces[z], new Position{pos->x, pos->y}, i);
                     possibleMoves.push_back(tempMove);

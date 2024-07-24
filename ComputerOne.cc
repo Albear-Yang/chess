@@ -10,7 +10,6 @@ Move* ComputerOne::algorithm() {
     else{
         possibleMoves = board->blackMoves();
     }
-
     size_t movePicked = rand() % possibleMoves.size();
     
     return possibleMoves[movePicked];

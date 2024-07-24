@@ -14,10 +14,10 @@ class Piece {
     protected:
         Board *board;
         const Type type;
-        //const int value; NEED TO MAKE ALL THE PIECES ADD THE VALUE TO THE CTOR! CHANGE ALL CTORS
-    public:
         Color color;
         Position* pos;
+        //const int value; NEED TO MAKE ALL THE PIECES ADD THE VALUE TO THE CTOR! CHANGE ALL CTORS
+    public:
         bool has_moved = false;
         Position* enpassable = nullptr;
         Piece(Board* board, Position* pos, Color color, Type type): board{board}, pos{pos}, color{color}, type{type} {}

@@ -25,9 +25,9 @@ vector<Move*> Queen::moves(){
 
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(i == allPieces[z]->pos->x && pos->y == allPieces[z]->pos->y){
+            if(i == allPieces[z]->getPos()->x && pos->y == allPieces[z]->getPos()->y){
                 noPieceBetween = false;
-                if(allPieces[z]->color != color){
+                if(allPieces[z]->getColor() != color){
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -60,9 +60,9 @@ vector<Move*> Queen::moves(){
 
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(i == allPieces[z]->pos->x && pos->y == allPieces[z]->pos->y){
+            if(i == allPieces[z]->getPos()->x && pos->y == allPieces[z]->getPos()->y){
                 noPieceBetween = false;
-                if(allPieces[z]->color != color){
+                if(allPieces[z]->getColor() != color){
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -94,9 +94,9 @@ vector<Move*> Queen::moves(){
 
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(pos->x == allPieces[z]->pos->x && i == allPieces[z]->pos->y){
+            if(pos->x == allPieces[z]->getPos()->x && i == allPieces[z]->getPos()->y){
                 noPieceBetween = false;
-                if(allPieces[z]->color != color){
+                if(allPieces[z]->getColor() != color){
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -128,9 +128,9 @@ vector<Move*> Queen::moves(){
 
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(pos->x == allPieces[z]->pos->x && i == allPieces[z]->pos->y){
+            if(pos->x == allPieces[z]->getPos()->x && i == allPieces[z]->getPos()->y){
                 noPieceBetween = false;
-                if(allPieces[z]->color != color){
+                if(allPieces[z]->getColor() != color){
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -163,9 +163,9 @@ vector<Move*> Queen::moves(){
         bool noPieceBetween = true;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(x == allPieces[z]->pos->x && y == allPieces[z]->pos->y){
+            if(x == allPieces[z]->getPos()->x && y == allPieces[z]->getPos()->y){
                 noPieceBetween = false;
-                if(allPieces[z]->color != color){
+                if(allPieces[z]->getColor() != color){
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -191,9 +191,9 @@ vector<Move*> Queen::moves(){
         bool noPieceBetween = true;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(x == allPieces[z]->pos->x && y == allPieces[z]->pos->y){
+            if(x == allPieces[z]->getPos()->x && y == allPieces[z]->getPos()->y){
                 noPieceBetween = false;
-                if(allPieces[z]->color != color){
+                if(allPieces[z]->getColor() != color){
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -219,9 +219,9 @@ vector<Move*> Queen::moves(){
         bool noPieceBetween = true;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(x == allPieces[z]->pos->x && y == allPieces[z]->pos->y){
+            if(x == allPieces[z]->getPos()->x && y == allPieces[z]->getPos()->y){
                 noPieceBetween = false;
-                if(allPieces[z]->color != color){
+                if(allPieces[z]->getColor() != color){
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -247,9 +247,9 @@ vector<Move*> Queen::moves(){
         bool noPieceBetween = true;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(x == allPieces[z]->pos->x && y == allPieces[z]->pos->y){
+            if(x == allPieces[z]->getPos()->x && y == allPieces[z]->getPos()->y){
                 noPieceBetween = false;
-                if(allPieces[z]->color != color){
+                if(allPieces[z]->getColor() != color){
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -277,8 +277,8 @@ vector<Move*> Queen::moves(){
         bool noPieceBetween = true;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(i == allPieces[z]->pos){
-                if(allPieces[z]->color != color){
+            if(i == allPieces[z]->getPos()){
+                if(allPieces[z]->getColor() != color){
                     noPieceBetween = false;
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
@@ -307,8 +307,8 @@ vector<Move*> Queen::moves(){
         bool noPieceBetween = true;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(i == allPieces[z]->pos){
-                if(allPieces[z]->color != color){
+            if(i == allPieces[z]->getPos()){
+                if(allPieces[z]->getColor() != color){
                     noPieceBetween = false;
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
@@ -337,8 +337,8 @@ vector<Move*> Queen::moves(){
         bool noPieceBetween = true;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(i == allPieces[z]->pos){
-                if(allPieces[z]->color != color){
+            if(i == allPieces[z]->getPos()){
+                if(allPieces[z]->getColor() != color){
                     noPieceBetween = false;
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
@@ -367,8 +367,8 @@ vector<Move*> Queen::moves(){
         bool noPieceBetween = false;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(i == allPieces[z]->pos){
-                if(allPieces[z]->color != color){
+            if(i == allPieces[z]->getPos()){
+                if(allPieces[z]->getColor() != color){
                     noPieceBetween = false;
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
@@ -424,9 +424,9 @@ std::vector<Move*> Queen::movesNoCheck(){
 
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(temp == allPieces[z]->pos){
+            if(temp == allPieces[z]->getPos()){
                 noPieceBetween = false;
-                if(allPieces[z]->color != color){
+                if(allPieces[z]->getColor() != color){
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -459,9 +459,9 @@ std::vector<Move*> Queen::movesNoCheck(){
 
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(temp == allPieces[z]->pos){
+            if(temp == allPieces[z]->getPos()){
                 noPieceBetween = false;
-                if(allPieces[z]->color != color){
+                if(allPieces[z]->getColor() != color){
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -493,9 +493,9 @@ std::vector<Move*> Queen::movesNoCheck(){
 
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(temp == allPieces[z]->pos){
+            if(temp == allPieces[z]->getPos()){
                 noPieceBetween = false;
-                if(allPieces[z]->color != color){
+                if(allPieces[z]->getColor() != color){
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -527,9 +527,9 @@ std::vector<Move*> Queen::movesNoCheck(){
 
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(temp == allPieces[z]->pos){
+            if(temp == allPieces[z]->getPos()){
                 noPieceBetween = false;
-                if(allPieces[z]->color != color){
+                if(allPieces[z]->getColor() != color){
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -555,9 +555,9 @@ std::vector<Move*> Queen::movesNoCheck(){
         bool noPieceBetween = true;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(x == allPieces[z]->pos->x && y == allPieces[z]->pos->y){
+            if(x == allPieces[z]->getPos()->x && y == allPieces[z]->getPos()->y){
                 noPieceBetween = false;
-                if(allPieces[z]->color != color){
+                if(allPieces[z]->getColor() != color){
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -583,9 +583,9 @@ std::vector<Move*> Queen::movesNoCheck(){
         bool noPieceBetween = true;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(x == allPieces[z]->pos->x && y == allPieces[z]->pos->y){
+            if(x == allPieces[z]->getPos()->x && y == allPieces[z]->getPos()->y){
                 noPieceBetween = false;
-                if(allPieces[z]->color != color){
+                if(allPieces[z]->getColor() != color){
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -611,9 +611,9 @@ std::vector<Move*> Queen::movesNoCheck(){
         bool noPieceBetween = true;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(x == allPieces[z]->pos->x && y == allPieces[z]->pos->y){
+            if(x == allPieces[z]->getPos()->x && y == allPieces[z]->getPos()->y){
                 noPieceBetween = false;
-                if(allPieces[z]->color != color){
+                if(allPieces[z]->getColor() != color){
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -639,9 +639,9 @@ std::vector<Move*> Queen::movesNoCheck(){
         bool noPieceBetween = true;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(x == allPieces[z]->pos->x && y == allPieces[z]->pos->y){
+            if(x == allPieces[z]->getPos()->x && y == allPieces[z]->getPos()->y){
                 noPieceBetween = false;
-                if(allPieces[z]->color != color){
+                if(allPieces[z]->getColor() != color){
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }
@@ -691,8 +691,8 @@ vector<Move*> Queen::canCapture(){
 
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(temp == allPieces[z]->pos){
-                if(allPieces[z]->color != color){
+            if(temp == allPieces[z]->getPos()){
+                if(allPieces[z]->getColor() != color){
                     noPieceBetween = false;
                     tempMove = new Move(this, board->blackPieces[z], new Position{pos->x, pos->y}, temp);
                     possibleMoves.push_back(tempMove);
@@ -715,8 +715,8 @@ vector<Move*> Queen::canCapture(){
 
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(temp == allPieces[z]->pos){
-                if(allPieces[z]->color != color){
+            if(temp == allPieces[z]->getPos()){
+                if(allPieces[z]->getColor() != color){
                     noPieceBetween = false;
                     tempMove = new Move(this, board->blackPieces[z], new Position{pos->x, pos->y}, temp);
                     possibleMoves.push_back(tempMove);
@@ -738,8 +738,8 @@ vector<Move*> Queen::canCapture(){
 
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(temp == allPieces[z]->pos){
-                if(allPieces[z]->color != color){
+            if(temp == allPieces[z]->getPos()){
+                if(allPieces[z]->getColor() != color){
                     noPieceBetween = false;
                     tempMove = new Move(this, board->blackPieces[z], new Position{pos->x, pos->y}, temp);
                     possibleMoves.push_back(tempMove);
@@ -761,8 +761,8 @@ vector<Move*> Queen::canCapture(){
 
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(temp == allPieces[z]->pos){
-                if(allPieces[z]->color != color){
+            if(temp == allPieces[z]->getPos()){
+                if(allPieces[z]->getColor() != color){
                     noPieceBetween = false;
                     tempMove = new Move(this, board->blackPieces[z], new Position{pos->x, pos->y}, temp);
                     possibleMoves.push_back(tempMove);
@@ -780,8 +780,8 @@ vector<Move*> Queen::canCapture(){
         bool noPieceBetween = false;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(i == allPieces[z]->pos){
-                if(allPieces[z]->color != color){
+            if(i == allPieces[z]->getPos()){
+                if(allPieces[z]->getColor() != color){
                     noPieceBetween = false;
                     tempMove = new Move(this, board->blackPieces[z], new Position{pos->x, pos->y}, i);
                     possibleMoves.push_back(tempMove);
@@ -799,8 +799,8 @@ vector<Move*> Queen::canCapture(){
         bool noPieceBetween = false;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(i == allPieces[z]->pos){
-                if(allPieces[z]->color != color){
+            if(i == allPieces[z]->getPos()){
+                if(allPieces[z]->getColor() != color){
                     noPieceBetween = false;
                     tempMove = new Move(this, board->blackPieces[z], new Position{pos->x, pos->y}, i);
                     possibleMoves.push_back(tempMove);
@@ -818,8 +818,8 @@ vector<Move*> Queen::canCapture(){
         bool noPieceBetween = false;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(i == allPieces[z]->pos){
-                if(allPieces[z]->color != color){
+            if(i == allPieces[z]->getPos()){
+                if(allPieces[z]->getColor() != color){
                     noPieceBetween = false;
                     tempMove = new Move(this, board->blackPieces[z], new Position{pos->x, pos->y}, i);
                     possibleMoves.push_back(tempMove);
@@ -837,8 +837,8 @@ vector<Move*> Queen::canCapture(){
         bool noPieceBetween = false;
         for(int z = 0; z < allPieces.size() && noPieceBetween; ++z){
             Move *tempMove = nullptr;
-            if(i == allPieces[z]->pos){
-                if(allPieces[z]->color != color){
+            if(i == allPieces[z]->getPos()){
+                if(allPieces[z]->getColor() != color){
                     noPieceBetween = false;
                     tempMove = new Move(this, board->blackPieces[z], new Position{pos->x, pos->y}, i);
                     possibleMoves.push_back(tempMove);

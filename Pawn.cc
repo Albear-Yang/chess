@@ -38,7 +38,7 @@ vector<Move*> Pawn::moves() {
         //Position tempPos = Position(pos->x, pos->y + reverse * i);
 
         /*for (int z = 0; z < allPieces.size() && noPieceBetween; ++z) {
-            if (tempPos == allPieces[z]->pos) {
+            if (tempPos == allPieces[z]->getPos()) {
                 noPieceBetween = false;
                 break;
             }
@@ -60,10 +60,10 @@ vector<Move*> Pawn::moves() {
 
     // Normal capturing
     for (int z = 0; z < allPieces.size(); ++z) {
-        if (pos->x + reverse == allPieces[z]->pos->x && pos->y + 1 == allPieces[z]->pos->y && allPieces[z]->getColor() != color) {
+        if (pos->x + reverse == allPieces[z]->getPos()->x && pos->y + 1 == allPieces[z]->getPos()->y && allPieces[z]->getColor() != color) {
             possibleMoves.push_back(new Move(this, allPieces[z], new Position{pos->x, pos->y}, new Position(pos->x + reverse, pos->y + 1)));
         }
-        if (pos->x + reverse == allPieces[z]->pos->x && pos->y - 1 == allPieces[z]->pos->y && allPieces[z]->getColor() != color) {
+        if (pos->x + reverse == allPieces[z]->getPos()->x && pos->y - 1 == allPieces[z]->getPos()->y && allPieces[z]->getColor() != color) {
             possibleMoves.push_back(new Move(this, allPieces[z], new Position{pos->x, pos->y}, new Position(pos->x + reverse, pos->y - 1)));
         }
     }
@@ -145,7 +145,7 @@ std::vector<Move*> Pawn::movesNoCheck() {
         //Position tempPos = Position(pos->x, pos->y + reverse * i);
 
         /*for (int z = 0; z < allPieces.size() && noPieceBetween; ++z) {
-            if (tempPos == allPieces[z]->pos) {
+            if (tempPos == allPieces[z]->getPos()) {
                 noPieceBetween = false;
                 break;
             }
@@ -167,10 +167,10 @@ std::vector<Move*> Pawn::movesNoCheck() {
 
     // Normal capturing
     for (int z = 0; z < allPieces.size(); ++z) {
-        if (pos->x + reverse == allPieces[z]->pos->x && pos->y + 1 == allPieces[z]->pos->y && allPieces[z]->getColor() != color) {
+        if (pos->x + reverse == allPieces[z]->getPos()->x && pos->y + 1 == allPieces[z]->getPos()->y && allPieces[z]->getColor() != color) {
             possibleMoves.push_back(new Move(this, allPieces[z], new Position{pos->x, pos->y}, new Position(pos->x + reverse, pos->y + 1)));
         }
-        if (pos->x + reverse == allPieces[z]->pos->x && pos->y - 1 == allPieces[z]->pos->y && allPieces[z]->getColor() != color) {
+        if (pos->x + reverse == allPieces[z]->getPos()->x && pos->y - 1 == allPieces[z]->getPos()->y && allPieces[z]->getColor() != color) {
             possibleMoves.push_back(new Move(this, allPieces[z], new Position{pos->x, pos->y}, new Position(pos->x + reverse, pos->y - 1)));
         }
     }
@@ -247,9 +247,9 @@ vector<Move*> Pawn::canCapture() {
     Position captR = Position(pos->x + 1, pos->y + reverse);
     Position captL = Position(pos->x - 1, pos->y + reverse);
     for (int z = 0; z < allPieces.size(); ++z) {
-        if (captR == allPieces[z]->pos) {
+        if (captR == allPieces[z]->getPos()) {
             possibleMoves.push_back(new Move(this, allPieces[z], new Position{pos->x, pos->y}, captR));
-        } else if (captL == allPieces[z]->pos) {
+        } else if (captL == allPieces[z]->getPos()) {
             possibleMoves.push_back(new Move(this, allPieces[z], new Position{pos->x, pos->y}, captL));
         }
     }

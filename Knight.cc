@@ -21,9 +21,9 @@ vector<Move*> Knight::moves() {
             bool posOccupied = false;
             Move *tempMove = nullptr;
             for(int z = 0; z < allPieces.size(); ++z){
-                if(possiblePosition[i]->x == allPieces[z]->pos->x && possiblePosition[i]->y == allPieces[z]->pos->y){
+                if(possiblePosition[i]->x == allPieces[z]->getPos()->x && possiblePosition[i]->y == allPieces[z]->getPos()->y){
                     posOccupied = true;
-                    if(allPieces[z]->color != color){
+                    if(allPieces[z]->getColor() != color){
                         Piece* pc = nullptr;
                         for (auto p : board->blackPieces) {
                             if (p == allPieces[z]) { pc = p; break; }
@@ -75,9 +75,9 @@ std::vector<Move*> Knight::movesNoCheck() {
             bool posOccupied = false;
             Move *tempMove = nullptr;
             for(int z = 0; z < allPieces.size(); ++z){
-                if(possiblePosition[i] == allPieces[z]->pos){
+                if(possiblePosition[i] == allPieces[z]->getPos()){
                     posOccupied = true;
-                    if(allPieces[z]->color != color){
+                    if(allPieces[z]->getColor() != color){
                         Piece* pc = nullptr;
                         for (auto p : board->blackPieces) {
                             if (p == allPieces[z]) { pc = p; break; }
@@ -126,9 +126,9 @@ vector<Move*> Knight::canCapture(){
             bool posOccupied = false;
             Move *tempMove = nullptr;
             for(int z = 0; z < allPieces.size(); ++z){
-                if(possiblePosition[i] == allPieces[z]->pos){
+                if(possiblePosition[i] == allPieces[z]->getPos()){
                     posOccupied = true;
-                    if(allPieces[z]->color != color){
+                    if(allPieces[z]->getColor() != color){
                         tempMove = new Move(this, board->blackPieces[z], new Position{pos->x, pos->y}, possiblePosition[i]);
                         possibleMoves.push_back(tempMove);
                     }
