@@ -12,7 +12,13 @@ Move* ComputerOne::algorithm() {
         //std::cout << "BLACK AI" << std::endl;
         possibleMoves = board->blackMoves();
     }
+
     size_t movePicked = rand() % possibleMoves.size();
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	
+
+	std::default_random_engine rng{seed};
+    std::shuffle( possibleMoves.begin(), possibleMoves.end(), rng );
     //std::cout << possibleMoves.size() << std::endl;
     Move* m = possibleMoves[movePicked];
     for(auto i = possibleMoves.begin(); i != possibleMoves.end();){

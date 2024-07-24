@@ -6,7 +6,7 @@ std::vector<Move*> Board::whiteMoves() {
     for (int z = 0; z < whitePieces.size(); ++z) {
         std::vector<Move*> pMoves = whitePieces[z]->moves();
         //std::cout << " size " << pMoves.size() << std::endl;
-        //std::cout << whitePieces.size() << std::endl;
+        //std::cout << whitePieces.size() << std::endl;x
         /*char c;
         Type type = whitePieces[z]->typeValue();
         if (type == Type::BISHOP) c = 'B';
@@ -359,10 +359,10 @@ void Board::addMove(Move* move) {
     Piece* pieceMoved = move->pieceMoved();
     pieceMoved->has_moved = true;
     if (whosTurn == Color::WHITE) {
-        whosTurn == Color::BLACK;
+        whosTurn = Color::BLACK;
     }
     else {
-        whosTurn == Color::WHITE;
+        whosTurn = Color::WHITE;
     }
     //removePiece(pieceMoved);
     /*char c;
@@ -382,10 +382,10 @@ void Board::addMove(Move* move) {
     pastMoves.emplace_back(move);
     if (move->castle != nullptr) {
         if (whosTurn == Color::WHITE) {
-            whosTurn == Color::BLACK;
+            whosTurn = Color::BLACK;
         }
         else {
-            whosTurn == Color::WHITE;
+            whosTurn = Color::WHITE;
         }
         addMove(move->castle);
     }
@@ -393,10 +393,10 @@ void Board::addMove(Move* move) {
 
 void Board::undo() {
     if (whosTurn == Color::WHITE) {
-        whosTurn == Color::BLACK;
+        whosTurn = Color::BLACK;
     }
     else {
-        whosTurn == Color::WHITE;
+        whosTurn = Color::WHITE;
     }
     Move* undoMove = pastMoves.back();
     pastMoves.pop_back();

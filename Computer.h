@@ -4,6 +4,13 @@
 #include "Player.h"
 #include "Board.h"
 #include "Move.h"
+#include <iostream>
+#include <string>
+#include <stdexcept>
+#include <vector>
+#include <algorithm>
+#include <random>
+#include <chrono>
 
 class Computer {
 protected:

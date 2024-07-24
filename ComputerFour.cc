@@ -106,7 +106,7 @@ int ComputerFour:: eval(){
     }
     for(auto p: board->blackPieces){
         Position* pos = p->getPos();
-        int x = 7 -  pos->x;
+        int x = 7 - pos->x;
         int y = 7 - pos->y;
         if(p->typeValue() == Type::PAWN){
             pawnsq -= pawntable[x][y];
@@ -148,7 +148,6 @@ int ComputerFour:: eval(){
 }
 
 int ComputerFour::maxi(int depth){
-    Move* bestMove = nullptr;
     if(depth == 0){
         return eval();
     }
@@ -167,7 +166,6 @@ int ComputerFour::maxi(int depth){
     return eval();
 }
 int ComputerFour::mini(int depth){
-    Move* bestMove = nullptr;
     if(depth == 0){
         return eval();
     }
@@ -190,10 +188,12 @@ int ComputerFour::mini(int depth){
 Move* ComputerFour::algorithm(){
     if(board->whosTurn == Color::WHITE){
         int score = maxi(3);
+        std::cout << "white" << std::endl;
         return bestMove;
     }
     else{
         int score = mini(3);
+        std::cout << "black" << std::endl;
         return bestMove;
     }
 }

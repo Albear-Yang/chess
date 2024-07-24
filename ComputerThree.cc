@@ -11,6 +11,12 @@ Move* ComputerThree::algorithm() {
         possibleMoves = board->blackMoves();
     }
 
+    size_t movePicked = rand() % possibleMoves.size();
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	
+
+	std::default_random_engine rng{seed};
+    std::shuffle( possibleMoves.begin(), possibleMoves.end(), rng );
     std::vector<Move*> nonCapturingMoves;
     for (Move* move : possibleMoves) {
         if (move->pieceCaped() == nullptr) {
@@ -22,7 +28,7 @@ Move* ComputerThree::algorithm() {
         size_t movePicked = std::rand() % nonCapturingMoves.size();
         return nonCapturingMoves[movePicked];
     }
-    size_t movePicked = std::rand() % possibleMoves.size();
+
     return possibleMoves[movePicked];
 
 }

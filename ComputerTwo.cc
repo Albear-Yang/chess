@@ -18,11 +18,16 @@ Move* ComputerTwo::algorithm() {
         }
     }
 
+    size_t movePicked = rand() % possibleMoves.size();
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	
+
+	std::default_random_engine rng{seed};
+    std::shuffle( possibleMoves.begin(), possibleMoves.end(), rng );
     if (!capturingMoves.empty()) {
         size_t movePicked = std::rand() % capturingMoves.size();
         return capturingMoves[movePicked];
     }
-    size_t movePicked = std::rand() % possibleMoves.size();
     return possibleMoves[movePicked];
 
 }
