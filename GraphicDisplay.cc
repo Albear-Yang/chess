@@ -104,5 +104,5 @@ void GraphicsDisplay::notify() {
     }
 }
 
-GraphicsDisplay::~GraphicsDisplay() { subj->detach(this); }
+GraphicsDisplay::~GraphicsDisplay() { subj->detach(this); delete w; }
 */
