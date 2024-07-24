@@ -11,7 +11,7 @@ class GraphicsDisplay : public Observer {
 public:
     GraphicsDisplay(Board* subj, Xwindow* w);
     void notify() override;
-    ~GraphicsDisplay();
+    ~GraphicsDisplay() { delete w; };
 };
 
 #endif 

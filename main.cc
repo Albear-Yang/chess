@@ -10,7 +10,7 @@
 #include "TextDisplay.h"
 #include <string>
 
-//setup default done game human human move e2 e4 move d7 d5 move e4 d5 move c7 c5 move d5 c6 move b8 c6 move g2 g3 move c8 g4 move f1 h3 move d8 d7 move g1 f3 move e8 c8
+//setup default done game human human move e2 e4 move d7 d5 move e4 d5 move c7 c5 move d5 c6 move b8 c6 move g2 g3 move c8 g4 move f1 h3 move d8 d7 move g1 f3 move e8 c8 move e1 g1
 
 int main() {
     Board* board = new Board;
