@@ -153,16 +153,21 @@ int ComputerFour::maxi(int depth){
     }
     int maximum = -999999;
     int score = 0;
+    Move* m = nullptr;
     for(auto p : board->whiteMoves()){
         board->addMove(p);
+        Piece* capturee = p->pieceCaped();
+        if (capturee) board->removePiece(capturee);
         score = mini(depth - 1);
         board->undo();
+        if (capturee) board->addPiece(capturee);
 
         if(score > maximum){
             maximum = score;
-            bestMove = p;
+            m = p;
         }
     }
+    bestMove = m;
     return eval();
 }
 int ComputerFour::mini(int depth){
@@ -171,17 +176,21 @@ int ComputerFour::mini(int depth){
     }
     int minimum = 99999;
     int score = 0;
+    Move* m = nullptr;
     for(auto p : board->blackMoves()){
         board->addMove(p);
+        Piece* capturee = p->pieceCaped();
+        if (capturee) board->removePiece(capturee);
         score = maxi(depth - 1);
         board->undo();
+        if (capturee) board->addPiece(capturee);
 
         if(score < minimum){
             minimum = score;
-            bestMove = p;
+            m = p;
         }
     }
-
+    bestMove = m;
     return eval();
 }
 
@@ -192,8 +201,12 @@ Move* ComputerFour::algorithm(){
         return bestMove;
     }
     else{
+        /*for (auto p : board->blackPieces) {
+            std::cout << p->getPos()->x << " " << p->getPos()->y << std::endl;
+        }*/
         int score = mini(3);
-        std::cout << "black" << std::endl;
+        //std::cout << "black" << std::endl;
+        //std::cout << bestMove->initPos()->x << " " << bestMove->initPos()->y << " " << bestMove->finPos()->x << " " << bestMove->finPos()->y << std::endl;
         return bestMove;
     }
 }
