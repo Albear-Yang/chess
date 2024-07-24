@@ -161,6 +161,7 @@ int ComputerFour::maxi(int depth){
         if (capturee) board->removePiece(capturee);
         score = mini(depth - 1);
         board->undo();
+        if (capturee) board->addPiece(capturee);
 
         if(score > maximum){
             maximum = score;
@@ -202,7 +203,6 @@ int ComputerFour::mini(int depth){
 Move* ComputerFour::algorithm(){
     if(board->whosTurn == Color::WHITE){
         int score = maxi(3);
-        //std::cout << "white" << std::endl;
         return bestMove;
     }
     else{
