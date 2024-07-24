@@ -4,6 +4,10 @@
 #include "Board.h"
 #include "Enums.h"
 #include "Computer.h"
+#include "ComputerOne.h"
+#include "ComputerTwo.h"
+#include "ComputerThree.h"
+#include "ComputerFour.h"
 
 //#include "GraphicDisplay.h"
 
@@ -172,6 +176,10 @@ int main() {
             std::cout << "Setup Complete" << std::endl;
         }
         else if (command == "game") {
+            ComputerOne compOne(board);
+            ComputerTwo compTwo(board);
+            ComputerThree compThree(board);
+            ComputerFour compFour(board);
             board->round1 = true;
             board->notifyObservers();
             for (auto p : board->whitePieces) {
@@ -412,10 +420,18 @@ int main() {
                         }
                     }
                     else { //FILL WITH AI
-                        if (white == "computer[1]");
-                        else if (white == "computer[2]");
-                        else if (white == "computer[3]");
-                        else if (white == "computer[4]");
+                        if (white == "computer[1]"){
+                            board->addMove(compOne.algorithm());
+                        }
+                        else if (white == "computer[2]"){
+                            board->addMove(compTwo.algorithm());
+                        }
+                        else if (white == "computer[3]"){
+                            board->addMove(compThree.algorithm());
+                        }
+                        else if (white == "computer[4]"){
+                            board->addMove(compFour.algorithm());
+                        }
                     }
                 }
                 else {
@@ -596,10 +612,18 @@ int main() {
                         }
                     }
                     else { //FILL WITH AI
-                        if (black == "computer[1]");
-                        else if (black == "computer[2]");
-                        else if (black == "computer[3]");
-                        else if (black == "computer[4]");
+                        if (black == "computer[1]"){
+                            board->addMove(compOne.algorithm());
+                        }
+                        else if (black == "computer[2]"){
+                            board->addMove(compTwo.algorithm());
+                        }
+                        else if (black == "computer[3]"){
+                            board->addMove(compThree.algorithm());
+                        }
+                        else if (black == "computer[4]"){
+                            board->addMove(compFour.algorithm());
+                        }
                     }
                 }
                 board->round1 = false;

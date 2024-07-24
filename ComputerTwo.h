@@ -8,7 +8,8 @@
 
 class ComputerTwo : public Computer {
 public:
-    Move* algorithm();
+    ComputerTwo(Board* board): Computer(board){}
+    Move* algorithm() override;
 };
 
 #endif

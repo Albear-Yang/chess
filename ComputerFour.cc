@@ -172,6 +172,7 @@ int ComputerFour::mini(int depth){
         return eval();
     }
     int minimum = 99999;
+    int score = 0;
     for(auto p : board->blackMoves()){
         board->addMove(p);
         score = maxi(depth - 1);
@@ -188,11 +189,11 @@ int ComputerFour::mini(int depth){
 
 Move* ComputerFour::algorithm(){
     if(board->whosTurn == Color::WHITE){
-        int score = maxi(4);
+        int score = maxi(3);
         return bestMove;
     }
     else{
-        int score = mini(4);
+        int score = mini(3);
         return bestMove;
     }
 }

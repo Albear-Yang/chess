@@ -11,8 +11,9 @@ public:
     int evaluation;
     Move* bestMove;
 
+    ComputerFour(Board* board): Computer(board){}
     int eval();
-    Move* algorithm();
+    Move* algorithm() override;
     int mini(int depth);
     int maxi(int depth);
 };

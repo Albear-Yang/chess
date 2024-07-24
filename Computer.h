@@ -5,10 +5,11 @@
 #include "Board.h"
 #include "Move.h"
 
-class Computer : public Player {
+class Computer {
 protected:
     Board *board;
 public:
+    Computer(Board *board): board{board}{};
     virtual Move* algorithm() = 0;
 };
 
