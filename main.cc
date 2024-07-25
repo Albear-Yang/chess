@@ -223,6 +223,7 @@ int main() {
             std::cout << "Setup Complete" << std::endl;
         }
         else if (command == "game" && board->setup) {
+            std::string state = " ";
             ComputerOne compOne(board);
             ComputerTwo compTwo(board);
             ComputerThree compThree(board);
@@ -250,7 +251,7 @@ int main() {
             }
             std::string white, black;
             std::cin >> white >> black;
-            while (command != "resign" && command != "checkmate" && command != "stalemate" && command != "draw") {
+            while (command != "resign" && state != "checkmate" && state != "stalemate" && state != "draw") {
                 if (board->enpassed != nullptr) delete board->enpassed;
                 board->enpassed = nullptr;
                 if (board->whosTurn == Color::WHITE) {
@@ -1075,21 +1076,21 @@ int main() {
                 if (command != "resign") board->notifyObservers();
                 board->undoCalled = false;
                 if (board->checkmate()) {
-                    command = "checkmate";
+                    state = "checkmate";
                 }
                 else if (board->stalemate()) {
-                    command = "stalemate";
+                    state = "stalemate";
                 }
                 else if (board->draw()) {
-                    command = "draw";
+                    state = "draw";
                 }
             }
-            if (command == "stalemate") {
+            if (state == "stalemate") {
                 std::cout << "STALEMATE" << std::endl;
                 board->blackScore += 0.5;
                 board->whiteScore += 0.5;
             }
-            else if (command == "draw") {
+            else if (state == "draw") {
                 std::cout << "DRAW" << std::endl;
             }
             else if (board->whosTurn == Color::WHITE) {
