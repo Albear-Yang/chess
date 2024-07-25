@@ -478,6 +478,7 @@ bool Board::check4check(Color king)
 {
     if (king == Color::WHITE)
     {
+        if (whitePieces.empty()) return false;
         Piece *k;
         for (auto p : whitePieces)
         {
@@ -509,6 +510,7 @@ bool Board::check4check(Color king)
     }
     else
     {
+        if (blackPieces.empty()) return false;
         Piece *k;
         for (auto p : blackPieces)
         {
