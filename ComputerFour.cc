@@ -3,7 +3,7 @@
 const int pawntable[8][8] = {
     {0, 0, 0, 0, 0, 0, 0, 0},
     {5, 10, 10, -20, -20, 10, 10, 5},
-    {5, -5, -10, 0, 0, -10, -5, 5},
+    {10, 10, -10, 0, 0, -10, 10, 10},
     {0, 0, 0, 20, 20, 0, 0, 0},
     {5, 5, 10, 25, 25, 10, 5, 5},
     {10, 10, 20, 30, 30, 20, 10, 10},
@@ -11,8 +11,8 @@ const int pawntable[8][8] = {
     {0, 0, 0, 0, 0, 0, 0, 0}};
 
 const int knightstable[8][8] = {
-    {-50, -40, -30, -30, -30, -30, -40, -50},
-    {-40, -20, 0, 5, 5, 0, -20, -40},
+    {-25, -20, -15, -15, -15, -15, -20, -25},
+    {-20, -10, 0, 5, 5, 0, -10, -20},
     {-30, 5, 10, 15, 15, 10, 5, -30},
     {-30, 0, 15, 20, 20, 15, 0, -30},
     {-30, 5, 15, 20, 20, 15, 5, -30},
@@ -157,7 +157,7 @@ int ComputerFour::eval()
     return material + kingsq + queensq + pawnsq + rooksq + bishopsq + knightsq;
 }
 
-int ComputerFour::maxi(int depth)
+int ComputerFour::maxi(int depth, int alpha, int beta)
 {
     if (depth == 0)
     {
@@ -173,7 +173,7 @@ int ComputerFour::maxi(int depth)
         Piece *capturee = p->pieceCaped();
         if (capturee)
             board->removePiece(capturee);
-        score = mini(depth - 1);
+        score = mini(depth - 1, alpha, beta);
         board->undo();
         if (capturee)
             board->addPiece(capturee);
@@ -182,6 +182,8 @@ int ComputerFour::maxi(int depth)
             maximum = score;
             m = p;
         }
+        alpha = std::max(alpha, score);
+        if (beta <= alpha) break;
     }
     for (auto i = temp.begin(); i != temp.end();)
     {
@@ -197,6 +199,7 @@ int ComputerFour::maxi(int depth)
         {
             i++;
         }
+        
     }
     if (bestMove)
         delete bestMove;
@@ -204,7 +207,7 @@ int ComputerFour::maxi(int depth)
     return eval();
 }
 
-int ComputerFour::mini(int depth)
+int ComputerFour::mini(int depth, int alpha, int beta)
 {
     if (depth == 0)
     {
@@ -220,7 +223,7 @@ int ComputerFour::mini(int depth)
         Piece *capturee = p->pieceCaped();
         if (capturee)
             board->removePiece(capturee);
-        score = maxi(depth - 1);
+        score = maxi(depth - 1, alpha, beta);
         board->undo();
         if (capturee)
             board->addPiece(capturee);
@@ -229,6 +232,8 @@ int ComputerFour::mini(int depth)
             minimum = score;
             m = p;
         }
+        beta = std::min(beta, score);
+        if (beta <= alpha) break;
     }
     for (auto i = temp.begin(); i != temp.end();)
     {
@@ -256,13 +261,13 @@ Move *ComputerFour::algorithm()
     if (board->whosTurn == Color::WHITE)
     {
         bestMove = nullptr;
-        int score = maxi(2);
+        int score = maxi(3, -10000, 10000);
         return bestMove;
     }
     else
     {
         bestMove = nullptr;
-        int score = mini(2);
+        int score = mini(2, -10000, 10000);
         return bestMove;
     }
 }
