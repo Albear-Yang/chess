@@ -27,6 +27,7 @@ public:
     bool hasBlackKing = false;
     bool round1 = true;
     bool setup = false;
+    bool undoCalled = false;
     Position *enpassed = nullptr;
     Color whosTurn = Color::WHITE;
     std::vector<Move *> pastMoves;

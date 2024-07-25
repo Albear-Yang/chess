@@ -432,6 +432,7 @@ int main() {
                         else if (command == "undo") {
                             Move* lastMove = board->pastMoves.back();
                             board->undo();
+                            board->undoCalled = true;
                             if (lastMove->pieceCaped() != nullptr) {
                                 for (auto i = board->gone.begin(); i != board->gone.end(); i++) {
                                     if (*i == lastMove->pieceCaped()) {
@@ -838,6 +839,7 @@ int main() {
                         else if (command == "undo") {
                             Move* lastMove = board->pastMoves.back();
                             board->undo();
+                            board->undoCalled = true;
                             if (lastMove->pieceCaped() != nullptr) {
                                 for (auto i = board->gone.begin(); i != board->gone.end(); i++) {
                                     if (*i == lastMove->pieceCaped()) {
@@ -1068,6 +1070,7 @@ int main() {
                 }
                 board->round1 = false;
                 if (command != "resign") board->notifyObservers();
+                board->undoCalled = false;
                 if (board->checkmate()) {
                     command = "checkmate";
                 }

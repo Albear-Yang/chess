@@ -6,7 +6,7 @@ GraphicsDisplay::GraphicsDisplay(Board *subj, Xwindow *w) : subj{subj}, w{w} { s
 void GraphicsDisplay::notify()
 {
     int boardLen = subj->boardLength();
-    if (subj->round1)
+    if (subj->round1 || subj->undoCalled)
     {
         for (int i = 0; i < boardLen; i++)
         {
