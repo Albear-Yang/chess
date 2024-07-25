@@ -29,16 +29,8 @@ Move* ComputerTwo::algorithm() {
         Move* m = capturingMoves[movePicked];
         for(auto i = possibleMoves.begin(); i != possibleMoves.end();){
             bool flag = false;
-            if ((*i)->castle != nullptr) flag = true;
-            if (flag) {
-                if (m != (*i)->castle) {
-                    delete (*i)->castle;
-                    delete *i;
-                    possibleMoves.erase(i);
-                }
-                else i++;
-            }
-            else if (m != *i) {
+            if (m != *i) {
+                if ((*i)->castle != nullptr) delete (*i)->castle;
                 delete *i;
                 possibleMoves.erase(i);
             }
@@ -52,16 +44,8 @@ Move* ComputerTwo::algorithm() {
     Move* m = possibleMoves[movePicked];
     for(auto i = possibleMoves.begin(); i != possibleMoves.end();){
         bool flag = false;
-        if ((*i)->castle != nullptr) flag = true;
-        if (flag) {
-            if (m != (*i)->castle) {
-                delete (*i)->castle;
-                delete *i;
-                possibleMoves.erase(i);
-            }
-            else i++;
-        }
-        else if (m != *i) {
+        if (m != *i) {
+            if ((*i)->castle != nullptr) delete (*i)->castle;
             delete *i;
             possibleMoves.erase(i);
         }

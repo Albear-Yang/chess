@@ -168,7 +168,17 @@ int ComputerFour::maxi(int depth){
             m = p;
         }
     }
-    for (auto m : temp) { if (m->castle != nullptr) { delete m->castle; } delete m; }
+    for(auto i = temp.begin(); i != temp.end();){
+        bool flag = false;
+        if (m != *i) {
+            if ((*i)->castle != nullptr) delete (*i)->castle;
+            delete *i;
+            temp.erase(i);
+        }
+        else {
+            i++;
+        }
+    }
     if (bestMove) delete bestMove;
     bestMove = m;
     return eval();
@@ -194,7 +204,17 @@ int ComputerFour::mini(int depth){
             m = p;
         }
     }
-    for (auto m : temp) { if (m->castle != nullptr) { delete m->castle; } delete m; }
+    for(auto i = temp.begin(); i != temp.end();){
+        bool flag = false;
+        if (m != *i) {
+            if ((*i)->castle != nullptr) delete (*i)->castle;
+            delete *i;
+            temp.erase(i);
+        }
+        else {
+            i++;
+        }
+    }
     if (bestMove) delete bestMove;
     bestMove = m;
     return eval();
@@ -202,14 +222,14 @@ int ComputerFour::mini(int depth){
 
 Move* ComputerFour::algorithm(){
     if(board->whosTurn == Color::WHITE){
-        int score = maxi(3);
+        int score = maxi(1);
         return bestMove;
     }
     else{
         /*for (auto p : board->blackPieces) {
             std::cout << p->getPos()->x << " " << p->getPos()->y << std::endl;
         }*/
-        int score = mini(3);
+        int score = mini(1);
         //std::cout << "black" << std::endl;
         //std::cout << bestMove->initPos()->x << " " << bestMove->initPos()->y << " " << bestMove->finPos()->x << " " << bestMove->finPos()->y << std::endl;
         return bestMove;

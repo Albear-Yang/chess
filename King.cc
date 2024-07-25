@@ -77,20 +77,33 @@ std::vector<Move*> King::movesNoCheck() {
             if(x == 0 && y == 0){
                 continue;
             }
-            if(pos->x + x < 8 && pos->x + x >= 0 && pos->y + y < 8 && pos->y + y < 8){
-                Position* tempPos = new Position(pos->x + x, pos->y + y);
-
+            if(pos->x + x < 8 && pos->x + x >= 0 && pos->y + y < 8 && pos->y + y >= 0){
+                //Position* tempPos = new Position(pos->x + x, pos->y + y);
+                bool pass = true;
                 for(int z = 0; z < allPieces.size(); ++z){
                     Move *tempMove = nullptr;
-                    if(tempPos == allPieces[z]->getPos()){
+                    if(pos->x + x == allPieces[z]->getPos()->x && pos->y + y == allPieces[z]->getPos()->y){
+                        pass = false;
                         if(allPieces[z]->getColor() != color){
-                            tempMove = new Move(this, board->blackPieces[z], new Position{pos->x, pos->y}, tempPos);
+                            Piece* pc = nullptr;
+                            for (auto p : board->blackPieces) {
+                                if (p == allPieces[z]) { pc = p; break; }
+                            } 
+                            if (pc ==  nullptr) {
+                                for (auto p : board->whitePieces) {
+                                    if (p == allPieces[z]) { pc = p; break; }
+                                } 
+                            }
+                            tempMove = new Move(this, pc, new Position{pos->x, pos->y}, new Position(pos->x + x, pos->y + y));
                             possibleMoves.push_back(tempMove);
                         }
                     }
+                    
                 }
-                Move *tempMove = new Move(this, nullptr, new Position{pos->x, pos->y}, tempPos);
-                possibleMoves.push_back(tempMove);
+                if (pass) {
+                    Move *tempMove = new Move(this, nullptr, new Position{pos->x, pos->y}, new Position(pos->x + x, pos->y + y));
+                    possibleMoves.push_back(tempMove);
+                }
             }
         }
     }

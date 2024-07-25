@@ -75,7 +75,7 @@ std::vector<Move*> Knight::movesNoCheck() {
             bool posOccupied = false;
             Move *tempMove = nullptr;
             for(int z = 0; z < allPieces.size(); ++z){
-                if(possiblePosition[i] == allPieces[z]->getPos()){
+                if(possiblePosition[i]->x == allPieces[z]->getPos()->x && possiblePosition[i]->y == allPieces[z]->getPos()->y){
                     posOccupied = true;
                     if(allPieces[z]->getColor() != color){
                         Piece* pc = nullptr;
