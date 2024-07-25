@@ -447,6 +447,7 @@ int main() {
                     }
                     else { 
                         while (true) {
+                            std::cout << "Computer move? (move): " << std::endl;
                             std::cin >> command;
                             if (command == "move") {
                                 if (white == "computer[1]"){
@@ -855,6 +856,7 @@ int main() {
                     }
                     else { 
                         while (true) {
+                            std::cout << "Computer move? (move): " << std::endl;
                             std::cin >> command;
                             if (command == "move") {
                                 if (black == "computer[1]"){
