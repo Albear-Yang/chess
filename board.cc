@@ -456,7 +456,7 @@ bool Board::check4checkMove(Color king, Move* move) {
     addMove(move);
     Piece* capturee = nullptr;
     if (move->pieceCaped() != nullptr) {capturee = move->pieceCaped();}
-    //if (capturee != nullptr) removePiece(capturee);
+    if (capturee != nullptr) removePiece(capturee);
     
     //setup test game human human move e2 f3
     if (king == Color::WHITE) {
@@ -466,21 +466,28 @@ bool Board::check4checkMove(Color king, Move* move) {
                 k = p; break;
             }
         }
+        //std::cout << "KING POSSIBLE MOVE " << move->initPos()->x << " " << move->initPos()->y << " " << move->finPos()->x << " " << move->finPos()->y << " " << std::endl;
+        //std::cout << "KING POS " << k->positionXValue() << " " << k->positionYValue() << std::endl;
+        //std::cout << "CAPT POS " << capturee->getPos()->x << " " << capturee->getPos()->y << std::endl;
         for (auto p : blackPieces) {
             std::vector<Move*> temp = p->movesNoCheck();
-            for (auto move : temp) {
+            for (auto m : temp) {
                 //std::cout << "Q " << whitePieces[1]->pos.x << " " << whitePieces[1]->pos.y << std::endl;
                 if (capturee != nullptr) {
-                    if (move->initPos()->x != capturee->getPos()->x && move->initPos()->y != capturee->getPos()->y && k->positionXValue() == move->finPos()->x && k->positionYValue() == move->finPos()->y) {
+                    //std::cout << m->initPos()->x << " " << m->initPos()->y << " " << m->finPos()->x << " " << m->finPos()->y << std::endl;
+                    if ((m->initPos()->x != capturee->getPos()->x || m->initPos()->y != capturee->getPos()->y) && k->positionXValue() == m->finPos()->x && k->positionYValue() == m->finPos()->y) {
+                        //std::cout << "CHECKEK" << std::endl;
                         undo();
-                        for (auto m : temp) { delete m; }
+                        for (auto a : temp) { delete a; }
+                        if (capturee != nullptr) addPiece(capturee);
                         return true;
                     }
                 }
                 else {
-                    if (k->positionXValue() == move->finPos()->x && k->positionYValue() == move->finPos()->y) {
+                    if (k->positionXValue() == m->finPos()->x && k->positionYValue() == m->finPos()->y) {
                         undo();
-                        for (auto m : temp) { delete m; }
+                        for (auto a : temp) { delete a; }
+                        if (capturee != nullptr) addPiece(capturee);
                         return true;
                     }
                 }
@@ -497,18 +504,20 @@ bool Board::check4checkMove(Color king, Move* move) {
         }
         for (auto p : whitePieces) {
             std::vector<Move*> temp = p->movesNoCheck();
-            for (auto move : temp) {
+            for (auto m : temp) {
                 if (capturee != nullptr) {
-                    if (move->initPos()->x != capturee->getPos()->x && move->initPos()->y != capturee->getPos()->y && k->positionXValue() == move->finPos()->x && k->positionYValue() == move->finPos()->y) {
+                    if ((m->initPos()->x != capturee->getPos()->x || m->initPos()->y != capturee->getPos()->y) && k->positionXValue() == m->finPos()->x && k->positionYValue() == m->finPos()->y) {
                         undo();
-                        for (auto m : temp) { delete m; }
+                        for (auto a : temp) { delete a; }
+                        if (capturee != nullptr) addPiece(capturee);
                         return true;
                     }
                 }
                 else {
-                    if (k->positionXValue() == move->finPos()->x && k->positionYValue() == move->finPos()->y) {
+                    if (k->positionXValue() == m->finPos()->x && k->positionYValue() == m->finPos()->y) {
                         undo();
-                        for (auto m : temp) { delete m; }
+                        for (auto a : temp) { delete a; }
+                        if (capturee != nullptr) addPiece(capturee);
                         return true;
                     }
                 }
@@ -517,6 +526,7 @@ bool Board::check4checkMove(Color king, Move* move) {
         }
     }
     undo();
+    if (capturee != nullptr) addPiece(capturee);
     return false;
 }
 

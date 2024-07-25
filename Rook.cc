@@ -192,6 +192,7 @@ std::vector<Move*> Rook::movesNoCheck() {
             if(i == allPieces[z]->getPos()->x && pos->y == allPieces[z]->getPos()->y){
                 noPieceBetween = false;
                 if(allPieces[z]->getColor() != color){
+                    //std::cout << allPieces[z]->getPos()->x << " " << allPieces[z]->getPos()->y << std::endl;
                     Piece* pc = nullptr;
                     for (auto p : board->blackPieces) {
                         if (p == allPieces[z]) { pc = p; break; }

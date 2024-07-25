@@ -70,10 +70,11 @@ int main() {
                     board->notifyObservers();
                 }
                 else if (command == "test") {
-                    board->addPiece(Type::KING, Color::WHITE, 5, 1);
-                    board->addPiece(Type::KING, Color::BLACK, 0, 4);
-                    board->addPiece(Type::PAWN, Color::WHITE, 1, 0);
-                    board->addPiece(Type::ROOK, Color::WHITE, 7, 7);
+                    board->addPiece(Type::KING, Color::WHITE, 5, 0);
+                    board->addPiece(Type::KING, Color::BLACK, 0, 7);
+                    board->addPiece(Type::PAWN, Color::BLACK, 4, 0);
+                    board->addPiece(Type::ROOK, Color::BLACK, 0, 0);
+                    //board->addPiece(Type::BISHOP, Color::BLACK, 7, 3);
                     board->hasBlackKing = true;
                     board->hasWhiteKing = true;
                     command = "done";
@@ -226,7 +227,7 @@ int main() {
                             //std::cout << "uh " << std::endl;
                             std::vector<Move*> temp = board->whiteMoves();
                             
-                            std::cout << temp.size() << " temp size" << std:: endl;
+                            //std::cout << temp.size() << " temp size" << std:: endl;
                             while (true) {
                                 //remember to remove
                                 //std::cout << "hi" << std::endl;
@@ -410,23 +411,30 @@ int main() {
                             for(auto i = temp.begin(); i != temp.end();){
                                 bool flag = false;
                                 if ((*i)->castle != nullptr) flag = true;
-                                if (flag) {
-                                    if (board->pastMoves.back() != (*i)->castle) {
-                                        delete (*i)->castle;
+                                if (board->pastMoves.size() > 0) {
+                                    if (flag) {
+                                        if (board->pastMoves.back() != (*i)->castle) {
+                                            delete (*i)->castle;
+                                            delete *i;
+                                            temp.erase(i);
+                                        }
+                                        else i++;
+                                    }
+                                    else if (board->pastMoves.back() != *i) {
                                         delete *i;
                                         temp.erase(i);
                                     }
-                                    else i++;
+                                    else {
+                                        i++;
+                                    }
                                 }
-                                else if (board->pastMoves.back() != *i) {
+                                else {
+                                    if (flag) delete (*i)->castle;
                                     delete *i;
                                     temp.erase(i);
                                 }
-                                else {
-                                    i++;
-                                }
                             }
-                            if (command != "resign") std::cout << "Move made ["<< board->pastMoves.back()->initPos()-> x << " " <<  board->pastMoves.back()->initPos()-> y <<  " to "<<board->pastMoves.back()->finPos()->x << " " <<  board->pastMoves.back()->finPos()->y << std::endl;
+                            if (command != "resign") std::cout << "Move made" << std::endl;  //["<< board->pastMoves.back()->initPos()-> x << " " <<  board->pastMoves.back()->initPos()-> y <<  " to "<<board->pastMoves.back()->finPos()->x << " " <<  board->pastMoves.back()->finPos()->y << std::endl;
                         }
                     }
                     else { //FILL WITH AI
@@ -812,20 +820,27 @@ int main() {
                             for(auto i = temp.begin(); i != temp.end();){
                                 bool flag = false;
                                 if ((*i)->castle != nullptr) flag = true;
-                                if (flag) {
-                                    if (board->pastMoves.back() != (*i)->castle) {
-                                        delete (*i)->castle;
+                                if (board->pastMoves.size() > 0) {
+                                    if (flag) {
+                                        if (board->pastMoves.back() != (*i)->castle) {
+                                            delete (*i)->castle;
+                                            delete *i;
+                                            temp.erase(i);
+                                        }
+                                        else i++;
+                                    }
+                                    else if (board->pastMoves.back() != *i) {
                                         delete *i;
                                         temp.erase(i);
                                     }
-                                    else i++;
-                                }
-                                else if (board->pastMoves.back() != *i) {
-                                    delete *i;
-                                    temp.erase(i);
+                                    else {
+                                        i++;
+                                    }
                                 }
                                 else {
-                                    i++;
+                                    if (flag) delete (*i)->castle;
+                                    delete *i;
+                                    temp.erase(i);
                                 }
                             }
                             if (command != "resign") std::cout << "Move made" << std::endl; //["<< board->pastMoves.back()->initPos()-> x << " " <<  board->pastMoves.back()->initPos()-> y <<  " to "<<board->pastMoves.back()->finPos()->x << " " <<  board->pastMoves.back()->finPos()->y << std::endl;

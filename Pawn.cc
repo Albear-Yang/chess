@@ -207,18 +207,6 @@ std::vector<Move*> Pawn::movesNoCheck() {
         }
     }
 
-    // Check if moves put own king in check
-    /*for (int i = 0; i < possibleMoves.size(); ) {
-        board->addMove(possibleMoves[i]);
-        if (board->check4check(color)) {
-            board->undo();
-            possibleMoves.erase(possibleMoves.begin() + i);
-        } else {
-            ++i;
-        }
-        //board->undo();
-    }*/
-
     return possibleMoves;
 }
 
