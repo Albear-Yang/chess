@@ -146,7 +146,7 @@ int ComputerFour:: eval(){
     }
     return material + kingsq + queensq + pawnsq + rooksq + bishopsq + knightsq;
 }
-
+//setup default done game computer[4] computer[4]
 int ComputerFour::maxi(int depth){
     if(depth == 0){
         return eval();
@@ -190,7 +190,7 @@ int ComputerFour::mini(int depth){
     int minimum = 99999;
     int score = 0;
     Move* m = nullptr;
-    std::vector<Move *> temp = board->whiteMoves();
+    std::vector<Move *> temp = board->blackMoves();
     for(auto p : temp){
         board->addMove(p);
         Piece* capturee = p->pieceCaped();
@@ -222,16 +222,18 @@ int ComputerFour::mini(int depth){
 
 Move* ComputerFour::algorithm(){
     if(board->whosTurn == Color::WHITE){
-        int score = maxi(1);
+        bestMove = nullptr;
+        int score = maxi(2);
         return bestMove;
     }
     else{
+        bestMove = nullptr;
         /*for (auto p : board->blackPieces) {
             std::cout << p->getPos()->x << " " << p->getPos()->y << std::endl;
         }*/
-        int score = mini(1);
+        int score = mini(2);
         //std::cout << "black" << std::endl;
-        //std::cout << bestMove->initPos()->x << " " << bestMove->initPos()->y << " " << bestMove->finPos()->x << " " << bestMove->finPos()->y << std::endl;
+        std::cout << bestMove->initPos()->x << " " << bestMove->initPos()->y << " " << bestMove->finPos()->x << " " << bestMove->finPos()->y << std::endl;
         return bestMove;
     }
 }
