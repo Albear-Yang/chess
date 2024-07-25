@@ -431,11 +431,13 @@ int main() {
                         else if (command == "undo") {
                             Move* lastMove = board->pastMoves.back();
                             board->undo();
-                            for (auto i = board->gone.begin(); i != board->gone.end(); i++) {
-                                if (*i == lastMove->pieceCaped()) {
-                                    board->addPiece(*i);
-                                    board->gone.erase(i);
-                                    break;
+                            if (lastMove->pieceCaped() != nullptr) {
+                                for (auto i = board->gone.begin(); i != board->gone.end(); i++) {
+                                    if (*i == lastMove->pieceCaped()) {
+                                        board->addPiece(*i);
+                                        board->gone.erase(i);
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -835,11 +837,13 @@ int main() {
                         else if (command == "undo") {
                             Move* lastMove = board->pastMoves.back();
                             board->undo();
-                            for (auto i = board->gone.begin(); i != board->gone.end(); i++) {
-                                if (*i == lastMove->pieceCaped()) {
-                                    board->addPiece(*i);
-                                    board->gone.erase(i);
-                                    break;
+                            if (lastMove->pieceCaped() != nullptr) {
+                                for (auto i = board->gone.begin(); i != board->gone.end(); i++) {
+                                    if (*i == lastMove->pieceCaped()) {
+                                        board->addPiece(*i);
+                                        board->gone.erase(i);
+                                        break;
+                                    }
                                 }
                             }
                         }
