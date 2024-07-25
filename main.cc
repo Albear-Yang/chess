@@ -443,6 +443,7 @@ int main() {
                                     }
                                 }
                             }
+                            delete lastMove;
                         }
                     }
                     else { 
@@ -850,6 +851,7 @@ int main() {
                                     }
                                 }
                             }
+                            delete lastMove;
                         }
                     }
                     else { 
