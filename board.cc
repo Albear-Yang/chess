@@ -222,7 +222,7 @@ std::vector<Move *> Board::blackMoves()
             i2 = 0;
             j2 = 6;
             ri1 = 0;
-            rj1 = 0;
+            rj1 = 7;
             ri2 = 0;
             rj2 = 5;
             std::vector<Move *> temp = whiteMovesNoCastle();
@@ -279,7 +279,7 @@ std::vector<Move *> Board::blackMoves()
             i2 = 0;
             j2 = 6;
             ri1 = 0;
-            rj1 = 0;
+            rj1 = 7;
             ri2 = 0;
             rj2 = 5;
             std::vector<Move *> temp = whiteMovesNoCastle();
