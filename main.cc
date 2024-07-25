@@ -7,11 +7,7 @@
 #include "ComputerTwo.h"
 #include "ComputerThree.h"
 #include "ComputerFour.h"
-<<<<<<< HEAD
-#include "GraphicDisplay.h"
-=======
 //#include "GraphicDisplay.h"
->>>>>>> ba025c8a6152136c37bd3fc152e3a22aed08bcb6
 #include "TextDisplay.h"
 #include <string>
 
@@ -20,11 +16,7 @@ int main() {
     Board* board = new Board;
     int boardLen = board->boardLength();
     TextDisplay* Text = new TextDisplay(board);
-<<<<<<< HEAD
-    GraphicsDisplay* Graphics = new GraphicsDisplay(board, new Xwindow(50*(boardLen+2), 50*(boardLen+1)));
-=======
     //GraphicsDisplay* Graphics = new GraphicsDisplay(board, new Xwindow(50*(boardLen+2), 50*(boardLen+1)));
->>>>>>> ba025c8a6152136c37bd3fc152e3a22aed08bcb6
     std::string command;
     while (std::cin >> command) {
         if (command == "setup") {
@@ -436,6 +428,17 @@ int main() {
                             }
                             if (command != "resign") std::cout << "Move made" << std::endl;
                         }
+                        else if (command == "undo") {
+                            Move* lastMove = board->pastMoves.back();
+                            board->undo();
+                            for (auto i = board->gone.begin(); i != board->gone.end(); i++) {
+                                if (*i == lastMove->pieceCaped()) {
+                                    board->addPiece(*i);
+                                    board->gone.erase(i);
+                                    break;
+                                }
+                            }
+                        }
                     }
                     else { 
                         if (white == "computer[1]"){
@@ -829,6 +832,17 @@ int main() {
                             }
                             if (command != "resign") std::cout << "Move made" << std::endl; 
                         }
+                        else if (command == "undo") {
+                            Move* lastMove = board->pastMoves.back();
+                            board->undo();
+                            for (auto i = board->gone.begin(); i != board->gone.end(); i++) {
+                                if (*i == lastMove->pieceCaped()) {
+                                    board->addPiece(*i);
+                                    board->gone.erase(i);
+                                    break;
+                                }
+                            }
+                        }
                     }
                     else { 
                         if (black == "computer[1]"){
@@ -1082,6 +1096,6 @@ int main() {
     std::cout << "White: " << board->whiteScore << std::endl;
     std::cout << "Black: " << board->blackScore << std::endl;
     delete Text;
-    delete Graphics;
+    //delete Graphics;
     delete board;
 }
