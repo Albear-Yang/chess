@@ -1,0 +1,15 @@
+setup
+default
+done
+game human human
+move d2 d4
+move d7 d5
+move c2 c4
+move e7 e6
+move d1 a4
+move b8 c6
+move e2 e3
+move d8 g5
+move b1 c3
+move g5 g4
+move e1 c1
