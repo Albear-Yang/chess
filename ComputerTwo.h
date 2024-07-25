@@ -5,10 +5,11 @@
 #include "Computer.h"
 #include "Move.h"
 
-class ComputerTwo : public Computer {
+class ComputerTwo : public Computer
+{
 public:
-    ComputerTwo(Board* board): Computer(board){}
-    Move* algorithm() override;
+    ComputerTwo(Board *board) : Computer(board) {}
+    Move *algorithm() override;
 };
 
 #endif

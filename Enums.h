@@ -1,12 +1,14 @@
 #ifndef ENUMS_H
 #define ENUMS_H
 
-enum class Color {
+enum class Color
+{
     BLACK,
     WHITE
 };
 
-enum class Type{
+enum class Type
+{
     KNIGHT,
     BISHOP,
     PAWN,
