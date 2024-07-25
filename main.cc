@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <vector>
 #include "Board.h"
@@ -8,22 +7,13 @@
 #include "ComputerTwo.h"
 #include "ComputerThree.h"
 #include "ComputerFour.h"
-
-//#include "GraphicDisplay.h"
-
 #include "TextDisplay.h"
 #include <string>
-
-//setup default done game human human move e2 e4 move d7 d5 move e4 d5 move c7 c5 move d5 c6 move b8 c6 move g2 g3 move c8 g4 move f1 h3 move d8 d7 move g1 f3 move e8 c8 move e1 g1
-
 int main() {
     int count = 0;
     Board* board = new Board;
     int boardLen = board->boardLength();
     TextDisplay* Text = new TextDisplay(board);
-    //GraphicsDisplay* Graphic = new GraphicsDisplay(board, new Xwindow{50*(2 + boardLen), 50*(1 + boardLen)});
-    //WAIT UNTIL GRAPHICS LOAD BEFORE INPUT
-
     std::string command;
     while (std::cin >> command) {
         if (command == "setup") {
@@ -69,16 +59,6 @@ int main() {
                     board->whosTurn = Color::WHITE;
                     board->notifyObservers();
                 }
-                else if (command == "test") {
-                    board->addPiece(Type::KING, Color::WHITE, 5, 0);
-                    board->addPiece(Type::KING, Color::BLACK, 0, 7);
-                    board->addPiece(Type::PAWN, Color::BLACK, 4, 0);
-                    board->addPiece(Type::ROOK, Color::BLACK, 0, 0);
-                    //board->addPiece(Type::BISHOP, Color::BLACK, 7, 3);
-                    board->hasBlackKing = true;
-                    board->hasWhiteKing = true;
-                    command = "done";
-                }
                 else if (command == "+") {
                     char c;
                     std::string pos;
@@ -96,47 +76,107 @@ int main() {
                                 if (board->hasWhiteKing) {
                                     std::cout << "Too many white kings" << std::endl;
                                 }
-                                /*else if (board->check4check(Color::WHITE)) { //uncomment when albert fixes moves()
-                                    std::cout << "King cannot start on check" << std::endl;
-                                }*/
                                 else {
                                     board->addPiece(Type::KING, Color::WHITE, 8 - (pos[1] - '0'), pos[0] - 'a'); 
-                                    board->hasWhiteKing = true; 
+                                    if (board->check4check(Color::WHITE)) {
+                                        std::cout << "King cannot start on check" << std::endl;
+                                        board->removePiece(8 - (pos[1] - '0'), pos[0] - 'a');
+                                    }
+                                    else board->hasWhiteKing = true; 
                                 }
                                 break;
-                            case 'N': board->addPiece(Type::KNIGHT, Color::WHITE, 8 - (pos[1] - '0'), pos[0] - 'a'); break;
-                            case 'B': board->addPiece(Type::BISHOP, Color::WHITE, 8 - (pos[1] - '0'), pos[0] - 'a'); break;
-                            case 'R': board->addPiece(Type::ROOK, Color::WHITE, 8 - (pos[1] - '0'), pos[0] - 'a'); break;
-                            case 'Q': board->addPiece(Type::QUEEN, Color::WHITE, 8 - (pos[1] - '0'), pos[0] - 'a'); break;
+                            case 'N': 
+                                board->addPiece(Type::KNIGHT, Color::WHITE, 8 - (pos[1] - '0'), pos[0] - 'a'); 
+                                if (board->check4check(Color::BLACK)) {
+                                    std::cout << "King cannot start on check" << std::endl;
+                                    board->removePiece(8 - (pos[1] - '0'), pos[0] - 'a');
+                                }
+                                break;
+                            case 'B': 
+                                board->addPiece(Type::BISHOP, Color::WHITE, 8 - (pos[1] - '0'), pos[0] - 'a'); 
+                                if (board->check4check(Color::BLACK)) {
+                                    std::cout << "King cannot start on check" << std::endl;
+                                    board->removePiece(8 - (pos[1] - '0'), pos[0] - 'a');
+                                }
+                                break;
+                            case 'R': 
+                                board->addPiece(Type::ROOK, Color::WHITE, 8 - (pos[1] - '0'), pos[0] - 'a'); 
+                                if (board->check4check(Color::BLACK)) {
+                                    std::cout << "King cannot start on check" << std::endl;
+                                    board->removePiece(8 - (pos[1] - '0'), pos[0] - 'a');
+                                }
+                                break;
+                            case 'Q': 
+                                board->addPiece(Type::QUEEN, Color::WHITE, 8 - (pos[1] - '0'), pos[0] - 'a'); 
+                                if (board->check4check(Color::BLACK)) {
+                                    std::cout << "King cannot start on check" << std::endl;
+                                    board->removePiece(8 - (pos[1] - '0'), pos[0] - 'a');
+                                }
+                                break;
                             case 'P': 
                                 if (8 - (pos[1] - '0') == 0 || 8 - (pos[1] - '0') == boardLen - 1) {
-                                    std::cout << "Pawn must not be on first or last row" << std::endl;
+                                    std::cout << "Pawn must not be on first or last row" << std::endl; break;
                                 }
                                 else {
-                                    board->addPiece(Type::PAWN, Color::WHITE, 8 - (pos[1] - '0'), pos[0] - 'a'); break;
+                                    board->addPiece(Type::PAWN, Color::WHITE, 8 - (pos[1] - '0'), pos[0] - 'a'); 
+                                    if (board->check4check(Color::BLACK)) {
+                                        std::cout << "King cannot start on check" << std::endl;
+                                        board->removePiece(8 - (pos[1] - '0'), pos[0] - 'a');
+                                    }
+                                    break;
                                 }
                             case 'k': 
                                 if (board->hasBlackKing) {
                                     std::cout << "Too many black kings" << std::endl;
                                 }
-                                /*else if (board->check4check(Color::BLACK)) {
-                                    std::cout << "King cannot start on check" << std::endl;
-                                }*/
                                 else {
                                     board->addPiece(Type::KING, Color::BLACK, 8 - (pos[1] - '0'), pos[0] - 'a'); 
-                                    board->hasBlackKing = true; 
+                                    if (board->check4check(Color::BLACK)) {
+                                        std::cout << "King cannot start on check" << std::endl;
+                                        board->removePiece(8 - (pos[1] - '0'), pos[0] - 'a');
+                                    }
+                                    else board->hasBlackKing = true; 
                                 }
                                 break;
-                            case 'n': board->addPiece(Type::KNIGHT, Color::BLACK, 8 - (pos[1] - '0'), pos[0] - 'a'); break;
-                            case 'b': board->addPiece(Type::BISHOP, Color::BLACK, 8 - (pos[1] - '0'), pos[0] - 'a'); break;
-                            case 'r': board->addPiece(Type::ROOK, Color::BLACK, 8 - (pos[1] - '0'), pos[0] - 'a'); break;
-                            case 'q': board->addPiece(Type::QUEEN, Color::BLACK, 8 - (pos[1] - '0'), pos[0] - 'a'); break;
+                            case 'n': 
+                                board->addPiece(Type::KNIGHT, Color::BLACK, 8 - (pos[1] - '0'), pos[0] - 'a'); 
+                                if (board->check4check(Color::WHITE)) {
+                                    std::cout << "King cannot start on check" << std::endl;
+                                    board->removePiece(8 - (pos[1] - '0'), pos[0] - 'a');
+                                }
+                                break;
+                            case 'b': 
+                                board->addPiece(Type::BISHOP, Color::BLACK, 8 - (pos[1] - '0'), pos[0] - 'a'); 
+                                if (board->check4check(Color::WHITE)) {
+                                    std::cout << "King cannot start on check" << std::endl;
+                                    board->removePiece(8 - (pos[1] - '0'), pos[0] - 'a');
+                                }
+                                break;
+                            case 'r': 
+                                board->addPiece(Type::ROOK, Color::BLACK, 8 - (pos[1] - '0'), pos[0] - 'a'); 
+                                if (board->check4check(Color::WHITE)) {
+                                    std::cout << "King cannot start on check" << std::endl;
+                                    board->removePiece(8 - (pos[1] - '0'), pos[0] - 'a');
+                                }
+                                break;
+                            case 'q': 
+                                board->addPiece(Type::QUEEN, Color::BLACK, 8 - (pos[1] - '0'), pos[0] - 'a'); 
+                                if (board->check4check(Color::WHITE)) {
+                                    std::cout << "King cannot start on check" << std::endl;
+                                    board->removePiece(8 - (pos[1] - '0'), pos[0] - 'a');
+                                }
+                                break;
                             case 'p': 
                                 if (8 - (pos[1] - '0') == 0 || 8 - (pos[1] - '0') == boardLen - 1) {
-                                    std::cout << "Pawn must not be on first or last row" << std::endl;
+                                    std::cout << "Pawn must not be on first or last row" << std::endl; break;
                                 }
                                 else {
-                                    board->addPiece(Type::PAWN, Color::BLACK, 8 - (pos[1] - '0'), pos[0] - 'a'); break;
+                                    board->addPiece(Type::PAWN, Color::BLACK, 8 - (pos[1] - '0'), pos[0] - 'a'); 
+                                    if (board->check4check(Color::WHITE)) {
+                                        std::cout << "King cannot start on check" << std::endl;
+                                        board->removePiece(8 - (pos[1] - '0'), pos[0] - 'a');
+                                    }
+                                    break;
                                 }
                         }
                     }
@@ -179,10 +219,6 @@ int main() {
             std::cout << "Setup Complete" << std::endl;
         }
         else if (command == "game" && board->setup) {
-            //setup default done game computer[1] computer[1]
-            //setup default done game computer[2] computer[2]
-            //setup default done game computer[3] computer[3]
-            //setup default done game computer[4] computer[4]
             ComputerOne compOne(board);
             ComputerTwo compTwo(board);
             ComputerThree compThree(board);
@@ -210,12 +246,8 @@ int main() {
             std::string white, black;
             std::cin >> white >> black;
             while (command != "resign" && command != "checkmate" && command != "stalemate" && command != "draw") {
-                //count++;
-                //if (count == 300) std::exit(0);
                 if (board->enpassed != nullptr) delete board->enpassed;
                 board->enpassed = nullptr;
-//setup default done game human human move e2 e4 move d7 d5 move e4 d5 move c7 c5 move d5 c6 move b8 c6 move g2 g3 move c8 g4 move f1 h3 move d8 d7 move g1 f3
-
                 if (board->whosTurn == Color::WHITE) {
                     if (white == "human") {
                         std::cout << "White Move (move <pos1> <pos2>) : " << std::endl;
@@ -224,61 +256,32 @@ int main() {
                         bool pass = false;
                         if (command == "move") {
                             std::cin >> init >> fin;
-                            //std::cout << "uh " << std::endl;
                             std::vector<Move*> temp = board->whiteMoves();
-                            
-                            //std::cout << temp.size() << " temp size" << std:: endl;
                             while (true) {
-                                //remember to remove
-                                //std::cout << "hi" << std::endl;
-
                                 Piece* starter = nullptr;
                                 Piece* capturee = nullptr;
-                                //if (board->whiteMoves().empty()) std::cout << "hi" << std::endl;
-                                /*for (auto p : temp) {
-                                    char c;
-                                    Type type = p->pieceMoved()->typeValue();
-                                    if (type == Type::BISHOP) c = 'B';
-                                    else if (type == Type::KNIGHT) c = 'N';
-                                    else if (type == Type::PAWN) c = 'P';
-                                    else if (type == Type::ROOK) c = 'R';
-                                    else if (type == Type::QUEEN) c = 'Q';
-                                    else if (type == Type::KING) c = 'K';
-                                    std::cout << c << " " << p->initPos()->x << " " << p->initPos()->y << " " << p->finPos()->x << " " << p->finPos()->y << std::endl;
-                                }*/
-                                //std::cout << board->whitePieces.size() << std::endl;
                                 for (auto p : board->whitePieces) {
-                                    //std::cout << 8 - init[1] + '0' << " " << init[0] - 'a' << std::endl;
-                                    //std::cout << p->positionXValue() << " " << p->positionYValue() << std::endl;
                                     if (p->positionXValue() == 8 - init[1] + '0' && p->positionYValue() == init[0] - 'a') {
                                         starter = p;
-                                        //std::cout << "starter found" << std::endl;
                                         break;
                                     }
                                 }
-                                //std::cout << " checkp 2" << std::endl;
                                 for (auto p : board->blackPieces) {
                                     if (p->positionXValue() == 8 - fin[1] + '0' && p->positionYValue() == fin[0] - 'a') {
                                         capturee = p;
                                         break;
                                     }
                                 }
-                                //std::cout << " checkp 3" << std::endl;
                                 if (starter != nullptr) {
                                     for (auto m : temp) {
                                         if (capturee == nullptr) {
                                             if (m->initPos()->x == starter->positionXValue() && m->initPos()->y == starter->positionYValue() && m->initPos()->x == 8 - init[1] + '0' && m->initPos()->y == init[0] - 'a' && m->finPos()->x == 8 - fin[1] + '0' && m->finPos()->y == fin[0] - 'a' && m->pieceMoved() == starter) {
-                                                //std::cout << " move found " << std::endl;
                                                 if (starter->enpassable != nullptr) {
                                                     if (8 - fin[1] + '0' == starter->enpassable->x && fin[0] - 'a' == starter->enpassable->y) {
                                                         board->removePiece(starter->enpassable->x + 1, starter->enpassable->y);
                                                         board->enpassed = new Position{starter->enpassable->x + 1, starter->enpassable->y};
                                                     }
                                                 }
-                                                //board->addMove(new Move(starter, capturee, new Position{starter->positionXValue(), starter->positionYValue()},  new Position{8 - fin[1] + '0', fin[0] - 'a'}));
-                                                //setup test game human human move e1 g1
-                                                //board->addMove(m);
-                                                //starter->movePos(8 - fin[1] + '0', fin[0] - 'a');
                                                 if (starter->typeValue() == Type::PAWN && m->finPos()->x == 0) {
                                                     Piece* promo;
                                                     char c;
@@ -323,7 +326,6 @@ int main() {
                                                     delete m;
                                                 }
                                                 else board->addMove(m);
-                                                
                                                 board->whosTurn = Color::BLACK;
                                                 pass = true;
                                                 starter->has_moved = true;
@@ -331,17 +333,7 @@ int main() {
                                             }
                                         }
                                         else if (m->initPos()->x == starter->positionXValue() && m->initPos()->y == starter->positionYValue() && m->finPos()->x == capturee->positionXValue() && m->finPos()->y == capturee->positionYValue() && m->initPos()->x == 8 - init[1] + '0' && m->initPos()->y == init[0] - 'a' && m->finPos()->x == 8 - fin[1] + '0' && m->finPos()->y == fin[0] - 'a' && m->pieceMoved() == starter && m->pieceCaped() == capturee) {
-                                            //std::cout << " move found " << std::endl;
                                             board->removePiece(8 - fin[1] + '0', fin[0] - 'a');
-                                            //board->addMove(new Move(starter, capturee, new Position{starter->positionXValue(), starter->positionYValue()},  new Position{capturee->positionXValue(), capturee->positionYValue()}));
-                                            //board->addMove(m);
-                                            //starter->movePos(8 - fin[1] + '0', fin[0] - 'a');
-                                            //std::cout << 8 - init[1] << " " << init[0] - 'a' << std::endl;
-
-                                            //board->addMove(m);
-                                            //std::cout << m->finPos()->x << " " << m->finPos()->y << std::endl;
-                                            //std::cout << starter->positionXValue() << " " << starter->positionYValue() << std::endl;
-                                            
                                             if (starter->typeValue() == Type::PAWN && m->finPos()->x == 0) {
                                                 Piece* promo;
                                                 char c;
@@ -351,7 +343,6 @@ int main() {
                                                     if (c == 'Q' || c == 'R' || c == 'N' || c == 'B') break;
                                                     else std::cout << "Invalid Selection" << std::endl;
                                                 }
-                                                
                                                 switch (c)
                                                 {
                                                 case 'Q':
@@ -387,7 +378,6 @@ int main() {
                                                 delete m;
                                             }
                                             else board->addMove(m);
-
                                             starter->has_moved = true;
                                             board->whosTurn = Color::BLACK;
                                             pass = true;
@@ -395,7 +385,6 @@ int main() {
                                         }
                                     }
                                 }
-                                //std::cout << " checkp 4" << std::endl;
                                 if (!pass) {
                                     std::cout << "Invalid move" << std::endl;
                                     std::cin >> command;
@@ -434,13 +423,12 @@ int main() {
                                     temp.erase(i);
                                 }
                             }
-                            if (command != "resign") std::cout << "Move made" << std::endl;  //["<< board->pastMoves.back()->initPos()-> x << " " <<  board->pastMoves.back()->initPos()-> y <<  " to "<<board->pastMoves.back()->finPos()->x << " " <<  board->pastMoves.back()->finPos()->y << std::endl;
+                            if (command != "resign") std::cout << "Move made" << std::endl;
                         }
                     }
-                    else { //FILL WITH AI
+                    else { 
                         if (white == "computer[1]"){
                             Move* m = compOne.algorithm();
-                            //std::cout << m->initPos()->x << " " << m->initPos()->y << " " << m->finPos()->x << " " << m->finPos()->y << std::endl;
                             Piece* starter = m->pieceMoved();
                             Piece* capturee = m->pieceCaped();
                             if (starter->enpassable != nullptr) {
@@ -488,14 +476,12 @@ int main() {
                                 delete m;
                             }
                             else board->addMove(m);
-                            
                             board->whosTurn = Color::BLACK;
                             starter->has_moved = true;
                             std::cout << "Move made ["<< m->initPos()-> x << " " <<  m->initPos()-> y <<  " to "<<m->finPos()->x << " " <<  m->finPos()->y << std::endl;
                         }
                         else if (white == "computer[2]"){
                             Move* m = compTwo.algorithm();
-                            //std::cout << m->initPos()->x << " " << m->initPos()->y << " " << m->finPos()->x << " " << m->finPos()->y << std::endl;
                             Piece* starter = m->pieceMoved();
                             Piece* capturee = m->pieceCaped();
                             if (starter->enpassable != nullptr) {
@@ -543,14 +529,12 @@ int main() {
                                 delete m;
                             }
                             else board->addMove(m);
-                            
                             board->whosTurn = Color::BLACK;
                             starter->has_moved = true;
-                            std::cout << "Move made" << std::endl; //["<< m->initPos()-> x << " " <<  m->initPos()-> y <<  " to "<<m->finPos()->x << " " <<  m->finPos()->y << std::endl;
+                            std::cout << "Move made" << std::endl; 
                         }
                         else if (white == "computer[3]"){
                             Move* m = compThree.algorithm();
-                            //std::cout << m->initPos()->x << " " << m->initPos()->y << " " << m->finPos()->x << " " << m->finPos()->y << std::endl;
                             Piece* starter = m->pieceMoved();
                             Piece* capturee = m->pieceCaped();
                             if (starter->enpassable != nullptr) {
@@ -598,14 +582,12 @@ int main() {
                                 delete m;
                             }
                             else board->addMove(m);
-                            
                             board->whosTurn = Color::BLACK;
                             starter->has_moved = true;
-                            std::cout << "Move made" << std::endl; //["<< m->initPos()-> x << " " <<  m->initPos()-> y <<  " to "<<m->finPos()->x << " " <<  m->finPos()->y << std::endl;
+                            std::cout << "Move made" << std::endl; 
                         }
                         else if (white == "computer[4]"){
                             Move* m = compFour.algorithm();
-                            //std::cout << m->initPos()->x << " " << m->initPos()->y << " " << m->finPos()->x << " " << m->finPos()->y << std::endl;
                             Piece* starter = m->pieceMoved();
                             Piece* capturee = m->pieceCaped();
                             if (starter->enpassable != nullptr) {
@@ -653,10 +635,9 @@ int main() {
                                 delete m;
                             }
                             else board->addMove(m);
-                            
                             board->whosTurn = Color::BLACK;
                             starter->has_moved = true;
-                            std::cout << "Move made" << std::endl; //["<< m->initPos()-> x << " " <<  m->initPos()-> y <<  " to "<<m->finPos()->x << " " <<  m->finPos()->y << std::endl;
+                            std::cout << "Move made" << std::endl; 
                         }
                     }
                 }
@@ -684,7 +665,6 @@ int main() {
                                         break;
                                     }
                                 }
-                                
                                 if (starter != nullptr) {
                                     for (auto m : temp) {
                                         if (capturee == nullptr) {
@@ -695,9 +675,6 @@ int main() {
                                                         board->enpassed = new Position{starter->enpassable->x + 1, starter->enpassable->y};
                                                     }
                                                 }
-                                                //board->addMove(m);
-                                                //starter->movePos(8 - fin[1] + '0', fin[0] - 'a');
-                                                
                                                 if (starter->typeValue() == Type::PAWN && m->finPos()->x == 7) {
                                                     Piece* promo;
                                                     char c;
@@ -750,9 +727,6 @@ int main() {
                                         }
                                         else if (m->initPos()->x == starter->positionXValue() && m->initPos()->y == starter->positionYValue() && m->finPos()->x == capturee->positionXValue() && m->finPos()->y == capturee->positionYValue() && m->initPos()->x == 8 - init[1] + '0' && m->initPos()->y == init[0] - 'a' && m->finPos()->x == 8 - fin[1] + '0' && m->finPos()->y == fin[0] - 'a' && m->pieceMoved() == starter && m->pieceCaped() == capturee) {
                                             board->removePiece(8 - fin[1] + '0', fin[0] - 'a');
-                                            //board->addMove(m);
-                                            //starter->movePos(8 - fin[1] + '0', fin[0] - 'a');
-                                            
                                             if (starter->typeValue() == Type::PAWN && m->finPos()->x == 0) {
                                                 Piece* promo;
                                                 char c;
@@ -797,7 +771,6 @@ int main() {
                                                 delete m;
                                             }
                                             else board->addMove(m);
-
                                             starter->has_moved = true;
                                             board->whosTurn = Color::WHITE;
                                             pass = true;
@@ -843,13 +816,12 @@ int main() {
                                     temp.erase(i);
                                 }
                             }
-                            if (command != "resign") std::cout << "Move made" << std::endl; //["<< board->pastMoves.back()->initPos()-> x << " " <<  board->pastMoves.back()->initPos()-> y <<  " to "<<board->pastMoves.back()->finPos()->x << " " <<  board->pastMoves.back()->finPos()->y << std::endl;
+                            if (command != "resign") std::cout << "Move made" << std::endl; 
                         }
                     }
-                    else { //FILL WITH AI
+                    else { 
                         if (black == "computer[1]"){
                             Move* m = compOne.algorithm();
-                            //std::cout << m->initPos()->x << " " << m->initPos()->y << " " << m->finPos()->x << " " << m->finPos()->y << std::endl;
                             Piece* starter = m->pieceMoved();
                             Piece* capturee = m->pieceCaped();
                             if (starter->enpassable != nullptr) {
@@ -897,14 +869,12 @@ int main() {
                                 delete m;
                             }
                             else board->addMove(m);
-                            
                             board->whosTurn = Color::WHITE;
                             starter->has_moved = true;
-                            std::cout << "Move made" << std::endl; //["<< m->initPos()-> x << " " <<  m->initPos()-> y <<  " to "<<m->finPos()->x << " " <<  m->finPos()->y << std::endl;
+                            std::cout << "Move made" << std::endl; 
                         }
                         else if (black == "computer[2]"){
                             Move* m = compTwo.algorithm();
-                            //std::cout << m->initPos()->x << " " << m->initPos()->y << " " << m->finPos()->x << " " << m->finPos()->y << std::endl;
                             Piece* starter = m->pieceMoved();
                             Piece* capturee = m->pieceCaped();
                             if (starter->enpassable != nullptr) {
@@ -952,14 +922,12 @@ int main() {
                                 delete m;
                             }
                             else board->addMove(m);
-                            
                             board->whosTurn = Color::WHITE;
                             starter->has_moved = true;
-                            std::cout << "Move made" << std::endl; //["<< m->initPos()-> x << " " <<  m->initPos()-> y <<  " to "<<m->finPos()->x << " " <<  m->finPos()->y << std::endl;
+                            std::cout << "Move made" << std::endl; 
                         }
                         else if (black == "computer[3]"){
                             Move* m = compThree.algorithm();
-                            //std::cout << m->initPos()->x << " " << m->initPos()->y << " " << m->finPos()->x << " " << m->finPos()->y << std::endl;
                             Piece* starter = m->pieceMoved();
                             Piece* capturee = m->pieceCaped();
                             if (starter->enpassable != nullptr) {
@@ -1007,14 +975,12 @@ int main() {
                                 delete m;
                             }
                             else board->addMove(m);
-                            
                             board->whosTurn = Color::WHITE;
                             starter->has_moved = true;
-                            std::cout << "Move made" << std::endl; //["<< m->initPos()-> x << " " <<  m->initPos()-> y <<  " to "<<m->finPos()->x << " " <<  m->finPos()->y << std::endl;
+                            std::cout << "Move made" << std::endl; 
                         }
                         else if (black == "computer[4]"){
                             Move* m = compFour.algorithm();
-                            //std::cout << m->initPos()->x << " " << m->initPos()->y << " " << m->finPos()->x << " " << m->finPos()->y << std::endl;
                             Piece* starter = m->pieceMoved();
                             Piece* capturee = m->pieceCaped();
                             if (starter->enpassable != nullptr) {
@@ -1061,14 +1027,12 @@ int main() {
                                 board->addMove(new Move(promo, capturee, new Position{m->initPos()->x, m->initPos()->y},  new Position{m->finPos()->x, m->finPos()->y}));
                                 delete m;
                             }
-                            
                             else{
                                 board->addMove(m);
                             } 
-                            
                             board->whosTurn = Color::WHITE;
                             starter->has_moved = true;
-                            std::cout << "Move made" << std::endl; //["<< m->initPos()-> x << " " <<  m->initPos()-> y <<  " to "<<m->finPos()->x << " " <<  m->finPos()->y << std::endl;
+                            std::cout << "Move made" << std::endl; 
                         }
                     }
                 }
@@ -1107,6 +1071,5 @@ int main() {
     std::cout << "White: " << board->whiteScore << std::endl;
     std::cout << "Black: " << board->blackScore << std::endl;
     delete Text;
-    //delete Graphic;
     delete board;
 }

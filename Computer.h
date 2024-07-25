@@ -11,12 +11,14 @@
 #include <random>
 #include <chrono>
 
-class Computer {
+class Computer
+{
 protected:
     Board *board;
+
 public:
-    Computer(Board *board): board{board}{};
-    virtual Move* algorithm() = 0;
+    Computer(Board *board) : board{board} {};
+    virtual Move *algorithm() = 0;
 };
 
 #endif

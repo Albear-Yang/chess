@@ -5,14 +5,15 @@
 #include "Computer.h"
 #include "Move.h"
 
-class ComputerFour : public Computer {
+class ComputerFour : public Computer
+{
 public:
     int evaluation;
-    Move* bestMove = nullptr;
+    Move *bestMove = nullptr;
 
-    ComputerFour(Board* board): Computer(board){}
+    ComputerFour(Board *board) : Computer(board) {}
     int eval();
-    Move* algorithm() override;
+    Move *algorithm() override;
     int mini(int depth);
     int maxi(int depth);
 };
