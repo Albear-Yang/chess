@@ -228,6 +228,7 @@ int main() {
             ComputerThree compThree(board);
             ComputerFour compFour(board);
             board->round1 = true;
+            board->undoCalled = false;
             board->notifyObservers();
             for (auto p : board->whitePieces) {
                 Type type = p->typeValue();
