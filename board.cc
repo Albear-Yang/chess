@@ -366,9 +366,9 @@ bool Board::empty(int x, int y)
 
 bool Board::checkmate()
 {
-    if (!check4check(Color::WHITE))
+    if (!check4check(Color::WHITE) && whosTurn == Color::WHITE)
         return false;
-    if (!check4check(Color::BLACK))
+    if (!check4check(Color::BLACK) && whosTurn == Color::BLACK)
         return false;
     if (whosTurn == Color::WHITE)
     {
