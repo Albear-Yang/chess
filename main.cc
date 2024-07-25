@@ -8,6 +8,7 @@
 #include "ComputerThree.h"
 #include "ComputerFour.h"
 #include "GraphicDisplay.h"
+//#include "GraphicDisplay.h"
 #include "TextDisplay.h"
 #include <string>
 
@@ -428,6 +429,17 @@ int main() {
                             }
                             if (command != "resign") std::cout << "Move made" << std::endl;
                         }
+                        else if (command == "undo") {
+                            Move* lastMove = board->pastMoves.back();
+                            board->undo();
+                            for (auto i = board->gone.begin(); i != board->gone.end(); i++) {
+                                if (*i == lastMove->pieceCaped()) {
+                                    board->addPiece(*i);
+                                    board->gone.erase(i);
+                                    break;
+                                }
+                            }
+                        }
                     }
                     else { 
                         if (white == "computer[1]"){
@@ -821,6 +833,17 @@ int main() {
                             }
                             if (command != "resign") std::cout << "Move made" << std::endl; 
                         }
+                        else if (command == "undo") {
+                            Move* lastMove = board->pastMoves.back();
+                            board->undo();
+                            for (auto i = board->gone.begin(); i != board->gone.end(); i++) {
+                                if (*i == lastMove->pieceCaped()) {
+                                    board->addPiece(*i);
+                                    board->gone.erase(i);
+                                    break;
+                                }
+                            }
+                        }
                     }
                     else { 
                         if (black == "computer[1]"){
@@ -1074,6 +1097,6 @@ int main() {
     std::cout << "White: " << board->whiteScore << std::endl;
     std::cout << "Black: " << board->blackScore << std::endl;
     delete Text;
-    delete Graphics;
+    //delete Graphics;
     delete board;
 }
