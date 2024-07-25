@@ -3,7 +3,7 @@
 const int pawntable[8][8] = {
     {0, 0, 0, 0, 0, 0, 0, 0},
     {5, 10, 10, -20, -20, 10, 10, 5},
-    {5, -5, -10, 0, 0, -10, -5, 5},
+    {10, 10, -10, 0, 0, -10, 10, 10},
     {0, 0, 0, 20, 20, 0, 0, 0},
     {5, 5, 10, 25, 25, 10, 5, 5},
     {10, 10, 20, 30, 30, 20, 10, 10},
@@ -12,14 +12,14 @@ const int pawntable[8][8] = {
 };
 
 const int knightstable[8][8] = {
-    {-50, -40, -30, -30, -30, -30, -40, -50},
-    {-40, -20, 0, 5, 5, 0, -20, -40},
+    {-25, -20, -15, -15, -15, -15, -20, -25},
+    {-20, -10, 0, 5, 5, 0, -10, -20},
     {-30, 5, 10, 15, 15, 10, 5, -30},
     {-30, 0, 15, 20, 20, 15, 0, -30},
     {-30, 5, 15, 20, 20, 15, 5, -30},
     {-30, 0, 10, 15, 15, 10, 0, -30},
-    {-40, -20, 0, 0, 0, 0, -20, -40},
-    {-50, -40, -30, -30, -30, -30, -40, -50}
+    {-20, -10, 0, 0, 0, 0, -10, -20},
+    {-25, -20, -15, -15, -15, -15, -20, -25}
 };
 
 const int bishopstable[8][8] = {
@@ -78,8 +78,8 @@ int ComputerFour:: eval(){
 
     for(auto p : board->whitePieces){
         Position* pos = p->getPos();
-        int x = pos->x;
-        int y = pos->y;
+        int x = 7 - pos->x;
+        int y = 7 - pos->y;
         if(p->typeValue() == Type::PAWN){
             pawnsq += pawntable[x][y];
             material += 100;
@@ -106,8 +106,8 @@ int ComputerFour:: eval(){
     }
     for(auto p: board->blackPieces){
         Position* pos = p->getPos();
-        int x = 7 - pos->x;
-        int y = 7 - pos->y;
+        int x = pos->x;
+        int y = pos->y;
         if(p->typeValue() == Type::PAWN){
             pawnsq -= pawntable[x][y];
             material -= 100;
@@ -147,7 +147,7 @@ int ComputerFour:: eval(){
     return material + kingsq + queensq + pawnsq + rooksq + bishopsq + knightsq;
 }
 //setup default done game computer[4] computer[4]
-int ComputerFour::maxi(int depth){
+int ComputerFour::maxi(int depth, int alpha, int beta){
     if(depth == 0){
         return eval();
     }
@@ -159,7 +159,7 @@ int ComputerFour::maxi(int depth){
         board->addMove(p);
         Piece* capturee = p->pieceCaped();
         if (capturee) board->removePiece(capturee);
-        score = mini(depth - 1);
+        score = mini(depth - 1, alpha, beta);
         board->undo();
         if (capturee) board->addPiece(capturee);
 
@@ -167,6 +167,8 @@ int ComputerFour::maxi(int depth){
             maximum = score;
             m = p;
         }
+        alpha = std::max(alpha, score);
+        if (beta <= alpha) break;
     }
     for(auto i = temp.begin(); i != temp.end();){
         bool flag = false;
@@ -178,24 +180,26 @@ int ComputerFour::maxi(int depth){
         else {
             i++;
         }
+        
     }
     if (bestMove) delete bestMove;
     bestMove = m;
     return eval();
 }
-int ComputerFour::mini(int depth){
+int ComputerFour::mini(int depth, int alpha, int beta){
     if(depth == 0){
         return eval();
     }
     int minimum = 99999;
     int score = 0;
     Move* m = nullptr;
+
     std::vector<Move *> temp = board->blackMoves();
     for(auto p : temp){
         board->addMove(p);
         Piece* capturee = p->pieceCaped();
         if (capturee) board->removePiece(capturee);
-        score = maxi(depth - 1);
+        score = maxi(depth - 1, alpha, beta);
         board->undo();
         if (capturee) board->addPiece(capturee);
 
@@ -203,6 +207,8 @@ int ComputerFour::mini(int depth){
             minimum = score;
             m = p;
         }
+        beta = std::min(beta, score);
+        if (beta <= alpha) break;
     }
     for(auto i = temp.begin(); i != temp.end();){
         bool flag = false;
@@ -223,7 +229,7 @@ int ComputerFour::mini(int depth){
 Move* ComputerFour::algorithm(){
     if(board->whosTurn == Color::WHITE){
         bestMove = nullptr;
-        int score = maxi(2);
+        int score = maxi(3, -10000, 10000);
         return bestMove;
     }
     else{
@@ -231,7 +237,7 @@ Move* ComputerFour::algorithm(){
         /*for (auto p : board->blackPieces) {
             std::cout << p->getPos()->x << " " << p->getPos()->y << std::endl;
         }*/
-        int score = mini(2);
+        int score = mini(3, -10000, 10000);
         //std::cout << "black" << std::endl;
         std::cout << bestMove->initPos()->x << " " << bestMove->initPos()->y << " " << bestMove->finPos()->x << " " << bestMove->finPos()->y << std::endl;
         return bestMove;

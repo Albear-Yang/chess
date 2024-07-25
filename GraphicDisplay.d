@@ -1,1 +1,0 @@
-GraphicDisplay.o: GraphicDisplay.cc

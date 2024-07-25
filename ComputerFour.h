@@ -13,8 +13,8 @@ public:
     ComputerFour(Board* board): Computer(board){}
     int eval();
     Move* algorithm() override;
-    int mini(int depth);
-    int maxi(int depth);
+    int mini(int depth, int alpha, int beta);
+    int maxi(int depth, int alpha, int beta);
 };
 
 #endif
