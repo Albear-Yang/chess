@@ -160,7 +160,7 @@ int ComputerFour::eval()
     return material + kingsq + queensq + pawnsq + rooksq + bishopsq + knightsq;
 }
 
-int ComputerFour::maxi(int depth)
+int ComputerFour::maxi(int depth, int alpha, int beta)
 {
     if (depth == 0)
     {
@@ -176,7 +176,7 @@ int ComputerFour::maxi(int depth)
         Piece *capturee = p->pieceCaped();
         if (capturee)
             board->removePiece(capturee);
-        score = mini(depth - 1);
+        score = mini(depth - 1, alpha, beta);
         board->undo();
         if (capturee)
             board->addPiece(capturee);
@@ -210,7 +210,7 @@ int ComputerFour::maxi(int depth)
     bestMove = m;
     return eval();
 }
-int ComputerFour::mini(int depth)
+int ComputerFour::mini(int depth, int alpha, int beta)
 {
     if (depth == 0)
     {
@@ -226,7 +226,7 @@ int ComputerFour::mini(int depth)
         Piece *capturee = p->pieceCaped();
         if (capturee)
             board->removePiece(capturee);
-        score = maxi(depth - 1);
+        score = maxi(depth - 1, alpha, beta);
         board->undo();
         if (capturee)
             board->addPiece(capturee);
@@ -271,7 +271,7 @@ Move *ComputerFour::algorithm()
     else
     {
         bestMove = nullptr;
-        int score = mini(2);
+        int score = mini(2, -10000, 10000);
         return bestMove;
     }
 }
