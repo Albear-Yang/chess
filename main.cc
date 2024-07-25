@@ -8,12 +8,14 @@
 #include "ComputerThree.h"
 #include "ComputerFour.h"
 #include "TextDisplay.h"
+#include "GraphicDisplay.h"
 #include <string>
 int main() {
     int count = 0;
     Board* board = new Board;
     int boardLen = board->boardLength();
     TextDisplay* Text = new TextDisplay(board);
+    GraphicsDisplay* Graphics = new GraphicsDisplay(board, new Xwindow(50*(boardLen+1), 50*(boardLen+2)));
     std::string command;
     while (std::cin >> command) {
         if (command == "setup") {
@@ -1071,5 +1073,6 @@ int main() {
     std::cout << "White: " << board->whiteScore << std::endl;
     std::cout << "Black: " << board->blackScore << std::endl;
     delete Text;
+    delete Graphics;
     delete board;
 }

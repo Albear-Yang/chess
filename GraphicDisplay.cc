@@ -1,4 +1,4 @@
-/*#include "GraphicDisplay.h"
+#include "GraphicDisplay.h"
 #include <string>
 
 GraphicsDisplay::GraphicsDisplay(Board *subj, Xwindow *w) : subj{subj}, w{w} { subj->attach(this); }
@@ -164,4 +164,4 @@ GraphicsDisplay::~GraphicsDisplay()
 {
     subj->detach(this);
     delete w;
-}*/
+}
