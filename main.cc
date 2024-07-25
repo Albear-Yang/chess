@@ -7,7 +7,7 @@
 #include "ComputerTwo.h"
 #include "ComputerThree.h"
 #include "ComputerFour.h"
-//#include GraphicDisplay.h
+//#include "GraphicDisplay.h"
 #include "TextDisplay.h"
 #include <string>
 
@@ -16,7 +16,7 @@ int main() {
     Board* board = new Board;
     int boardLen = board->boardLength();
     TextDisplay* Text = new TextDisplay(board);
-    //GraphicsDisplay* Graphics = new GraphicsDisplay(board, new Xwindow(50*(boardLen+1), 50*(boardLen+2)));
+    //GraphicsDisplay* Graphics = new GraphicsDisplay(board, new Xwindow(50*(boardLen+2), 50*(boardLen+1)));
     std::string command;
     while (std::cin >> command) {
         if (command == "setup") {
