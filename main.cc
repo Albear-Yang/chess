@@ -329,7 +329,6 @@ int main() {
                                                         break;
                                                     }
                                                     board->addMove(new Move(promo, capturee, new Position{m->initPos()->x, m->initPos()->y},  new Position{8 - fin[1] + '0', fin[0] - 'a'}));
-                                                    delete m;
                                                 }
                                                 else board->addMove(m);
                                                 board->whosTurn = Color::BLACK;
@@ -381,7 +380,6 @@ int main() {
                                                     break;
                                                 }
                                                 board->addMove(new Move(promo, capturee, new Position{m->initPos()->x, m->initPos()->y},  new Position{8 - fin[1] + '0', fin[0] - 'a'}));
-                                                delete m;
                                             }
                                             else board->addMove(m);
                                             starter->has_moved = true;
@@ -494,7 +492,6 @@ int main() {
                                     break;
                                 }
                                 board->addMove(new Move(promo, capturee, new Position{m->initPos()->x, m->initPos()->y},  new Position{m->finPos()->x, m->finPos()->y}));
-                                delete m;
                             }
                             else board->addMove(m);
                             board->whosTurn = Color::BLACK;
@@ -547,7 +544,6 @@ int main() {
                                     break;
                                 }
                                 board->addMove(new Move(promo, capturee, new Position{m->initPos()->x, m->initPos()->y},  new Position{m->finPos()->x, m->finPos()->y}));
-                                delete m;
                             }
                             else board->addMove(m);
                             board->whosTurn = Color::BLACK;
@@ -600,7 +596,6 @@ int main() {
                                     break;
                                 }
                                 board->addMove(new Move(promo, capturee, new Position{m->initPos()->x, m->initPos()->y},  new Position{m->finPos()->x, m->finPos()->y}));
-                                delete m;
                             }
                             else board->addMove(m);
                             board->whosTurn = Color::BLACK;
@@ -653,7 +648,6 @@ int main() {
                                     break;
                                 }
                                 board->addMove(new Move(promo, capturee, new Position{m->initPos()->x, m->initPos()->y},  new Position{m->finPos()->x, m->finPos()->y}));
-                                delete m;
                             }
                             else board->addMove(m);
                             board->whosTurn = Color::BLACK;
@@ -737,7 +731,6 @@ int main() {
                                                         break;
                                                     }
                                                     board->addMove(new Move(promo, capturee, new Position{m->initPos()->x, m->initPos()->y},  new Position{8 - fin[1] + '0', fin[0] - 'a'}));
-                                                    delete m;
                                                 }
                                                 else board->addMove(m);
                                                 starter->has_moved = true;
@@ -789,7 +782,6 @@ int main() {
                                                     break;
                                                 }
                                                 board->addMove(new Move(promo, capturee, new Position{m->initPos()->x, m->initPos()->y},  new Position{8 - fin[1] + '0', fin[0] - 'a'}));
-                                                delete m;
                                             }
                                             else board->addMove(m);
                                             starter->has_moved = true;
@@ -902,7 +894,6 @@ int main() {
                                     break;
                                 }
                                 board->addMove(new Move(promo, capturee, new Position{m->initPos()->x, m->initPos()->y},  new Position{m->finPos()->x, m->finPos()->y}));
-                                delete m;
                             }
                             else board->addMove(m);
                             board->whosTurn = Color::WHITE;
@@ -955,7 +946,6 @@ int main() {
                                     break;
                                 }
                                 board->addMove(new Move(promo, capturee, new Position{m->initPos()->x, m->initPos()->y},  new Position{m->finPos()->x, m->finPos()->y}));
-                                delete m;
                             }
                             else board->addMove(m);
                             board->whosTurn = Color::WHITE;
@@ -1008,7 +998,6 @@ int main() {
                                     break;
                                 }
                                 board->addMove(new Move(promo, capturee, new Position{m->initPos()->x, m->initPos()->y},  new Position{m->finPos()->x, m->finPos()->y}));
-                                delete m;
                             }
                             else board->addMove(m);
                             board->whosTurn = Color::WHITE;
@@ -1061,7 +1050,6 @@ int main() {
                                     break;
                                 }
                                 board->addMove(new Move(promo, capturee, new Position{m->initPos()->x, m->initPos()->y},  new Position{m->finPos()->x, m->finPos()->y}));
-                                delete m;
                             }
                             else{
                                 board->addMove(m);
