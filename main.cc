@@ -8,7 +8,7 @@
 #include "ComputerThree.h"
 #include "ComputerFour.h"
 #include "GraphicDisplay.h"
-//#include "GraphicDisplay.h"
+#include "GraphicDisplay.h"
 #include "TextDisplay.h"
 #include <string>
 
