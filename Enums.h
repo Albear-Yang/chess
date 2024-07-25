@@ -16,5 +16,4 @@ enum class Type
     QUEEN,
     KING
 };
-
 #endif

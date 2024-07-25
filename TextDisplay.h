@@ -3,13 +3,13 @@
 #include "Board.h"
 #include "Observer.h"
 
+class TextDisplay : public Observer
+{
+    Board *subj;
 
-class TextDisplay : public Observer {
-    Board* subj;
 public:
-    TextDisplay(Board* subj);
+    TextDisplay(Board *subj);
     void notify() override;
     ~TextDisplay();
 };
-
 #endif

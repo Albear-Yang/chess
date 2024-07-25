@@ -15,7 +15,6 @@
 class Board : public Subject
 {
     const int LEN_MAX = 8;
-
 public:
     std::vector<Piece *> startingWhitePieces;
     std::vector<Piece *> startingBlackPieces;
@@ -31,7 +30,6 @@ public:
     Position *enpassed = nullptr;
     Color whosTurn = Color::WHITE;
     std::vector<Move *> pastMoves;
-
     std::vector<Move *> whiteMoves();
     std::vector<Move *> blackMoves();
     std::vector<Move *> whiteMovesNoCastle();
@@ -52,5 +50,4 @@ public:
     void clear();
     ~Board();
 };
-
 #endif

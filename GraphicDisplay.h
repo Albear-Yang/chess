@@ -9,7 +9,6 @@ class GraphicsDisplay : public Observer
 {
     Board *subj;
     Xwindow *w;
-
 public:
     GraphicsDisplay(Board *subj, Xwindow *w);
     void notify() override;

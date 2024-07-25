@@ -83,6 +83,7 @@ vector<Move *> King::moves()
     }
     return possibleMoves;
 }
+
 std::vector<Move *> King::movesNoCheck()
 {
     vector<Move *> possibleMoves;

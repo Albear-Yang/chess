@@ -68,9 +68,7 @@ int ComputerFour::eval()
     int rooksq = 0;
     int knightsq = 0;
     int queensq = 0;
-
     int material = 0;
-
     for (auto p : board->whitePieces)
     {
         Position *pos = p->getPos();
@@ -141,7 +139,6 @@ int ComputerFour::eval()
             kingsq -= kingstable[x][y];
         }
     }
-
     if (board->stalemate())
     {
         return 0;
@@ -180,7 +177,6 @@ int ComputerFour::maxi(int depth)
         board->undo();
         if (capturee)
             board->addPiece(capturee);
-
         if (score > maximum)
         {
             maximum = score;
@@ -207,6 +203,7 @@ int ComputerFour::maxi(int depth)
     bestMove = m;
     return eval();
 }
+
 int ComputerFour::mini(int depth)
 {
     if (depth == 0)
@@ -227,7 +224,6 @@ int ComputerFour::mini(int depth)
         board->undo();
         if (capturee)
             board->addPiece(capturee);
-
         if (score < minimum)
         {
             minimum = score;

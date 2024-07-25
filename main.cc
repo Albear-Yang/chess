@@ -7,13 +7,16 @@
 #include "ComputerTwo.h"
 #include "ComputerThree.h"
 #include "ComputerFour.h"
+//#include GraphicDisplay.h
 #include "TextDisplay.h"
 #include <string>
+
 int main() {
     int count = 0;
     Board* board = new Board;
     int boardLen = board->boardLength();
     TextDisplay* Text = new TextDisplay(board);
+    //GraphicsDisplay* Graphics = new GraphicsDisplay(board);
     std::string command;
     while (std::cin >> command) {
         if (command == "setup") {
@@ -1071,5 +1074,6 @@ int main() {
     std::cout << "White: " << board->whiteScore << std::endl;
     std::cout << "Black: " << board->blackScore << std::endl;
     delete Text;
+    //delete Graphics;
     delete board;
 }

@@ -1,35 +1,43 @@
 #ifndef POSITION_H
 #define POSITION_H
 
-class Position {
+class Position
+{
 public:
     int x;
     int y;
-    Position(int x, int y): x{x}, y{y}{}
-    bool operator==(const Position* &other) const{
+    Position(int x, int y) : x{x}, y{y} {}
+    bool operator==(const Position *&other) const
+    {
         return (other->x == x) && (other->y == y);
     };
-    bool operator==(const Position &other) const{
+    bool operator==(const Position &other) const
+    {
         return (other.x == x) && (other.y == y);
     };
-    void tr(){
+    void tr()
+    {
         x++;
         y++;
     }
-    void tl(){
+    void tl()
+    {
         x--;
         y++;
     }
-    void br(){
+    void br()
+    {
         x++;
         y--;
     }
-    void bl(){
+    void bl()
+    {
         x--;
         y--;
     }
-    bool inBoard(){
-        return(x < 8 && x >= 0 && y < 8 && y >= 0);
+    bool inBoard()
+    {
+        return (x < 8 && x >= 0 && y < 8 && y >= 0);
     }
 };
 

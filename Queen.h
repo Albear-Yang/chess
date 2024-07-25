@@ -2,14 +2,14 @@
 #define QUEEN_H
 #include "Board.h"
 
-class Queen : public Piece {
+class Queen : public Piece
+{
     int value = 9;
+
 public:
-    std::vector<Move*> moves() override;
-    std::vector<Move*> movesNoCheck() override;
-    Queen(Board *board, Position* pos, Color color);
-    //void move(Position newpos) override;
-    //std::vector<Move*> canCapture() override;
+    std::vector<Move *> moves() override;
+    std::vector<Move *> movesNoCheck() override;
+    Queen(Board *board, Position *pos, Color color);
     ~Queen() {}
 };
 
